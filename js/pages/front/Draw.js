@@ -9,7 +9,9 @@ export default class Draw extends React.Component {
     this.state = { color: '#ffffff' };
   }
 
-  componentWillMount() {}
+  componentWillMount() {
+    this.init();
+  }
 
   render() {
     let id = this.props.params.id;
@@ -17,16 +19,7 @@ export default class Draw extends React.Component {
     return React.createElement(
       'div',
       { className: 'drawCont fbox' },
-      React.createElement(
-        'div',
-        { className: 'drawIllust' },
-        React.createElement('img', {
-          src: '../imgs/illust0' + id + '.jpg',
-          alt: '塗り絵イラスト',
-          width: '510',
-          height: '510'
-        })
-      ),
+      React.createElement('div', { id: 'Illust', className: 'drawIllust' }),
       React.createElement(
         'div',
         { className: 'drawTool' },
@@ -357,6 +350,24 @@ export default class Draw extends React.Component {
         )
       )
     );
+  }
+
+  init() {
+    let id = this.props.params.id;
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d');
+
+    let w = canvas.width = 510;
+    let h = canvas.height = 510;
+
+    let img = new Image();
+    img.src = '../imgs/illust0' + id + '.jpg';
+
+    img.onload = function () {
+      let el = document.getElementById('Illust');
+      ctx.drawImage(img, 0, 0, w, h);
+      el.appendChild(canvas);
+    };
   }
 
   changeColor(e) {

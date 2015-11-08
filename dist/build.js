@@ -284,18 +284,15 @@ var Draw = (function (_React$Component) {
 
   _createClass(Draw, [{
     key: 'componentWillMount',
-    value: function componentWillMount() {}
+    value: function componentWillMount() {
+      this.init();
+    }
   }, {
     key: 'render',
     value: function render() {
       var id = this.props.params.id;
 
-      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { className: 'drawIllust' }, _react2.default.createElement('img', {
-        src: '../imgs/illust0' + id + '.jpg',
-        alt: '塗り絵イラスト',
-        width: '510',
-        height: '510'
-      })), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
+      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Illust', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
         src: '../imgs/color_head.png',
         alt: 'ひだりのイラストをいろをえらんでぬってね♪',
         width: '410',
@@ -446,6 +443,25 @@ var Draw = (function (_React$Component) {
         width: '180',
         height: '90'
       })))))));
+    }
+  }, {
+    key: 'init',
+    value: function init() {
+      var id = this.props.params.id;
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+
+      var w = canvas.width = 510;
+      var h = canvas.height = 510;
+
+      var img = new Image();
+      img.src = '../imgs/illust0' + id + '.jpg';
+
+      img.onload = function () {
+        var el = document.getElementById('Illust');
+        ctx.drawImage(img, 0, 0, w, h);
+        el.appendChild(canvas);
+      };
     }
   }, {
     key: 'changeColor',

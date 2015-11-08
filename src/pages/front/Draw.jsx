@@ -19,14 +19,7 @@ export default class Draw extends React.Component {
     return (
       <div className="drawCont fbox">
       
-        <div className="drawIllust">
-          <img
-            src={'../imgs/illust0' + id + '.jpg'}
-            alt="塗り絵イラスト"
-            width="510"
-            height="510"
-            />
-        </div>
+        <div id="Illust" className="drawIllust"></div>
         
         <div className="drawTool">
           <div className="drawPallet">

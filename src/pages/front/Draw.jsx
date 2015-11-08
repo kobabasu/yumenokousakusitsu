@@ -319,6 +319,10 @@ export default class Draw extends React.Component {
 
     let w = canvas.width  = 510;
     let h = canvas.height = 510;
+
+    let img = new Image();
+    img.src = '../imgs/illust0' + id + '.jpg';
+
   changeColor(e) {
     let el = document.getElementById('SelectColor');
     el.style.backgroundColor = e.target.alt;

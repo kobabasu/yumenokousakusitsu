@@ -276,7 +276,10 @@ var Draw = (function (_React$Component) {
   function Draw(props) {
     _classCallCheck(this, Draw);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
+
+    _this.state = { color: '#ffffff' };
+    return _this;
   }
 
   _createClass(Draw, [{
@@ -314,21 +317,25 @@ var Draw = (function (_React$Component) {
         height: '50'
       })), _react2.default.createElement('li', { className: 'color01' }, _react2.default.createElement('img', {
         src: '../imgs/color01.png',
+        onClick: this.changeColor.bind(this),
         alt: '#c40d23',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color02' }, _react2.default.createElement('img', {
         src: '../imgs/color02.png',
+        onClick: this.changeColor.bind(this),
         alt: '#ee7700',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color03' }, _react2.default.createElement('img', {
         src: '../imgs/color03.png',
+        onClick: this.changeColor.bind(this),
         alt: '#fff100',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color04' }, _react2.default.createElement('img', {
         src: '../imgs/color04.png',
+        onClick: this.changeColor.bind(this),
         alt: '#8ec31f',
         width: '50',
         height: '50'
@@ -349,60 +356,71 @@ var Draw = (function (_React$Component) {
         height: '50'
       })), _react2.default.createElement('li', { className: 'color05' }, _react2.default.createElement('img', {
         src: '../imgs/color05.png',
+        onClick: this.changeColor.bind(this),
         alt: '#006935',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color06' }, _react2.default.createElement('img', {
         src: '../imgs/color06.png',
+        onClick: this.changeColor.bind(this),
         alt: '#18adae',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color07' }, _react2.default.createElement('img', {
         src: '../imgs/color07.png',
+        onClick: this.changeColor.bind(this),
         alt: '#7acdf4',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color08' }, _react2.default.createElement('img', {
         src: '../imgs/color08.png',
+        onClick: this.changeColor.bind(this),
         alt: '#00a1e9',
         width: '50',
         height: '50'
       }))), _react2.default.createElement('ul', null, _react2.default.createElement('li', { className: 'color09' }, _react2.default.createElement('img', {
         src: '../imgs/color09.png',
+        onClick: this.changeColor.bind(this),
         alt: '#014099',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color10' }, _react2.default.createElement('img', {
         src: '../imgs/color10.png',
+        onClick: this.changeColor.bind(this),
         alt: '#f29ca6',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color11' }, _react2.default.createElement('img', {
         src: '../imgs/color11.png',
+        onClick: this.changeColor.bind(this),
         alt: '#7e2f8e',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color12' }, _react2.default.createElement('img', {
         src: '../imgs/color12.png',
+        onClick: this.changeColor.bind(this),
         alt: '#c6584d',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color13' }, _react2.default.createElement('img', {
         src: '../imgs/color13.png',
+        onClick: this.changeColor.bind(this),
         alt: '#804f22',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color14' }, _react2.default.createElement('img', {
         src: '../imgs/color14.png',
+        onClick: this.changeColor.bind(this),
         alt: '#ffffff',
         width: '50',
         height: '50'
       })), _react2.default.createElement('li', { className: 'color15' }, _react2.default.createElement('img', {
         src: '../imgs/color15.png',
+        onClick: this.changeColor.bind(this),
         alt: '#feecd2',
         width: '50',
         height: '50'
-      })))), _react2.default.createElement('div', { className: 'selectColor' }, _react2.default.createElement('img', {
+      })))), _react2.default.createElement('div', { id: 'SelectColor', className: 'selectColor' }, _react2.default.createElement('img', {
         src: '../imgs/color_select.png',
         alt: 'いまのいろ',
         width: '170',
@@ -428,6 +446,13 @@ var Draw = (function (_React$Component) {
         width: '180',
         height: '90'
       })))))));
+    }
+  }, {
+    key: 'changeColor',
+    value: function changeColor(e) {
+      var el = document.getElementById('SelectColor');
+      el.style.backgroundColor = e.target.alt;
+      this.setState({ color: e.target.alt });
     }
   }]);
 

@@ -8,9 +8,7 @@ export default class Draw extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
-    console.log(this.props.params.id);
-  }
+  componentWillMount() {}
 
   render() {
     let id = this.props.params.id;
@@ -329,8 +327,8 @@ export default class Draw extends React.Component {
               'div',
               { className: 'compBtn' },
               React.createElement(
-                'a',
-                { href: 'drawing01_comp.html' },
+                Link,
+                { to: '/drawing/drawing0' + id + '_comp.html' },
                 React.createElement('img', {
                   src: '../imgs/clear.gif',
                   alt: 'かんせい！',

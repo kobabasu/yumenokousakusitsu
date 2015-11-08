@@ -310,17 +310,23 @@ export default class Draw extends React.Component {
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('2d');
 
-    let w = canvas.width  = 510;
-    let h = canvas.height = 510;
-
     let img = new Image();
     img.src = '../imgs/illust0' + id + '.jpg';
 
+    let _this = this;
     img.onload = function() {
-      let el = document.getElementById('Illust');
-      ctx.drawImage(img, 0, 0, w, h);
-      el.appendChild(canvas);
+      _this.attachImage(canvas, ctx, img);
     }
+  }
+
+  attachImage(canvas, ctx, img) {
+    let el = document.getElementById('Illust');
+
+    let w = canvas.width  = 510;
+    let h = canvas.height = 510;
+
+    ctx.drawImage(img, 0, 0, w, h);
+    el.appendChild(canvas);
   }
 
   changeColor(e) {

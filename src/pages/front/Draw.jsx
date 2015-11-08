@@ -251,7 +251,7 @@ export default class Draw extends React.Component {
 
             </div>
             
-            <div className="selectColor">
+            <div id="SelectColor" className="selectColor">
               <img
                 src="../imgs/color_select.png"
                 alt="いまのいろ"

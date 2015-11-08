@@ -6,6 +6,7 @@ export default class Draw extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = { color: '#ffffff' };
   }
 
   componentWillMount() {

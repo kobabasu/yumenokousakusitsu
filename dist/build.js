@@ -49,7 +49,7 @@ var _Draw2 = _interopRequireDefault(_Draw);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var root = { documentRoot: '/drawing' };
+var root = { www: '/drawing' };
 
 // layouts
 
@@ -59,10 +59,10 @@ var root = { documentRoot: '/drawing' };
 
 var routes = _react2.default.createElement(_reactRouter.Router, { history: new _createBrowserHistory2.default() }, _react2.default.createElement(_reactRouter.Route, {
   component: _Front2.default
-}, _react2.default.createElement(_reactRouter.Route, { path: root.documentRoot + '/',
+}, _react2.default.createElement(_reactRouter.Route, { path: root.www + '/',
   components: {
     main: _Home2.default
-  } }), _react2.default.createElement(_reactRouter.Route, { path: root.documentRoot + '/drawing0(:id).html',
+  } }), _react2.default.createElement(_reactRouter.Route, { path: root.www + '/drawing0(:id).html',
   components: {
     main: _Draw2.default
   } })), _react2.default.createElement(_reactRouter.Route, { path: '*', components: _NoMatch2.default, global: root }));

@@ -2,7 +2,7 @@ import React from 'react';
 import BrowserHistory from 'history/lib/createBrowserHistory';
 import { Router, Route } from 'react-router';
 
-const root = { documentRoot: '/drawing' };
+const root = { www: '/drawing' };
 
 // layouts
 import NoMatch from './layouts/NoMatch';
@@ -22,11 +22,11 @@ const routes = React.createElement(
     {
       component: Front
     },
-    React.createElement(Route, { path: root.documentRoot + '/',
+    React.createElement(Route, { path: root.www + '/',
       components: {
         main: FrontHome
       } }),
-    React.createElement(Route, { path: root.documentRoot + '/drawing0(:id).html',
+    React.createElement(Route, { path: root.www + '/drawing0(:id).html',
       components: {
         main: FrontDraw
       } })

@@ -317,6 +317,8 @@ export default class Draw extends React.Component {
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('2d');
 
+    let w = canvas.width  = 510;
+    let h = canvas.height = 510;
   changeColor(e) {
     let el = document.getElementById('SelectColor');
     el.style.backgroundColor = e.target.alt;

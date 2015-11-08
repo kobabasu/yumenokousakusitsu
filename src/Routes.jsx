@@ -13,6 +13,7 @@ import Front        from './layouts/front/Front'
 // pages/front
 import FrontHome    from './pages/front/Home'
 import FrontDraw    from './pages/front/Draw'
+import FrontComp    from './pages/front/Comp'
 
 const routes = (
   <Router history={new BrowserHistory}>
@@ -24,10 +25,16 @@ const routes = (
           main: FrontHome
         }} />
 
+      <Route path={root.www + '/drawing0(:id)_comp.html'}
+        components={{
+          main: FrontComp
+        }} />
+
       <Route path={root.www + '/drawing0(:id).html'}
         components={{
           main: FrontDraw
         }} />
+
     </Route>
 
     <Route path="*" components={NoMatch} global={root} />

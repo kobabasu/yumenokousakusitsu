@@ -276,10 +276,10 @@ var Draw = (function (_React$Component) {
   function Draw(props) {
     _classCallCheck(this, Draw);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
 
-    _this.state = { color: '#ffffff' };
-    return _this;
+    _this2.state = { color: '#ffffff' };
+    return _this2;
   }
 
   _createClass(Draw, [{
@@ -451,17 +451,24 @@ var Draw = (function (_React$Component) {
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
 
-      var w = canvas.width = 510;
-      var h = canvas.height = 510;
-
       var img = new Image();
       img.src = '../imgs/illust0' + id + '.jpg';
 
+      var _this = this;
       img.onload = function () {
-        var el = document.getElementById('Illust');
-        ctx.drawImage(img, 0, 0, w, h);
-        el.appendChild(canvas);
+        _this.attachImage(canvas, ctx, img);
       };
+    }
+  }, {
+    key: 'attachImage',
+    value: function attachImage(canvas, ctx, img) {
+      var el = document.getElementById('Illust');
+
+      var w = canvas.width = 510;
+      var h = canvas.height = 510;
+
+      ctx.drawImage(img, 0, 0, w, h);
+      el.appendChild(canvas);
     }
   }, {
     key: 'changeColor',

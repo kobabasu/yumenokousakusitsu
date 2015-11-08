@@ -310,4 +310,10 @@ export default class Draw extends React.Component {
       </div>
     );
   }
+
+  changeColor(e) {
+    let el = document.getElementById('SelectColor');
+    el.style.backgroundColor = e.target.alt;
+    this.setState({ color: e.target.alt });
+  }
 }

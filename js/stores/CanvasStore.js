@@ -7,16 +7,43 @@ const CHANGE_EVENT = 'change';
 let _canvases = {
   id: null,
   color: '#ffffff',
-  comp: '',
-  sample: ''
+  comp: null,
+  sample: null,
+  w: 510,
+  h: 510,
+  canvas: null,
+  ctx: null,
+  px: null
 };
 
-function create(id) {
+function create(id, callback) {
+  let w = _canvases.w;
+  let h = _canvases.h;
   let comp = '/drawing/drawing0' + id + '_comp.html';
   let sample = '../imgs/illust0' + id + '_sample.jpg';
+
   _canvases.id = id;
   _canvases.comp = comp;
   _canvases.sample = sample;
+
+  let img = new Image();
+  img.src = '../imgs/illust0' + id + '.jpg';
+
+  img.onload = function () {
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d');
+
+    canvas.width = w;
+    canvas.height = h;
+
+    ctx.drawImage(img, 0, 0, w, h);
+    _canvases.canvas = canvas;
+    _canvases.ctx = ctx;
+    _canvases.px = ctx.getImageData(0, 0, w, h).data;
+
+    canvasStore.update();
+    callback();
+  };
 }
 
 function update(id, updates) {
@@ -48,8 +75,7 @@ class CanvasStore extends EventEmitter {
 CanvasDispatcher.register(function (action) {
   switch (action.actionType) {
     case CanvasConstants.CREATE:
-      create(action.id);
-      canvasStore.update();
+      create(action.id, action.callback);
       break;
 
     case CanvasConstants.UPDATE:

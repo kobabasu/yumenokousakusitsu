@@ -94,10 +94,11 @@ var _CanvasConstants2 = _interopRequireDefault(_CanvasConstants);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  create: function create(id) {
+  create: function create(id, callback) {
     _CanvasDispatcher2.default.dispatch({
       actionType: _CanvasConstants2.default.CREATE,
-      id: id
+      id: id,
+      callback: callback
     });
   },
 
@@ -394,9 +395,9 @@ var Draw = (function (_React$Component) {
   _createClass(Draw, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
+      var id = this.props.params.id;
       _CanvasStore2.default.subscribe(this.updateState.bind(this));
-      _CanvasActions2.default.create(this.props.params.id);
-      this.init();
+      _CanvasActions2.default.create(id, this.init.bind(this));
     }
   }, {
     key: 'componentWillUnmount',
@@ -406,6 +407,8 @@ var Draw = (function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      if (!this.state) return false;
+
       return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
         src: '../imgs/color_head.png',
         alt: 'ひだりのイラストをいろをえらんでぬってね♪',
@@ -566,22 +569,13 @@ var Draw = (function (_React$Component) {
   }, {
     key: 'init',
     value: function init() {
-      var canvas = document.createElement('canvas');
-      var ctx = canvas.getContext('2d');
-
-      var w = canvas.width = 510;
-      var h = canvas.height = 510;
-
-      var img = new Image();
-      var id = this.props.params.id;
-      img.src = '../imgs/illust0' + id + '.jpg';
-
-      img.onload = function () {
-        ctx.drawImage(img, 0, 0, w, h);
-        var px = ctx.getImageData(0, 0, w, h).data;
-        var el = document.getElementById('Palette');
-        el.appendChild(canvas);
-      };
+      var el = document.getElementById('Palette');
+      el.appendChild(this.state.canvas);
+    }
+  }, {
+    key: 'updateState',
+    value: function updateState() {
+      this.setState(_CanvasStore2.default.read());
     }
   }, {
     key: 'undo',
@@ -605,11 +599,6 @@ var Draw = (function (_React$Component) {
       var el = document.getElementById('SelectColor');
       el.style.backgroundColor = e.target.alt;
       this.setState({ color: e.target.alt });
-    }
-  }, {
-    key: 'updateState',
-    value: function updateState() {
-      this.setState(_CanvasStore2.default.read());
     }
   }]);
 
@@ -733,16 +722,43 @@ var CHANGE_EVENT = 'change';
 var _canvases = {
   id: null,
   color: '#ffffff',
-  comp: '',
-  sample: ''
+  comp: null,
+  sample: null,
+  w: 510,
+  h: 510,
+  canvas: null,
+  ctx: null,
+  px: null
 };
 
-function create(id) {
+function create(id, callback) {
+  var w = _canvases.w;
+  var h = _canvases.h;
   var comp = '/drawing/drawing0' + id + '_comp.html';
   var sample = '../imgs/illust0' + id + '_sample.jpg';
+
   _canvases.id = id;
   _canvases.comp = comp;
   _canvases.sample = sample;
+
+  var img = new Image();
+  img.src = '../imgs/illust0' + id + '.jpg';
+
+  img.onload = function () {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    canvas.width = w;
+    canvas.height = h;
+
+    ctx.drawImage(img, 0, 0, w, h);
+    _canvases.canvas = canvas;
+    _canvases.ctx = ctx;
+    _canvases.px = ctx.getImageData(0, 0, w, h).data;
+
+    canvasStore.update();
+    callback();
+  };
 }
 
 function update(id, updates) {
@@ -790,8 +806,7 @@ var CanvasStore = (function (_EventEmitter) {
 _CanvasDispatcher2.default.register(function (action) {
   switch (action.actionType) {
     case _CanvasConstants2.default.CREATE:
-      create(action.id);
-      canvasStore.update();
+      create(action.id, action.callback);
       break;
 
     case _CanvasConstants2.default.UPDATE:

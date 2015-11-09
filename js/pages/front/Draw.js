@@ -14,9 +14,9 @@ export default class Draw extends React.Component {
   }
 
   componentWillMount() {
+    let id = this.props.params.id;
     canvasStore.subscribe(this.updateState.bind(this));
-    canvasActions.create(this.props.params.id);
-    this.init();
+    canvasActions.create(id, this.init.bind(this));
   }
 
   componentWillUnmount() {
@@ -24,6 +24,8 @@ export default class Draw extends React.Component {
   }
 
   render() {
+    if (!this.state) return false;
+
     return React.createElement(
       'div',
       { className: 'drawCont fbox' },
@@ -366,22 +368,12 @@ export default class Draw extends React.Component {
   }
 
   init() {
-    let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('2d');
+    let el = document.getElementById('Palette');
+    el.appendChild(this.state.canvas);
+  }
 
-    let w = canvas.width = 510;
-    let h = canvas.height = 510;
-
-    let img = new Image();
-    let id = this.props.params.id;
-    img.src = '../imgs/illust0' + id + '.jpg';
-
-    img.onload = function () {
-      ctx.drawImage(img, 0, 0, w, h);
-      let px = ctx.getImageData(0, 0, w, h).data;
-      let el = document.getElementById('Palette');
-      el.appendChild(canvas);
-    };
+  updateState() {
+    this.setState(canvasStore.read());
   }
 
   undo() {
@@ -401,9 +393,5 @@ export default class Draw extends React.Component {
     let el = document.getElementById('SelectColor');
     el.style.backgroundColor = e.target.alt;
     this.setState({ color: e.target.alt });
-  }
-
-  updateState() {
-    this.setState(canvasStore.read());
   }
 }

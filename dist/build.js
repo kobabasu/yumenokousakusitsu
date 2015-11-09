@@ -94,9 +94,10 @@ var _CanvasConstants2 = _interopRequireDefault(_CanvasConstants);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  create: function create() {
+  create: function create(id) {
     _CanvasDispatcher2.default.dispatch({
-      actionType: _CanvasConstants2.default.CREATE
+      actionType: _CanvasConstants2.default.CREATE,
+      id: id
     });
   },
 
@@ -387,22 +388,24 @@ var Draw = (function (_React$Component) {
   function Draw(props) {
     _classCallCheck(this, Draw);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
-
-    _this.state = { color: '#ffffff' };
-    return _this;
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
   }
 
   _createClass(Draw, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
+      _CanvasStore2.default.subscribe(this.updateState.bind(this));
+      _CanvasActions2.default.create(this.props.params.id);
       this.init();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _CanvasStore2.default.destroy(this.updateState.bind(this));
     }
   }, {
     key: 'render',
     value: function render() {
-      var id = this.props.params.id;
-
       return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
         src: '../imgs/color_head.png',
         alt: 'ひだりのイラストをいろをえらんでぬってね♪',
@@ -603,6 +606,11 @@ var Draw = (function (_React$Component) {
       el.style.backgroundColor = e.target.alt;
       this.setState({ color: e.target.alt });
     }
+  }, {
+    key: 'updateState',
+    value: function updateState() {
+      this.setState(_CanvasStore2.default.read());
+    }
   }]);
 
   return Draw;
@@ -722,11 +730,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var CHANGE_EVENT = 'change';
 
-var _canvases = {};
+var _canvases = {
+  id: null,
+  color: '#ffffff'
+};
 
-function create() {
-  var id = (Math.random() * 999999 | 0).toString(36);
-  _canvases = { id: id, canvas: 1 };
+function create(id) {
+  _canvases.id = id;
 }
 
 function update(id, updates) {
@@ -747,8 +757,8 @@ var CanvasStore = (function (_EventEmitter) {
   }
 
   _createClass(CanvasStore, [{
-    key: 'create',
-    value: function create(callback) {
+    key: 'subscribe',
+    value: function subscribe(callback) {
       this.on(CHANGE_EVENT, callback);
     }
   }, {
@@ -774,7 +784,7 @@ var CanvasStore = (function (_EventEmitter) {
 _CanvasDispatcher2.default.register(function (action) {
   switch (action.actionType) {
     case _CanvasConstants2.default.CREATE:
-      create();
+      create(action.id);
       canvasStore.update();
       break;
 

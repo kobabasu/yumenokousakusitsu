@@ -2,9 +2,10 @@ import CanvasDispatcher from '../dispathcer/CanvasDispatcher';
 import CanvasConstants from '../constants/CanvasConstants';
 
 export default {
-  create: () => {
+  create: id => {
     CanvasDispatcher.dispatch({
-      actionType: CanvasConstants.CREATE
+      actionType: CanvasConstants.CREATE,
+      id: id
     });
   },
 

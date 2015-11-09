@@ -369,11 +369,18 @@ export default class Draw extends React.Component {
 
   init() {
     let el = document.getElementById('Palette');
-    el.appendChild(this.state.canvas);
+    let canvas = this.state.canvas;
+    canvas.addEventListener('click', this.fill, false);
+
+    el.appendChild(canvas);
   }
 
   updateState() {
     this.setState(canvasStore.read());
+  }
+
+  fill() {
+    console.log('test');
   }
 
   undo() {

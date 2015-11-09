@@ -570,12 +570,20 @@ var Draw = (function (_React$Component) {
     key: 'init',
     value: function init() {
       var el = document.getElementById('Palette');
-      el.appendChild(this.state.canvas);
+      var canvas = this.state.canvas;
+      canvas.addEventListener('click', this.fill, false);
+
+      el.appendChild(canvas);
     }
   }, {
     key: 'updateState',
     value: function updateState() {
       this.setState(_CanvasStore2.default.read());
+    }
+  }, {
+    key: 'fill',
+    value: function fill() {
+      console.log('test');
     }
   }, {
     key: 'undo',

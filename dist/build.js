@@ -592,6 +592,13 @@ var Draw = (function (_React$Component) {
       });
     }
   }, {
+    key: 'changeColor',
+    value: function changeColor(e) {
+      var el = document.getElementById('SelectColor');
+      el.style.backgroundColor = e.target.alt;
+      this.setState({ color: e.target.alt });
+    }
+  }, {
     key: 'undo',
     value: function undo() {
       var num = _undo.length - 1;
@@ -607,13 +614,6 @@ var Draw = (function (_React$Component) {
   }, {
     key: 'save',
     value: function save() {}
-  }, {
-    key: 'changeColor',
-    value: function changeColor(e) {
-      var el = document.getElementById('SelectColor');
-      el.style.backgroundColor = e.target.alt;
-      this.setState({ color: e.target.alt });
-    }
   }]);
 
   return Draw;

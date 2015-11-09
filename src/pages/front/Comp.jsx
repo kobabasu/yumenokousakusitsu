@@ -18,14 +18,7 @@ export default class Comp extends React.Component {
     return (
     <div className="drawCont fbox">
     
-      <div className="drawIllust">
-        <img
-          src={'../imgs/illust0' + id + '.jpg'}
-          alt="塗り絵イラスト"
-          width="510"
-          height="510"
-        />
-      </div>
+      <div id="Palette" className="drawIllust"></div>
       
       <div className="drawTool">
         <div className="drawPrint">
@@ -77,6 +70,7 @@ export default class Comp extends React.Component {
     img.src = '../imgs/illust0' + id + '.jpg';
 
     img.onload = function() {
+      let el = document.getElementById('Palette');
     }
   }
 }

@@ -15,6 +15,7 @@ export default class Draw extends React.Component {
 
   componentWillMount() {
     canvasStore.subscribe(this.updateState.bind(this));
+    canvasActions.create(this.props.params.id);
     this.init();
   }
 

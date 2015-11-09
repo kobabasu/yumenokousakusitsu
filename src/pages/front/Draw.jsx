@@ -292,6 +292,7 @@ export default class Draw extends React.Component {
 
               <div className="compBtn">
                 <Link to={'/drawing/drawing0' + id + '_comp.html'}>
+                  onClick={this.save.bind(this)}
                   <img
                     src="../imgs/clear.gif"
                     alt="かんせい！"
@@ -339,6 +340,9 @@ export default class Draw extends React.Component {
     ctx.putImageData(undo[0], 0, 0);
     undo = [];
   }
+
+  save() {
+    this.props.route.global = ctx.getImageData(0, 0, 510, 510);
   }
 
   changeColor(e) {

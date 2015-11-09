@@ -298,10 +298,10 @@ var Draw = (function (_React$Component) {
   function Draw(props) {
     _classCallCheck(this, Draw);
 
-    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
 
-    _this2.state = { color: '#ffffff' };
-    return _this2;
+    _this.state = { color: '#ffffff' };
+    return _this;
   }
 
   _createClass(Draw, [{
@@ -474,68 +474,22 @@ var Draw = (function (_React$Component) {
   }, {
     key: 'init',
     value: function init() {
-      var _this = this;
-      var id = this.props.params.id;
       var canvas = document.createElement('canvas');
-      ctx = canvas.getContext('2d');
-
-      var img = new Image();
-      img.src = '../imgs/illust0' + id + '.jpg';
-
-      img.onload = function () {
-        _this.attachImage(canvas, ctx, img);
-      };
-    }
-  }, {
-    key: 'attachImage',
-    value: function attachImage(canvas, ctx, img) {
-      var _this = this;
-      var flag = false;
-      var el = document.getElementById('Illust');
-
-      var oldRect = undefined;
-      var oldX = 0,
-          oldY = 0;
+      var ctx = canvas.getContext('2d');
 
       var w = canvas.width = 510;
       var h = canvas.height = 510;
 
-      ctx.drawImage(img, 0, 0, w, h);
-      el.appendChild(canvas);
+      var img = new Image();
+      var id = this.props.params.id;
+      img.src = '../imgs/illust0' + id + '.jpg';
 
-      canvas.addEventListener('mousemove', draw, true);
-
-      canvas.addEventListener('mousedown', function (e) {
-        _undo.push(ctx.getImageData(0, 0, w, h));
-        flag = true;
-        oldRect = event.target.getBoundingClientRect();
-        oldX = e.clientX - oldRect.left;
-        oldY = e.clientY - oldRect.top;
-      }, true);
-
-      canvas.addEventListener('mouseup', function () {
-        flag = false;
-      }, false);
-
-      function draw(e) {
-        if (!flag) return;
-
-        var rect = event.target.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        var y = e.clientY - rect.top;
-
-        ctx.strokeStyle = _this.state.color;
-        ctx.lineWidth = 5;
-        ctx.lineHeight = 5;
-        ctx.beginPath();
-        ctx.moveTo(oldX, oldY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.closePath();
-        oldRect = event.target.getBoundingClientRect();
-        oldX = x;
-        oldY = y;
-      }
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0, w, h);
+        var px = ctx.getImageData(0, 0, w, h).data;
+        var el = document.getElementById('Illust');
+        el.appendChild(canvas);
+      };
     }
   }, {
     key: 'undo',

@@ -4,7 +4,10 @@ import CanvasConstants from '../constants/CanvasConstants'
 
 const CHANGE_EVENT = 'change';
 
-let _canvases = {};
+let _canvases = {
+  id: null,
+  color: '#ffffff'
+};
 
 function create(id) {
   _canvases.id = id;

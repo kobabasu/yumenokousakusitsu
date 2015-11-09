@@ -200,6 +200,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var ctx = undefined;
+
 var Comp = (function (_React$Component) {
   _inherits(Comp, _React$Component);
 
@@ -210,6 +212,11 @@ var Comp = (function (_React$Component) {
   }
 
   _createClass(Comp, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.init();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var id = this.props.params.id;
@@ -235,6 +242,19 @@ var Comp = (function (_React$Component) {
         width: '230',
         height: '50'
       }))))));
+    }
+  }, {
+    key: 'init',
+    value: function init() {
+      var _this = this;
+      var id = this.props.params.id;
+      var canvas = document.createElement('canvas');
+      ctx = canvas.getContext('2d');
+
+      var img = new Image();
+      img.src = '../imgs/illust0' + id + '.jpg';
+
+      img.onload = function () {};
     }
   }]);
 
@@ -270,32 +290,31 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var _undo = [];
+
 var Draw = (function (_React$Component) {
   _inherits(Draw, _React$Component);
 
   function Draw(props) {
     _classCallCheck(this, Draw);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Draw).call(this, props));
 
-    _this.state = { color: '#ffffff' };
-    return _this;
+    _this2.state = { color: '#ffffff' };
+    return _this2;
   }
 
   _createClass(Draw, [{
     key: 'componentWillMount',
-    value: function componentWillMount() {}
+    value: function componentWillMount() {
+      this.init();
+    }
   }, {
     key: 'render',
     value: function render() {
       var id = this.props.params.id;
 
-      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { className: 'drawIllust' }, _react2.default.createElement('img', {
-        src: '../imgs/illust0' + id + '.jpg',
-        alt: '塗り絵イラスト',
-        width: '510',
-        height: '510'
-      })), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
+      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Illust', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
         src: '../imgs/color_head.png',
         alt: 'ひだりのイラストをいろをえらんでぬってね♪',
         width: '410',
@@ -432,21 +451,108 @@ var Draw = (function (_React$Component) {
         height: '230'
       })), _react2.default.createElement('div', { className: 'drawAction' }, _react2.default.createElement('div', { className: 'actionBtn01' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
+        onClick: this.reset,
         alt: 'はじめにもどる',
         width: '180',
         height: '60'
       }))), _react2.default.createElement('div', { className: 'actionBtn02' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
+        onClick: this.undo,
         alt: 'ひとつずつもどる',
         width: '180',
         height: '60'
-      }))), _react2.default.createElement('div', { className: 'compBtn' }, _react2.default.createElement(_reactRouter.Link, { to: '/drawing/drawing0' + id + '_comp.html' }, _react2.default.createElement('img', {
+      }))), _react2.default.createElement('div', { className: 'compBtn' }, _react2.default.createElement(_reactRouter.Link, {
+        to: '/drawing/drawing0' + id + '_comp.html',
+        onClick: this.save.bind(this)
+      }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
         alt: 'かんせい！',
         width: '180',
         height: '90'
       })))))));
     }
+  }, {
+    key: 'init',
+    value: function init() {
+      var _this = this;
+      var id = this.props.params.id;
+      var canvas = document.createElement('canvas');
+      ctx = canvas.getContext('2d');
+
+      var img = new Image();
+      img.src = '../imgs/illust0' + id + '.jpg';
+
+      img.onload = function () {
+        _this.attachImage(canvas, ctx, img);
+      };
+    }
+  }, {
+    key: 'attachImage',
+    value: function attachImage(canvas, ctx, img) {
+      var _this = this;
+      var flag = false;
+      var el = document.getElementById('Illust');
+
+      var oldRect = undefined;
+      var oldX = 0,
+          oldY = 0;
+
+      var w = canvas.width = 510;
+      var h = canvas.height = 510;
+
+      ctx.drawImage(img, 0, 0, w, h);
+      el.appendChild(canvas);
+
+      canvas.addEventListener('mousemove', draw, true);
+
+      canvas.addEventListener('mousedown', function (e) {
+        _undo.push(ctx.getImageData(0, 0, w, h));
+        flag = true;
+        oldRect = event.target.getBoundingClientRect();
+        oldX = e.clientX - oldRect.left;
+        oldY = e.clientY - oldRect.top;
+      }, true);
+
+      canvas.addEventListener('mouseup', function () {
+        flag = false;
+      }, false);
+
+      function draw(e) {
+        if (!flag) return;
+
+        var rect = event.target.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+
+        ctx.strokeStyle = _this.state.color;
+        ctx.lineWidth = 5;
+        ctx.lineHeight = 5;
+        ctx.beginPath();
+        ctx.moveTo(oldX, oldY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.closePath();
+        oldRect = event.target.getBoundingClientRect();
+        oldX = x;
+        oldY = y;
+      }
+    }
+  }, {
+    key: 'undo',
+    value: function undo() {
+      var num = _undo.length - 1;
+      ctx.putImageData(_undo[num], 0, 0);
+      _undo.pop();
+    }
+  }, {
+    key: 'reset',
+    value: function reset() {
+      ctx.putImageData(_undo[0], 0, 0);
+      _undo = [];
+    }
+  }, {
+    key: 'save',
+    value: function save() {}
   }, {
     key: 'changeColor',
     value: function changeColor(e) {

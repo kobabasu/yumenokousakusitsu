@@ -10,9 +10,10 @@ export default {
     });
   },
 
-  update: id => {
+  update: data => {
     CanvasDispatcher.dispatch({
-      actionType: CanvasConstants.UPDATE
+      actionType: CanvasConstants.UPDATE,
+      data: data
     });
   },
 

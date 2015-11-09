@@ -46,8 +46,10 @@ function create(id, callback) {
   }
 }
 
-function update(id, updates) {
-  _canvases = { id: id, canvas: updates };
+function update(data) {
+  Object.keys(data).map((f) => {
+    _canvases[f] = data[f];
+  });
 }
 
 function destroy() {
@@ -79,7 +81,7 @@ CanvasDispatcher.register( function(action) {
       break;
 
     case CanvasConstants.UPDATE:
-      update(action.id, action.canvas + 1);
+      update(action.data);
       canvasStore.update();
       break;
 

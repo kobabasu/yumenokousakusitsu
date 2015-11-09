@@ -346,7 +346,6 @@ export default class Draw extends React.Component {
   }
 
   save() {
-    this.props.route.global = ctx.getImageData(0, 0, 510, 510);
   }
 
   changeColor(e) {

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
 
+let undo = [];
+
 export default class Draw extends React.Component {
 
   constructor(props) {
@@ -312,6 +314,7 @@ export default class Draw extends React.Component {
                 { href: '#' },
                 React.createElement('img', {
                   src: '../imgs/clear.gif',
+                  onClick: this.reset,
                   alt: 'はじめにもどる',
                   width: '180',
                   height: '60'
@@ -326,6 +329,7 @@ export default class Draw extends React.Component {
                 { href: '#' },
                 React.createElement('img', {
                   src: '../imgs/clear.gif',
+                  onClick: this.undo,
                   alt: 'ひとつずつもどる',
                   width: '180',
                   height: '60'
@@ -337,7 +341,10 @@ export default class Draw extends React.Component {
               { className: 'compBtn' },
               React.createElement(
                 Link,
-                { to: '/drawing/drawing0' + id + '_comp.html' },
+                {
+                  to: '/drawing/drawing0' + id + '_comp.html',
+                  onClick: this.save.bind(this)
+                },
                 React.createElement('img', {
                   src: '../imgs/clear.gif',
                   alt: 'かんせい！',
@@ -353,28 +360,81 @@ export default class Draw extends React.Component {
   }
 
   init() {
+    let _this = this;
     let id = this.props.params.id;
     let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d');
 
     let img = new Image();
     img.src = '../imgs/illust0' + id + '.jpg';
 
-    let _this = this;
     img.onload = function () {
       _this.attachImage(canvas, ctx, img);
     };
   }
 
   attachImage(canvas, ctx, img) {
+    let _this = this;
+    let flag = false;
     let el = document.getElementById('Illust');
+
+    let oldRect;
+    let oldX = 0,
+        oldY = 0;
 
     let w = canvas.width = 510;
     let h = canvas.height = 510;
 
     ctx.drawImage(img, 0, 0, w, h);
     el.appendChild(canvas);
+
+    canvas.addEventListener('mousemove', draw, true);
+
+    canvas.addEventListener('mousedown', function (e) {
+      undo.push(ctx.getImageData(0, 0, w, h));
+      flag = true;
+      oldRect = event.target.getBoundingClientRect();
+      oldX = e.clientX - oldRect.left;
+      oldY = e.clientY - oldRect.top;
+    }, true);
+
+    canvas.addEventListener('mouseup', function () {
+      flag = false;
+    }, false);
+
+    function draw(e) {
+      if (!flag) return;
+
+      let rect = event.target.getBoundingClientRect();
+      let x = e.clientX - rect.left;
+      let y = e.clientY - rect.top;
+
+      ctx.strokeStyle = _this.state.color;
+      ctx.lineWidth = 5;
+      ctx.lineHeight = 5;
+      ctx.beginPath();
+      ctx.moveTo(oldX, oldY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      ctx.closePath();
+      oldRect = event.target.getBoundingClientRect();
+      oldX = x;
+      oldY = y;
+    }
   }
+
+  undo() {
+    let num = undo.length - 1;
+    ctx.putImageData(undo[num], 0, 0);
+    undo.pop();
+  }
+
+  reset() {
+    ctx.putImageData(undo[0], 0, 0);
+    undo = [];
+  }
+
+  save() {}
 
   changeColor(e) {
     let el = document.getElementById('SelectColor');

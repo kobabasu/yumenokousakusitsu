@@ -293,8 +293,10 @@ export default class Draw extends React.Component {
               </div>
 
               <div className="compBtn">
-                <Link to={'/drawing/drawing0' + id + '_comp.html'}>
+                <Link
+                  to={'/drawing/drawing0' + id + '_comp.html'}
                   onClick={this.save.bind(this)}
+                  >
                   <img
                     src="../imgs/clear.gif"
                     alt="かんせい！"

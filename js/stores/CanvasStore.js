@@ -1,33 +1,31 @@
 import { EventEmitter } from 'events';
-import CountDispatcher from '../dispathcer/CountDispatcher';
-import CountConstants from '../constants/CountConstants';
-
-import { http } from '../components/Http';
+import CanvasDispatcher from '../dispathcer/CanvasDispatcher';
+import CanvasConstants from '../constants/CanvasConstants';
 
 const CHANGE_EVENT = 'change';
 
-let _counts = {};
+let _canvases = {};
 
 function create() {
   let id = (Math.random() * 999999 | 0).toString(36);
-  _counts = { id: id, count: 1 };
+  _canvases = { id: id, canvas: 1 };
 }
 
 function update(id, updates) {
-  _counts = { id: id, count: updates };
+  _canvases = { id: id, canvas: updates };
 }
 
 function destroy() {
-  _counts = {};
+  _canvases = {};
 }
 
-class CountStore extends EventEmitter {
+class CanvasStore extends EventEmitter {
   create(callback) {
     this.on(CHANGE_EVENT, callback);
   }
 
   read() {
-    return _counts;
+    return _canvases;
   }
 
   update() {
@@ -39,21 +37,21 @@ class CountStore extends EventEmitter {
   }
 }
 
-CountDispatcher.register(function (action) {
+CanvasDispatcher.register(function (action) {
   switch (action.actionType) {
-    case CountConstants.CREATE:
+    case CanvasConstants.CREATE:
       create();
-      countStore.update();
+      canvasStore.update();
       break;
 
-    case CountConstants.UPDATE:
-      update(action.id, action.count + 1);
-      countStore.update();
+    case CanvasConstants.UPDATE:
+      update(action.id, action.canvas + 1);
+      canvasStore.update();
       break;
 
-    case CountConstants.DESTROY:
+    case CanvasConstants.DESTROY:
       destroy();
-      countStore.destroy();
+      canvasStore.destroy();
       break;
 
     default:
@@ -61,5 +59,5 @@ CountDispatcher.register(function (action) {
   }
 });
 
-const countStore = new CountStore();
-export default countStore;
+const canvasStore = new CanvasStore();
+export default canvasStore;

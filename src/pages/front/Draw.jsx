@@ -282,6 +282,7 @@ export default class Draw extends React.Component {
                 <a href="#">
                   <img
                     src="../imgs/clear.gif"
+                    onClick={this.undo}
                     alt="ひとつずつもどる"
                     width="180"
                     height="60"
@@ -328,6 +329,12 @@ export default class Draw extends React.Component {
 
     ctx.drawImage(img, 0, 0, w, h);
     el.appendChild(canvas);
+  undo() {
+    let num = undo.length - 1;
+    ctx.putImageData(undo[num], 0, 0);
+    undo.pop();
+  }
+
   reset() {
     ctx.putImageData(undo[0], 0, 0);
     undo = [];

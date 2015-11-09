@@ -2,8 +2,6 @@ import React from 'react'
 import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
 
-let ctx;
-
 export default class Comp extends React.Component {
 
   constructor(props) {
@@ -73,7 +71,7 @@ export default class Comp extends React.Component {
     let _this = this;
     let id = this.props.params.id;
     let canvas = document.createElement('canvas');
-    ctx = canvas.getContext('2d');
+    let ctx = canvas.getContext('2d');
 
     let img = new Image();
     img.src = '../imgs/illust0' + id + '.jpg';

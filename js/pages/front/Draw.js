@@ -21,7 +21,7 @@ export default class Draw extends React.Component {
     return React.createElement(
       'div',
       { className: 'drawCont fbox' },
-      React.createElement('div', { id: 'Illust', className: 'drawIllust' }),
+      React.createElement('div', { id: 'Palette', className: 'drawIllust' }),
       React.createElement(
         'div',
         { className: 'drawTool' },
@@ -373,7 +373,7 @@ export default class Draw extends React.Component {
     img.onload = function () {
       ctx.drawImage(img, 0, 0, w, h);
       let px = ctx.getImageData(0, 0, w, h).data;
-      let el = document.getElementById('Illust');
+      let el = document.getElementById('Palette');
       el.appendChild(canvas);
     };
   }

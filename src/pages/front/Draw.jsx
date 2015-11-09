@@ -21,7 +21,7 @@ export default class Draw extends React.Component {
     return (
       <div className="drawCont fbox">
       
-        <div id="Illust" className="drawIllust"></div>
+        <div id="Palette" className="drawIllust"></div>
         
         <div className="drawTool">
           <div className="drawPallet">
@@ -326,7 +326,7 @@ export default class Draw extends React.Component {
     img.onload = function() {
       ctx.drawImage(img, 0, 0, w, h);
       let px = ctx.getImageData(0, 0, w, h).data;
-      let el = document.getElementById('Illust');
+      let el = document.getElementById('Palette');
       el.appendChild(canvas);
     }
   }

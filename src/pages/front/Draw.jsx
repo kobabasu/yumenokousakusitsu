@@ -270,6 +270,7 @@ export default class Draw extends React.Component {
                 <a href="#">
                   <img
                     src="../imgs/clear.gif"
+                    onClick={this.reset}
                     alt="はじめにもどる"
                     width="180"
                     height="60"
@@ -327,6 +328,10 @@ export default class Draw extends React.Component {
 
     ctx.drawImage(img, 0, 0, w, h);
     el.appendChild(canvas);
+  reset() {
+    ctx.putImageData(undo[0], 0, 0);
+    undo = [];
+  }
   }
 
   changeColor(e) {

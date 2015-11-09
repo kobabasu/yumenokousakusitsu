@@ -14,12 +14,15 @@ export default class Draw extends React.Component {
   }
 
   componentWillMount() {
+    canvasStore.subscribe(this.updateState.bind(this));
     this.init();
   }
 
-  render() {
-    let id = this.props.params.id;
+  componentWillUnmount() {
+    canvasStore.destroy(this.updateState.bind(this));
+  }
 
+  render() {
     return (
       <div className="drawCont fbox">
       
@@ -351,5 +354,9 @@ export default class Draw extends React.Component {
     let el = document.getElementById('SelectColor');
     el.style.backgroundColor = e.target.alt;
     this.setState({ color: e.target.alt });
+  }
+
+  updateState() {
+    this.setState( canvasStore.read() );
   }
 }

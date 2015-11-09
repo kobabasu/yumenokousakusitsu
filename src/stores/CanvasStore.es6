@@ -6,9 +6,8 @@ const CHANGE_EVENT = 'change';
 
 let _canvases = {};
 
-function create() {
-  let id = ((Math.random() * 999999) | 0).toString(36);
-  _canvases = { id: id, canvas: 1 }
+function create(id) {
+  _canvases.id = id;
 }
 
 function update(id, updates) {
@@ -20,7 +19,7 @@ function destroy() {
 }
 
 class CanvasStore extends EventEmitter {
-  create(callback) {
+  subscribe(callback) {
     this.on(CHANGE_EVENT, callback);
   }
 
@@ -40,7 +39,7 @@ class CanvasStore extends EventEmitter {
 CanvasDispatcher.register( function(action) {
   switch(action.actionType) {
     case CanvasConstants.CREATE:
-      create();
+      create(action.id);
       canvasStore.update();
       break;
 

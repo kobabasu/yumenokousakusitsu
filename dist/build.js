@@ -102,9 +102,10 @@ exports.default = {
     });
   },
 
-  update: function update(id) {
+  update: function update(data) {
     _CanvasDispatcher2.default.dispatch({
-      actionType: _CanvasConstants2.default.UPDATE
+      actionType: _CanvasConstants2.default.UPDATE,
+      data: data
     });
   },
 
@@ -408,6 +409,7 @@ var Draw = (function (_React$Component) {
     key: 'render',
     value: function render() {
       if (!this.state) return false;
+      console.log(this.state);
 
       return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
         src: '../imgs/color_head.png',
@@ -582,8 +584,12 @@ var Draw = (function (_React$Component) {
     }
   }, {
     key: 'fill',
-    value: function fill() {
-      console.log('test');
+    value: function fill(e) {
+      var rect = event.target.getBoundingClientRect();
+      _CanvasActions2.default.update({
+        x: Math.floor(e.clientX - rect.left),
+        y: Math.floor(e.clientY - rect.top)
+      });
     }
   }, {
     key: 'undo',
@@ -769,8 +775,10 @@ function create(id, callback) {
   };
 }
 
-function update(id, updates) {
-  _canvases = { id: id, canvas: updates };
+function update(data) {
+  Object.keys(data).map(function (f) {
+    _canvases[f] = data[f];
+  });
 }
 
 function destroy() {
@@ -818,7 +826,7 @@ _CanvasDispatcher2.default.register(function (action) {
       break;
 
     case _CanvasConstants2.default.UPDATE:
-      update(action.id, action.canvas + 1);
+      update(action.data);
       canvasStore.update();
       break;
 

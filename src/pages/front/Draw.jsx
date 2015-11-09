@@ -25,6 +25,7 @@ export default class Draw extends React.Component {
 
   render() {
     if (!this.state) return false
+    console.log(this.state);
 
     return (
       <div className="drawCont fbox">
@@ -332,8 +333,12 @@ export default class Draw extends React.Component {
     this.setState( canvasStore.read() );
   }
 
-  fill() {
-    console.log('test');
+  fill(e) {
+    let rect = event.target.getBoundingClientRect();
+    canvasActions.update({
+      x: Math.floor(e.clientX - rect.left),
+      y: Math.floor(e.clientY - rect.top)
+    });
   }
 
   undo() {

@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
 
+let undo = [];
+
 export default class Draw extends React.Component {
 
   constructor(props) {

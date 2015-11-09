@@ -61,16 +61,21 @@ export default class Comp extends React.Component {
   }
 
   init() {
-    let _this = this;
-    let id = this.props.params.id;
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('2d');
 
+    let w = canvas.width  = 510;
+    let h = canvas.height = 510;
+
     let img = new Image();
+    let id = this.props.params.id;
     img.src = '../imgs/illust0' + id + '.jpg';
 
     img.onload = function() {
+      ctx.drawImage(img, 0, 0, w, h);
+      let px = ctx.getImageData(0, 0, w, h).data;
       let el = document.getElementById('Palette');
+      el.appendChild(canvas);
     }
   }
 }

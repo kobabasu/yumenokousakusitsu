@@ -200,8 +200,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ctx = undefined;
-
 var Comp = (function (_React$Component) {
   _inherits(Comp, _React$Component);
 
@@ -221,12 +219,7 @@ var Comp = (function (_React$Component) {
     value: function render() {
       var id = this.props.params.id;
 
-      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { className: 'drawIllust' }, _react2.default.createElement('img', {
-        src: '../imgs/illust0' + id + '.jpg',
-        alt: '塗り絵イラスト',
-        width: '510',
-        height: '510'
-      })), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPrint' }, _react2.default.createElement('div', { className: 'printBtn01' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
+      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPrint' }, _react2.default.createElement('div', { className: 'printBtn01' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
         alt: 'ノーマル印刷',
         width: '330',
@@ -246,15 +239,22 @@ var Comp = (function (_React$Component) {
   }, {
     key: 'init',
     value: function init() {
-      var _this = this;
-      var id = this.props.params.id;
       var canvas = document.createElement('canvas');
-      ctx = canvas.getContext('2d');
+      var ctx = canvas.getContext('2d');
+
+      var w = canvas.width = 510;
+      var h = canvas.height = 510;
 
       var img = new Image();
+      var id = this.props.params.id;
       img.src = '../imgs/illust0' + id + '.jpg';
 
-      img.onload = function () {};
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0, w, h);
+        var px = ctx.getImageData(0, 0, w, h).data;
+        var el = document.getElementById('Palette');
+        el.appendChild(canvas);
+      };
     }
   }]);
 
@@ -314,7 +314,7 @@ var Draw = (function (_React$Component) {
     value: function render() {
       var id = this.props.params.id;
 
-      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Illust', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
+      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
         src: '../imgs/color_head.png',
         alt: 'ひだりのイラストをいろをえらんでぬってね♪',
         width: '410',
@@ -487,7 +487,7 @@ var Draw = (function (_React$Component) {
       img.onload = function () {
         ctx.drawImage(img, 0, 0, w, h);
         var px = ctx.getImageData(0, 0, w, h).data;
-        var el = document.getElementById('Illust');
+        var el = document.getElementById('Palette');
         el.appendChild(canvas);
       };
     }

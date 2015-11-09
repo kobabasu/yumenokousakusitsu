@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
 
-let ctx;
-
 export default class Comp extends React.Component {
 
   constructor(props) {
@@ -20,16 +18,7 @@ export default class Comp extends React.Component {
     return React.createElement(
       'div',
       { className: 'drawCont fbox' },
-      React.createElement(
-        'div',
-        { className: 'drawIllust' },
-        React.createElement('img', {
-          src: '../imgs/illust0' + id + '.jpg',
-          alt: '塗り絵イラスト',
-          width: '510',
-          height: '510'
-        })
-      ),
+      React.createElement('div', { id: 'Palette', className: 'drawIllust' }),
       React.createElement(
         'div',
         { className: 'drawTool' },
@@ -84,14 +73,21 @@ export default class Comp extends React.Component {
   }
 
   init() {
-    let _this = this;
-    let id = this.props.params.id;
     let canvas = document.createElement('canvas');
-    ctx = canvas.getContext('2d');
+    let ctx = canvas.getContext('2d');
+
+    let w = canvas.width = 510;
+    let h = canvas.height = 510;
 
     let img = new Image();
+    let id = this.props.params.id;
     img.src = '../imgs/illust0' + id + '.jpg';
 
-    img.onload = function () {};
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0, w, h);
+      let px = ctx.getImageData(0, 0, w, h).data;
+      let el = document.getElementById('Palette');
+      el.appendChild(canvas);
+    };
   }
 }

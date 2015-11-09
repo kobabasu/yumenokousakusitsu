@@ -6,11 +6,17 @@ const CHANGE_EVENT = 'change';
 
 let _canvases = {
   id: null,
-  color: '#ffffff'
+  color: '#ffffff',
+  comp: '',
+  sample: ''
 };
 
 function create(id) {
+  let comp = '/drawing/drawing0' + id + '_comp.html';
+  let sample = '../imgs/illust0' + id + '_sample.jpg';
   _canvases.id = id;
+  _canvases.comp = comp;
+  _canvases.sample = sample;
 }
 
 function update(id, updates) {

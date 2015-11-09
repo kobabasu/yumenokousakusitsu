@@ -303,7 +303,7 @@ export default class Draw extends React.Component {
             'div',
             { className: 'drawSample' },
             React.createElement('img', {
-              src: '../imgs/illust0' + id + '_sample.jpg',
+              src: this.state.sample,
               alt: 'みほん',
               width: '230',
               height: '230'
@@ -348,7 +348,7 @@ export default class Draw extends React.Component {
               React.createElement(
                 Link,
                 {
-                  to: '/drawing/drawing0' + id + '_comp.html',
+                  to: this.state.comp,
                   onClick: this.save.bind(this)
                 },
                 React.createElement('img', {

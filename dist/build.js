@@ -537,7 +537,7 @@ var Draw = (function (_React$Component) {
         width: '170',
         height: '110'
       }))), _react2.default.createElement('div', { className: 'drawItem' }, _react2.default.createElement('div', { className: 'drawSample' }, _react2.default.createElement('img', {
-        src: '../imgs/illust0' + id + '_sample.jpg',
+        src: this.state.sample,
         alt: 'みほん',
         width: '230',
         height: '230'
@@ -554,7 +554,7 @@ var Draw = (function (_React$Component) {
         width: '180',
         height: '60'
       }))), _react2.default.createElement('div', { className: 'compBtn' }, _react2.default.createElement(_reactRouter.Link, {
-        to: '/drawing/drawing0' + id + '_comp.html',
+        to: this.state.comp,
         onClick: this.save.bind(this)
       }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
@@ -732,11 +732,17 @@ var CHANGE_EVENT = 'change';
 
 var _canvases = {
   id: null,
-  color: '#ffffff'
+  color: '#ffffff',
+  comp: '',
+  sample: ''
 };
 
 function create(id) {
+  var comp = '/drawing/drawing0' + id + '_comp.html';
+  var sample = '../imgs/illust0' + id + '_sample.jpg';
   _canvases.id = id;
+  _canvases.comp = comp;
+  _canvases.sample = sample;
 }
 
 function update(id, updates) {

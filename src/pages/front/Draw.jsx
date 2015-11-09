@@ -341,6 +341,12 @@ export default class Draw extends React.Component {
     });
   }
 
+  changeColor(e) {
+    let el = document.getElementById('SelectColor');
+    el.style.backgroundColor = e.target.alt;
+    this.setState({ color: e.target.alt });
+  }
+
   undo() {
     let num = undo.length - 1;
     ctx.putImageData(undo[num], 0, 0);
@@ -353,11 +359,5 @@ export default class Draw extends React.Component {
   }
 
   save() {
-  }
-
-  changeColor(e) {
-    let el = document.getElementById('SelectColor');
-    el.style.backgroundColor = e.target.alt;
-    this.setState({ color: e.target.alt });
   }
 }

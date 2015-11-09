@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
 
+import canvasActions from '../../actions/CanvasActions';
+import canvasStore from '../../stores/CanvasStore';
+
 export default class Comp extends React.Component {
 
   constructor(props) {

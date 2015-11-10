@@ -380,9 +380,34 @@ export default class Draw extends React.Component {
   }
 
   fill(e) {
-    let ctx = this.state.ctx;
-    let pos = this.getPos(e);
-    let sel = ctx.getImageData(pos.x, pos.y, 1, 1).data;
+    var ctx = this.state.ctx;
+    let w = this.state.w;
+    let h = this.state.h;
+
+    let sel = this.getPos(e);
+    let pos = [{ x: sel.x, y: sel.y }];
+
+    while (pos.length) {
+      let p = pos.pop();
+
+      let now = ctx.getImageData(p.x, p.y, 1, 1).data;
+      now = now.toString();
+
+      let next;
+
+      // top
+      next = { x: p.x, y: p.y - 1 };
+      if (isEqual(now, next)) pos.push(next);
+    }
+
+    function isEqual(now, next) {
+      if (next.x < 0 || next.y < 0) return false;
+      if (next.x > w || next.y > h) return false;
+
+      let n = ctx.getImageData(next.x, next.y, 1, 1).data;
+      let f = now == n.toString() ? true : false;
+      return f;
+    }
   }
 
   getPos(e) {

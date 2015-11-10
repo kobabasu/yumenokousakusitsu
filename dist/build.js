@@ -585,8 +585,33 @@ var Draw = (function (_React$Component) {
     key: 'fill',
     value: function fill(e) {
       var ctx = this.state.ctx;
-      var pos = this.getPos(e);
-      var sel = ctx.getImageData(pos.x, pos.y, 1, 1).data;
+      var w = this.state.w;
+      var h = this.state.h;
+
+      var sel = this.getPos(e);
+      var pos = [{ x: sel.x, y: sel.y }];
+
+      while (pos.length) {
+        var p = pos.pop();
+
+        var now = ctx.getImageData(p.x, p.y, 1, 1).data;
+        now = now.toString();
+
+        var next = undefined;
+
+        // top
+        next = { x: p.x, y: p.y - 1 };
+        if (isEqual(now, next)) pos.push(next);
+      }
+
+      function isEqual(now, next) {
+        if (next.x < 0 || next.y < 0) return false;
+        if (next.x > w || next.y > h) return false;
+
+        var n = ctx.getImageData(next.x, next.y, 1, 1).data;
+        var f = now == n.toString() ? true : false;
+        return f;
+      }
     }
   }, {
     key: 'getPos',

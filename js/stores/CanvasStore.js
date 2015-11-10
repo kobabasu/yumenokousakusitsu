@@ -27,7 +27,7 @@ function create(id, callback) {
   _canvases.sample = sample;
 
   let img = new Image();
-  img.src = '../imgs/illust0' + id + '.jpg';
+  img.src = '../imgs/illust0' + id + '.gif';
 
   img.onload = function () {
     let canvas = document.createElement('canvas');
@@ -39,7 +39,7 @@ function create(id, callback) {
     ctx.drawImage(img, 0, 0, w, h);
     _canvases.canvas = canvas;
     _canvases.ctx = ctx;
-    _canvases.px = ctx.getImageData(0, 0, w, h).data;
+    _canvases.px = ctx.getImageData(0, 0, w, h);
 
     canvasStore.update();
     callback();

@@ -382,7 +382,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _undo = [];
+var clipboard = [];
 
 var Draw = (function (_React$Component) {
   _inherits(Draw, _React$Component);
@@ -547,13 +547,13 @@ var Draw = (function (_React$Component) {
         height: '230'
       })), _react2.default.createElement('div', { className: 'drawAction' }, _react2.default.createElement('div', { className: 'actionBtn01' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
-        onClick: this.reset,
+        onClick: this.reset.bind(this),
         alt: 'はじめにもどる',
         width: '180',
         height: '60'
       }))), _react2.default.createElement('div', { className: 'actionBtn02' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
-        onClick: this.undo,
+        onClick: this.undo.bind(this),
         alt: 'ひとつずつもどる',
         width: '180',
         height: '60'
@@ -575,6 +575,7 @@ var Draw = (function (_React$Component) {
       canvas.addEventListener('click', this.fill.bind(this), false);
 
       el.appendChild(canvas);
+      this.saveClipboard(canvas);
     }
   }, {
     key: 'updateState',
@@ -584,34 +585,95 @@ var Draw = (function (_React$Component) {
   }, {
     key: 'fill',
     value: function fill(e) {
+      var canvas = this.state.canvas;
       var ctx = this.state.ctx;
+      var px = this.state.px;
       var w = this.state.w;
       var h = this.state.h;
 
       var sel = this.getPos(e);
       var pos = [{ x: sel.x, y: sel.y }];
 
+      var cnt = 0;
       while (pos.length) {
+        //cnt++; if (cnt > 100000) { return; }
         var p = pos.pop();
-
-        var now = ctx.getImageData(p.x, p.y, 1, 1).data;
+        var idx = (p.y * w + p.x) * 4;
+        var now = [];
+        now[0] = px.data[idx + 0];
+        now[1] = px.data[idx + 1];
+        now[2] = px.data[idx + 2];
+        now[3] = px.data[idx + 3];
         now = now.toString();
 
-        var next = undefined;
+        var hex = this.hexToRGB(this.state.color);
 
-        // top
-        next = { x: p.x, y: p.y - 1 };
-        if (isEqual(now, next)) pos.push(next);
+        px.data[idx + 0] = hex.r;
+        px.data[idx + 1] = hex.g;
+        px.data[idx + 2] = hex.b;
+        px.data[idx + 3] = 255;
+
+        if (!isEqual(now, p)) {
+          var next = undefined;
+
+          // up
+          next = { x: p.x, y: p.y - 1 };
+          if (isEqual(now, next)) pos.push(next);
+
+          // left
+          next = { x: p.x - 1, y: p.y };
+          if (isEqual(now, next)) pos.push(next);
+
+          // right
+          next = { x: p.x, y: p.y + 1 };
+          if (isEqual(now, next)) pos.push(next);
+
+          // down
+          next = { x: p.x + 1, y: p.y };
+          if (isEqual(now, next)) pos.push(next);
+        }
       }
 
       function isEqual(now, next) {
         if (next.x < 0 || next.y < 0) return false;
         if (next.x > w || next.y > h) return false;
 
-        var n = ctx.getImageData(next.x, next.y, 1, 1).data;
+        var idxi = (next.y * w + next.x) * 4;
+        var n = [];
+        n[0] = px.data[idxi + 0];
+        n[1] = px.data[idxi + 1];
+        n[2] = px.data[idxi + 2];
+        n[3] = px.data[idxi + 3];
+
         var f = now == n.toString() ? true : false;
         return f;
       }
+
+      ctx.putImageData(px, 0, 0);
+
+      this.saveClipboard(canvas);
+      this.setStoreImage(canvas);
+    }
+  }, {
+    key: 'saveClipboard',
+    value: function saveClipboard(canvas) {
+      var buf = document.createElement('canvas');
+      var w = canvas.width,
+          h = canvas.height;
+      buf.width = w;buf.height = h;
+      buf.getContext('2d').drawImage(canvas, 0, 0);
+      clipboard.push(buf);
+    }
+  }, {
+    key: 'hexToRGB',
+    value: function hexToRGB(hex) {
+      var r = undefined;
+      r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return r ? {
+        r: parseInt(r[1], 16),
+        g: parseInt(r[2], 16),
+        b: parseInt(r[3], 16)
+      } : null;
     }
   }, {
     key: 'getPos',
@@ -631,20 +693,40 @@ var Draw = (function (_React$Component) {
     value: function changeColor(e) {
       var el = document.getElementById('SelectColor');
       el.style.backgroundColor = e.target.alt;
-      this.setState({ color: e.target.alt });
+      _CanvasActions2.default.update({ color: e.target.alt });
     }
   }, {
     key: 'undo',
     value: function undo() {
-      var num = _undo.length - 1;
-      ctx.putImageData(_undo[num], 0, 0);
-      _undo.pop();
+      if (clipboard.length > 1) {
+        clipboard.pop();
+        var canvas = this.state.canvas;
+        var i = clipboard.length - 1;
+        canvas.getContext('2d').drawImage(clipboard[i], 0, 0);
+        this.setStoreImage(canvas);
+      }
     }
   }, {
     key: 'reset',
     value: function reset() {
-      ctx.putImageData(_undo[0], 0, 0);
-      _undo = [];
+      var ctx = this.state.ctx;
+      var canvas = this.state.canvas;
+      canvas.getContext('2d').drawImage(clipboard[0], 0, 0);
+      this.setStoreImage(canvas);
+    }
+  }, {
+    key: 'setStoreImage',
+    value: function setStoreImage(canvas) {
+      var ctx = canvas.getContext('2d');
+      var w = canvas.width,
+          h = canvas.height;
+      var px = ctx.getImageData(0, 0, w, h);
+
+      _CanvasActions2.default.update({
+        canvas: canvas,
+        ctx: ctx,
+        px: px
+      });
     }
   }, {
     key: 'save',
@@ -791,7 +873,7 @@ function create(id, callback) {
   _canvases.sample = sample;
 
   var img = new Image();
-  img.src = '../imgs/illust0' + id + '.jpg';
+  img.src = '../imgs/illust0' + id + '.gif';
 
   img.onload = function () {
     var canvas = document.createElement('canvas');
@@ -803,7 +885,7 @@ function create(id, callback) {
     ctx.drawImage(img, 0, 0, w, h);
     _canvases.canvas = canvas;
     _canvases.ctx = ctx;
-    _canvases.px = ctx.getImageData(0, 0, w, h).data;
+    _canvases.px = ctx.getImageData(0, 0, w, h);
 
     canvasStore.update();
     callback();

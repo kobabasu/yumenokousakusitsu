@@ -25,7 +25,6 @@ export default class Draw extends React.Component {
 
   render() {
     if (!this.state) return false;
-    console.log(this.state);
 
     return React.createElement(
       'div',
@@ -371,7 +370,7 @@ export default class Draw extends React.Component {
   init() {
     let el = document.getElementById('Palette');
     let canvas = this.state.canvas;
-    canvas.addEventListener('click', this.fill, false);
+    canvas.addEventListener('click', this.fill.bind(this), false);
 
     el.appendChild(canvas);
   }
@@ -381,11 +380,21 @@ export default class Draw extends React.Component {
   }
 
   fill(e) {
+    let ctx = this.state.ctx;
+    let pos = this.getPos(e);
+    let sel = ctx.getImageData(pos.x, pos.y, 1, 1).data;
+  }
+
+  getPos(e) {
     let rect = event.target.getBoundingClientRect();
-    canvasActions.update({
+
+    let obj = {
       x: Math.floor(e.clientX - rect.left),
       y: Math.floor(e.clientY - rect.top)
-    });
+    };
+    canvasActions.update(obj);
+
+    return obj;
   }
 
   changeColor(e) {

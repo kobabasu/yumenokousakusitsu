@@ -409,7 +409,6 @@ var Draw = (function (_React$Component) {
     key: 'render',
     value: function render() {
       if (!this.state) return false;
-      console.log(this.state);
 
       return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPallet' }, _react2.default.createElement('div', { className: 'head' }, _react2.default.createElement('img', {
         src: '../imgs/color_head.png',
@@ -573,7 +572,7 @@ var Draw = (function (_React$Component) {
     value: function init() {
       var el = document.getElementById('Palette');
       var canvas = this.state.canvas;
-      canvas.addEventListener('click', this.fill, false);
+      canvas.addEventListener('click', this.fill.bind(this), false);
 
       el.appendChild(canvas);
     }
@@ -585,11 +584,22 @@ var Draw = (function (_React$Component) {
   }, {
     key: 'fill',
     value: function fill(e) {
+      var ctx = this.state.ctx;
+      var pos = this.getPos(e);
+      var sel = ctx.getImageData(pos.x, pos.y, 1, 1).data;
+    }
+  }, {
+    key: 'getPos',
+    value: function getPos(e) {
       var rect = event.target.getBoundingClientRect();
-      _CanvasActions2.default.update({
+
+      var obj = {
         x: Math.floor(e.clientX - rect.left),
         y: Math.floor(e.clientY - rect.top)
-      });
+      };
+      _CanvasActions2.default.update(obj);
+
+      return obj;
     }
   }, {
     key: 'changeColor',

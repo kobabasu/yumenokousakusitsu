@@ -1,9 +1,9 @@
 import keyMirror from 'keymirror';
 
-const CountConstants = keyMirror({
+const CanvasConstants = keyMirror({
   CREATE: null,
   UPDATE: null,
   DESTROY: null
 });
 
-export default CountConstants;
+export default CanvasConstants;

@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
 
-let ctx;
+import canvasActions from '../../actions/CanvasActions';
+import canvasStore from '../../stores/CanvasStore';
 
 export default class Comp extends React.Component {
 
@@ -11,25 +12,25 @@ export default class Comp extends React.Component {
   }
 
   componentWillMount() {
+    canvasStore.subscribe(this.updateState.bind(this));
+    this.setState(canvasStore.read());
+  }
+
+  componentDidMount() {
     this.init();
   }
 
+  componentWillUnmount() {
+    canvasStore.destroy(this.updateState.bind(this));
+  }
+
   render() {
-    let id = this.props.params.id;
+    if (!this.state) return false;
 
     return React.createElement(
       'div',
       { className: 'drawCont fbox' },
-      React.createElement(
-        'div',
-        { className: 'drawIllust' },
-        React.createElement('img', {
-          src: '../imgs/illust0' + id + '.jpg',
-          alt: '塗り絵イラスト',
-          width: '510',
-          height: '510'
-        })
-      ),
+      React.createElement('div', { id: 'Palette', className: 'drawIllust' }),
       React.createElement(
         'div',
         { className: 'drawTool' },
@@ -41,7 +42,10 @@ export default class Comp extends React.Component {
             { className: 'printBtn01' },
             React.createElement(
               'a',
-              { href: '#' },
+              {
+                href: '#',
+                onClick: this.openPrint.bind(this)
+              },
               React.createElement('img', {
                 src: '../imgs/clear.gif',
                 alt: 'ノーマル印刷',
@@ -55,7 +59,10 @@ export default class Comp extends React.Component {
             { className: 'printBtn02' },
             React.createElement(
               'a',
-              { href: '#' },
+              {
+                href: '#',
+                onClick: this.openTemplate.bind(this)
+              },
               React.createElement('img', {
                 src: '../imgs/clear.gif',
                 alt: 'テンプレート印刷',
@@ -84,14 +91,22 @@ export default class Comp extends React.Component {
   }
 
   init() {
-    let _this = this;
-    let id = this.props.params.id;
-    let canvas = document.createElement('canvas');
-    ctx = canvas.getContext('2d');
+    let el = document.getElementById('Palette');
+    let canvas = this.state.canvas;
+    el.appendChild(canvas);
+  }
 
-    let img = new Image();
-    img.src = '../imgs/illust0' + id + '.jpg';
+  openPrint(e) {
+    e.preventDefault();
+    window.print();
+  }
 
-    img.onload = function () {};
+  openTemplate(e) {
+    e.preventDefault();
+    window.print();
+  }
+
+  updateState() {
+    this.setState(canvasStore.read());
   }
 }

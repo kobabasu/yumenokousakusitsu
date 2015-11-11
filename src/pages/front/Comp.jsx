@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
 
-let ctx;
+import canvasActions from '../../actions/CanvasActions'
+import canvasStore from '../../stores/CanvasStore'
 
 export default class Comp extends React.Component {
 
@@ -11,74 +12,89 @@ export default class Comp extends React.Component {
   }
 
   componentWillMount() {
+    canvasStore.subscribe(this.updateState.bind(this));
+    this.setState( canvasStore.read() );
+  }
+
+  componentDidMount() {
     this.init();
   }
 
+  componentWillUnmount() {
+    canvasStore.destroy(this.updateState.bind(this));
+  }
+
   render() {
-    let id = this.props.params.id;
+    if (!this.state) return false
 
     return (
-    <div className="drawCont fbox">
-    
-      <div className="drawIllust">
-        <img
-          src={'../imgs/illust0' + id + '.jpg'}
-          alt="塗り絵イラスト"
-          width="510"
-          height="510"
-        />
-      </div>
+      <div className="drawCont fbox">
       
-      <div className="drawTool">
-        <div className="drawPrint">
-          <div className="printBtn01">
-            <a href="#">
-              <img
-                src="../imgs/clear.gif"
-                alt="ノーマル印刷"
-                width="330"
-                height="120"
-              />
-            </a>
-          </div>
-
-          <div className="printBtn02">
-            <a href="#">
-              <img
-                src="../imgs/clear.gif"
-                alt="テンプレート印刷"
-                width="330"
-                height="120"
+        <div id="Palette" className="drawIllust"></div>
+        
+        <div className="drawTool">
+          <div className="drawPrint">
+            <div className="printBtn01">
+              <a
+                href="#"
+                onClick={this.openPrint.bind(this)}
+                >
+                <img
+                  src="../imgs/clear.gif"
+                  alt="ノーマル印刷"
+                  width="330"
+                  height="120"
                 />
-            </a>
-          </div>
+              </a>
+            </div>
 
-          <div className="drawTop">
-            <Link to="/drawing/">
-              <img
-                src="../imgs/btn_draw_top.gif"
-                alt="ぬりえトップへ戻る"
-                width="230"
-                height="50"
-                />
-            </Link>
+            <div className="printBtn02">
+              <a
+                href="#"
+                onClick={this.openTemplate.bind(this)}
+                >
+                <img
+                  src="../imgs/clear.gif"
+                  alt="テンプレート印刷"
+                  width="330"
+                  height="120"
+                  />
+              </a>
+            </div>
+
+            <div className="drawTop">
+              <Link to="/drawing/">
+                <img
+                  src="../imgs/btn_draw_top.gif"
+                  alt="ぬりえトップへ戻る"
+                  width="230"
+                  height="50"
+                  />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     );
   }
 
   init() {
-    let _this = this;
-    let id = this.props.params.id;
-    let canvas = document.createElement('canvas');
-    ctx = canvas.getContext('2d');
+    let el = document.getElementById('Palette');
+    let canvas = this.state.canvas;
+    el.appendChild(canvas);
+  }
 
-    let img = new Image();
-    img.src = '../imgs/illust0' + id + '.jpg';
+  openPrint(e) {
+    e.preventDefault();
+    window.print();
+  }
 
-    img.onload = function() {
-    }
+  openTemplate(e) {
+    e.preventDefault();
+    window.print();
+  }
+
+  updateState() {
+    this.setState( canvasStore.read() );
   }
 }

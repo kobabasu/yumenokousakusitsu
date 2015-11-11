@@ -6,6 +6,7 @@ import canvasActions from '../../actions/CanvasActions'
 import canvasStore from '../../stores/CanvasStore'
 
 let clipboard = [];
+let listener;
 
 export default class Draw extends React.Component {
 
@@ -21,6 +22,7 @@ export default class Draw extends React.Component {
 
   componentWillUnmount() {
     canvasStore.destroy(this.updateState.bind(this));
+    clipboard = [];
   }
 
   render() {
@@ -301,17 +303,15 @@ export default class Draw extends React.Component {
               </div>
 
               <div className="compBtn">
-                <Link
-                  to={this.state.comp}
-                  onClick={this.save.bind(this)}
-                  >
+                <a href="#">
                   <img
                     src="../imgs/clear.gif"
+                    onClick={this.save.bind(this)}
                     alt="かんせい！"
                     width="180"
                     height="90"
                     />
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -323,11 +323,9 @@ export default class Draw extends React.Component {
   init() {
     let el = document.getElementById('Palette');
     let canvas = this.state.canvas;
-    canvas.addEventListener(
-      'click',
-      this.fill.bind(this),
-      false
-    );
+
+    listener = this.fill.bind(this);
+    canvas.addEventListener('click', listener, false);
 
     el.appendChild(canvas);
     this.saveClipboard(canvas);
@@ -357,7 +355,6 @@ export default class Draw extends React.Component {
       now[1] = px.data[idx+1];
       now[2] = px.data[idx+2];
       now[3] = px.data[idx+3];
-      now = now.toString();
 
       let hex = this.hexToRGB(this.state.color);
 
@@ -391,6 +388,12 @@ export default class Draw extends React.Component {
       if (next.x < 0 || next.y < 0) return false;
       if (next.x > w || next.y > h) return false;
       
+      if (now[0] < 10 && now[1] < 10 && now[2] < 10) {
+        return false;
+      } else {
+        now = now.toString();
+      }
+
       let idxi = ( next.y * w + next.x ) * 4;
       let n = [];
       n[0] = px.data[idxi+0];
@@ -427,7 +430,7 @@ export default class Draw extends React.Component {
   }
 
   getPos(e) {
-    let rect = event.target.getBoundingClientRect();
+    let rect = e.target.getBoundingClientRect();
 
     let obj = {
       x: Math.floor(e.clientX - rect.left),
@@ -474,5 +477,14 @@ export default class Draw extends React.Component {
   }
 
   save() {
+    let canvas = this.state.canvas;
+    canvas.removeEventListener('click', listener, false);
+    canvasActions.update({ canvas: canvas });
+
+    this.context.history.pushState(null, this.state.comp);
   }
+}
+
+Draw.contextTypes = {
+  history: React.PropTypes.object.isRequired
 }

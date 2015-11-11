@@ -605,7 +605,6 @@ var Draw = (function (_React$Component) {
         now[1] = px.data[idx + 1];
         now[2] = px.data[idx + 2];
         now[3] = px.data[idx + 3];
-        now = now.toString();
 
         var hex = this.hexToRGB(this.state.color);
 
@@ -638,6 +637,12 @@ var Draw = (function (_React$Component) {
       function isEqual(now, next) {
         if (next.x < 0 || next.y < 0) return false;
         if (next.x > w || next.y > h) return false;
+
+        if (now[0] < 10 && now[1] < 10 && now[2] < 10) {
+          return false;
+        } else {
+          now = now.toString();
+        }
 
         var idxi = (next.y * w + next.x) * 4;
         var n = [];

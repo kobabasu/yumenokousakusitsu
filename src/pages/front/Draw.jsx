@@ -303,17 +303,15 @@ export default class Draw extends React.Component {
               </div>
 
               <div className="compBtn">
-                <Link
-                  to={this.state.comp}
-                  onClick={this.save.bind(this)}
-                  >
+                <a href="#">
                   <img
                     src="../imgs/clear.gif"
+                    onClick={this.save.bind(this)}
                     alt="かんせい！"
                     width="180"
                     height="90"
                     />
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -479,5 +477,14 @@ export default class Draw extends React.Component {
   }
 
   save() {
+    let canvas = this.state.canvas;
+    canvas.removeEventListener('click', listener, false);
+    canvasActions.update({ canvas: canvas });
+
+    this.context.history.pushState(null, this.state.comp);
   }
+}
+
+Draw.contextTypes = {
+  history: React.PropTypes.object.isRequired
 }

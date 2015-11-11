@@ -21,6 +21,7 @@ export default class Draw extends React.Component {
 
   componentWillUnmount() {
     canvasStore.destroy(this.updateState.bind(this));
+    clipboard = [];
   }
 
   render() {

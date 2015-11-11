@@ -384,6 +384,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var clipboard = [];
+var listener = undefined;
 
 var Draw = (function (_React$Component) {
   _inherits(Draw, _React$Component);
@@ -559,11 +560,9 @@ var Draw = (function (_React$Component) {
         alt: 'ひとつずつもどる',
         width: '180',
         height: '60'
-      }))), _react2.default.createElement('div', { className: 'compBtn' }, _react2.default.createElement(_reactRouter.Link, {
-        to: this.state.comp,
-        onClick: this.save.bind(this)
-      }, _react2.default.createElement('img', {
+      }))), _react2.default.createElement('div', { className: 'compBtn' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
+        onClick: this.save.bind(this),
         alt: 'かんせい！',
         width: '180',
         height: '90'
@@ -574,7 +573,9 @@ var Draw = (function (_React$Component) {
     value: function init() {
       var el = document.getElementById('Palette');
       var canvas = this.state.canvas;
-      canvas.addEventListener('click', this.fill.bind(this), false);
+
+      listener = this.fill.bind(this);
+      canvas.addEventListener('click', listener, false);
 
       el.appendChild(canvas);
       this.saveClipboard(canvas);
@@ -737,13 +738,23 @@ var Draw = (function (_React$Component) {
     }
   }, {
     key: 'save',
-    value: function save() {}
+    value: function save() {
+      var canvas = this.state.canvas;
+      canvas.removeEventListener('click', listener, false);
+      _CanvasActions2.default.update({ canvas: canvas });
+
+      this.context.history.pushState(null, this.state.comp);
+    }
   }]);
 
   return Draw;
 })(_react2.default.Component);
 
 exports.default = Draw;
+
+Draw.contextTypes = {
+  history: _react2.default.PropTypes.object.isRequired
+};
 
 },{"../../actions/CanvasActions":3,"../../stores/CanvasStore":11,"react":224,"react-document-title":40,"react-router":61}],10:[function(require,module,exports){
 'use strict';

@@ -6,6 +6,7 @@ import canvasActions from '../../actions/CanvasActions';
 import canvasStore from '../../stores/CanvasStore';
 
 let clipboard = [];
+let listener;
 
 export default class Draw extends React.Component {
 
@@ -349,13 +350,11 @@ export default class Draw extends React.Component {
               'div',
               { className: 'compBtn' },
               React.createElement(
-                Link,
-                {
-                  to: this.state.comp,
-                  onClick: this.save.bind(this)
-                },
+                'a',
+                { href: '#' },
                 React.createElement('img', {
                   src: '../imgs/clear.gif',
+                  onClick: this.save.bind(this),
                   alt: 'かんせい！',
                   width: '180',
                   height: '90'
@@ -371,7 +370,9 @@ export default class Draw extends React.Component {
   init() {
     let el = document.getElementById('Palette');
     let canvas = this.state.canvas;
-    canvas.addEventListener('click', this.fill.bind(this), false);
+
+    listener = this.fill.bind(this);
+    canvas.addEventListener('click', listener, false);
 
     el.appendChild(canvas);
     this.saveClipboard(canvas);
@@ -524,5 +525,15 @@ export default class Draw extends React.Component {
     });
   }
 
-  save() {}
+  save() {
+    let canvas = this.state.canvas;
+    canvas.removeEventListener('click', listener, false);
+    canvasActions.update({ canvas: canvas });
+
+    this.context.history.pushState(null, this.state.comp);
+  }
 }
+
+Draw.contextTypes = {
+  history: React.PropTypes.object.isRequired
+};

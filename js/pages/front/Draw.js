@@ -471,7 +471,7 @@ export default class Draw extends React.Component {
   }
 
   getPos(e) {
-    let rect = event.target.getBoundingClientRect();
+    let rect = e.target.getBoundingClientRect();
 
     let obj = {
       x: Math.floor(e.clientX - rect.left),

@@ -699,7 +699,7 @@ var Draw = (function (_React$Component) {
   }, {
     key: 'getPos',
     value: function getPos(e) {
-      var rect = event.target.getBoundingClientRect();
+      var rect = e.target.getBoundingClientRect();
 
       var obj = {
         x: Math.floor(e.clientX - rect.left),

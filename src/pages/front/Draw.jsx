@@ -357,7 +357,6 @@ export default class Draw extends React.Component {
       now[1] = px.data[idx+1];
       now[2] = px.data[idx+2];
       now[3] = px.data[idx+3];
-      now = now.toString();
 
       let hex = this.hexToRGB(this.state.color);
 
@@ -391,6 +390,12 @@ export default class Draw extends React.Component {
       if (next.x < 0 || next.y < 0) return false;
       if (next.x > w || next.y > h) return false;
       
+      if (now[0] < 10 && now[1] < 10 && now[2] < 10) {
+        return false;
+      } else {
+        now = now.toString();
+      }
+
       let idxi = ( next.y * w + next.x ) * 4;
       let n = [];
       n[0] = px.data[idxi+0];

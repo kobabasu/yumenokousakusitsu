@@ -14,9 +14,6 @@ export default class Comp extends React.Component {
     this.setState( canvasStore.read(), this.init );
   }
 
-  componentWillUnmount() {
-  }
-
   render() {
     if (!this.state) return false
 

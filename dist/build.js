@@ -295,9 +295,6 @@ var Comp = (function (_React$Component) {
       this.setState(_CanvasStore2.default.read(), this.init);
     }
   }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {}
-  }, {
     key: 'render',
     value: function render() {
       if (!this.state) return false;

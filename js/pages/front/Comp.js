@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
 
-import canvasActions from '../../actions/CanvasActions';
 import canvasStore from '../../stores/CanvasStore';
 
 export default class Comp extends React.Component {
@@ -12,16 +11,7 @@ export default class Comp extends React.Component {
   }
 
   componentWillMount() {
-    canvasStore.subscribe(this.updateState.bind(this));
-    this.setState(canvasStore.read());
-  }
-
-  componentDidMount() {
-    this.init();
-  }
-
-  componentWillUnmount() {
-    canvasStore.destroy(this.updateState.bind(this));
+    this.setState(canvasStore.read(), this.init);
   }
 
   render() {
@@ -104,9 +94,5 @@ export default class Comp extends React.Component {
   openTemplate(e) {
     e.preventDefault();
     window.print();
-  }
-
-  updateState() {
-    this.setState(canvasStore.read());
   }
 }

@@ -268,10 +268,6 @@ var _reactDocumentTitle = require('react-document-title');
 
 var _reactDocumentTitle2 = _interopRequireDefault(_reactDocumentTitle);
 
-var _CanvasActions = require('../../actions/CanvasActions');
-
-var _CanvasActions2 = _interopRequireDefault(_CanvasActions);
-
 var _CanvasStore = require('../../stores/CanvasStore');
 
 var _CanvasStore2 = _interopRequireDefault(_CanvasStore);
@@ -296,19 +292,11 @@ var Comp = (function (_React$Component) {
   _createClass(Comp, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      _CanvasStore2.default.subscribe(this.updateState.bind(this));
-      this.setState(_CanvasStore2.default.read());
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.init();
+      this.setState(_CanvasStore2.default.read(), this.init);
     }
   }, {
     key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      _CanvasStore2.default.destroy(this.updateState.bind(this));
-    }
+    value: function componentWillUnmount() {}
   }, {
     key: 'render',
     value: function render() {
@@ -356,11 +344,6 @@ var Comp = (function (_React$Component) {
       e.preventDefault();
       window.print();
     }
-  }, {
-    key: 'updateState',
-    value: function updateState() {
-      this.setState(_CanvasStore2.default.read());
-    }
   }]);
 
   return Comp;
@@ -368,7 +351,7 @@ var Comp = (function (_React$Component) {
 
 exports.default = Comp;
 
-},{"../../actions/CanvasActions":3,"../../stores/CanvasStore":11,"react":224,"react-document-title":40,"react-router":61}],9:[function(require,module,exports){
+},{"../../stores/CanvasStore":11,"react":224,"react-document-title":40,"react-router":61}],9:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();

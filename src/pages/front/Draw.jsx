@@ -6,6 +6,7 @@ import canvasActions from '../../actions/CanvasActions'
 import canvasStore from '../../stores/CanvasStore'
 
 let clipboard = [];
+let listener;
 
 export default class Draw extends React.Component {
 
@@ -324,11 +325,9 @@ export default class Draw extends React.Component {
   init() {
     let el = document.getElementById('Palette');
     let canvas = this.state.canvas;
-    canvas.addEventListener(
-      'click',
-      this.fill.bind(this),
-      false
-    );
+
+    listener = this.fill.bind(this);
+    canvas.addEventListener('click', listener, false);
 
     el.appendChild(canvas);
     this.saveClipboard(canvas);

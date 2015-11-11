@@ -405,6 +405,7 @@ var Draw = (function (_React$Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       _CanvasStore2.default.destroy(this.updateState.bind(this));
+      clipboard = [];
     }
   }, {
     key: 'render',

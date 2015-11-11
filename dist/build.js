@@ -296,19 +296,36 @@ var Comp = (function (_React$Component) {
   _createClass(Comp, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
+      _CanvasStore2.default.subscribe(this.updateState.bind(this));
+      this.setState(_CanvasStore2.default.read());
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       this.init();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _CanvasStore2.default.destroy(this.updateState.bind(this));
     }
   }, {
     key: 'render',
     value: function render() {
-      var id = this.props.params.id;
+      if (!this.state) return false;
 
-      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPrint' }, _react2.default.createElement('div', { className: 'printBtn01' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
+      return _react2.default.createElement('div', { className: 'drawCont fbox' }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust' }), _react2.default.createElement('div', { className: 'drawTool' }, _react2.default.createElement('div', { className: 'drawPrint' }, _react2.default.createElement('div', { className: 'printBtn01' }, _react2.default.createElement('a', {
+        href: '#',
+        onClick: this.openPrint.bind(this)
+      }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
         alt: 'ノーマル印刷',
         width: '330',
         height: '120'
-      }))), _react2.default.createElement('div', { className: 'printBtn02' }, _react2.default.createElement('a', { href: '#' }, _react2.default.createElement('img', {
+      }))), _react2.default.createElement('div', { className: 'printBtn02' }, _react2.default.createElement('a', {
+        href: '#',
+        onClick: this.openTemplate.bind(this)
+      }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
         alt: 'テンプレート印刷',
         width: '330',
@@ -323,22 +340,26 @@ var Comp = (function (_React$Component) {
   }, {
     key: 'init',
     value: function init() {
-      var canvas = document.createElement('canvas');
-      var ctx = canvas.getContext('2d');
-
-      var w = canvas.width = 510;
-      var h = canvas.height = 510;
-
-      var img = new Image();
-      var id = this.props.params.id;
-      img.src = '../imgs/illust0' + id + '.jpg';
-
-      img.onload = function () {
-        ctx.drawImage(img, 0, 0, w, h);
-        var px = ctx.getImageData(0, 0, w, h).data;
-        var el = document.getElementById('Palette');
-        el.appendChild(canvas);
-      };
+      var el = document.getElementById('Palette');
+      var canvas = this.state.canvas;
+      el.appendChild(canvas);
+    }
+  }, {
+    key: 'openPrint',
+    value: function openPrint(e) {
+      e.preventDefault();
+      window.print();
+    }
+  }, {
+    key: 'openTemplate',
+    value: function openTemplate(e) {
+      e.preventDefault();
+      window.print();
+    }
+  }, {
+    key: 'updateState',
+    value: function updateState() {
+      this.setState(_CanvasStore2.default.read());
     }
   }]);
 

@@ -12,11 +12,20 @@ export default class Comp extends React.Component {
   }
 
   componentWillMount() {
+    canvasStore.subscribe(this.updateState.bind(this));
+    this.setState(canvasStore.read());
+  }
+
+  componentDidMount() {
     this.init();
   }
 
+  componentWillUnmount() {
+    canvasStore.destroy(this.updateState.bind(this));
+  }
+
   render() {
-    let id = this.props.params.id;
+    if (!this.state) return false;
 
     return React.createElement(
       'div',
@@ -33,7 +42,10 @@ export default class Comp extends React.Component {
             { className: 'printBtn01' },
             React.createElement(
               'a',
-              { href: '#' },
+              {
+                href: '#',
+                onClick: this.openPrint.bind(this)
+              },
               React.createElement('img', {
                 src: '../imgs/clear.gif',
                 alt: 'ノーマル印刷',
@@ -47,7 +59,10 @@ export default class Comp extends React.Component {
             { className: 'printBtn02' },
             React.createElement(
               'a',
-              { href: '#' },
+              {
+                href: '#',
+                onClick: this.openTemplate.bind(this)
+              },
               React.createElement('img', {
                 src: '../imgs/clear.gif',
                 alt: 'テンプレート印刷',
@@ -76,21 +91,22 @@ export default class Comp extends React.Component {
   }
 
   init() {
-    let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('2d');
+    let el = document.getElementById('Palette');
+    let canvas = this.state.canvas;
+    el.appendChild(canvas);
+  }
 
-    let w = canvas.width = 510;
-    let h = canvas.height = 510;
+  openPrint(e) {
+    e.preventDefault();
+    window.print();
+  }
 
-    let img = new Image();
-    let id = this.props.params.id;
-    img.src = '../imgs/illust0' + id + '.jpg';
+  openTemplate(e) {
+    e.preventDefault();
+    window.print();
+  }
 
-    img.onload = function () {
-      ctx.drawImage(img, 0, 0, w, h);
-      let px = ctx.getImageData(0, 0, w, h).data;
-      let el = document.getElementById('Palette');
-      el.appendChild(canvas);
-    };
+  updateState() {
+    this.setState(canvasStore.read());
   }
 }

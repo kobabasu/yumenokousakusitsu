@@ -142,10 +142,9 @@ var Comp = (function (_React$Component) {
                 }
               },
               _react2.default.createElement(
-                'a',
+                _reactRouter.Link,
                 {
-                  href: '#',
-                  onClick: this.openTemplate.bind(this),
+                  to: '/drawing/template01.html',
                   __source: {
                     fileName: '../../../src/pages/front/Comp.jsx',
                     lineNumber: 42
@@ -162,11 +161,11 @@ var Comp = (function (_React$Component) {
                   height: '120',
                   __source: {
                     fileName: '../../../src/pages/front/Comp.jsx',
-                    lineNumber: 46
+                    lineNumber: 45
                   },
                   __source: {
                     fileName: '../../../src/pages/front/Comp.jsx',
-                    lineNumber: 46
+                    lineNumber: 45
                   }
                 })
               )
@@ -175,22 +174,22 @@ var Comp = (function (_React$Component) {
               'div',
               { className: 'drawTop', __source: {
                   fileName: '../../../src/pages/front/Comp.jsx',
-                  lineNumber: 55
+                  lineNumber: 54
                 },
                 __source: {
                   fileName: '../../../src/pages/front/Comp.jsx',
-                  lineNumber: 55
+                  lineNumber: 54
                 }
               },
               _react2.default.createElement(
                 _reactRouter.Link,
                 { to: '/drawing/', __source: {
                     fileName: '../../../src/pages/front/Comp.jsx',
-                    lineNumber: 56
+                    lineNumber: 55
                   },
                   __source: {
                     fileName: '../../../src/pages/front/Comp.jsx',
-                    lineNumber: 56
+                    lineNumber: 55
                   }
                 },
                 _react2.default.createElement('img', {
@@ -200,11 +199,11 @@ var Comp = (function (_React$Component) {
                   height: '50',
                   __source: {
                     fileName: '../../../src/pages/front/Comp.jsx',
-                    lineNumber: 57
+                    lineNumber: 56
                   },
                   __source: {
                     fileName: '../../../src/pages/front/Comp.jsx',
-                    lineNumber: 57
+                    lineNumber: 56
                   }
                 })
               )
@@ -223,12 +222,6 @@ var Comp = (function (_React$Component) {
   }, {
     key: 'openPrint',
     value: function openPrint(e) {
-      e.preventDefault();
-      window.print();
-    }
-  }, {
-    key: 'openTemplate',
-    value: function openTemplate(e) {
       e.preventDefault();
       window.print();
     }

@@ -1958,7 +1958,7 @@ var Temp = (function (_React$Component) {
           fileName: '../../../src/pages/front/Temp.jsx',
           lineNumber: 21
         }
-      }, _react2.default.createElement('div', { id: 'Palette', className: 'drawIllust', __source: {
+      }, _react2.default.createElement('div', { id: 'Palette', className: 'drawtmp', __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
           lineNumber: 23
         },
@@ -1966,7 +1966,7 @@ var Temp = (function (_React$Component) {
           fileName: '../../../src/pages/front/Temp.jsx',
           lineNumber: 23
         }
-      }), _react2.default.createElement('div', { className: 'drawTmp', __source: {
+      }), _react2.default.createElement('div', { className: 'printTmp', __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
           lineNumber: 25
         },
@@ -1974,10 +1974,9 @@ var Temp = (function (_React$Component) {
           fileName: '../../../src/pages/front/Temp.jsx',
           lineNumber: 25
         }
-      }, _react2.default.createElement('img', {
-        src: '../imgs/print_template_l.gif',
-        alt: '塗り絵イラスト',
-        width: '100%',
+      }, _react2.default.createElement('a', {
+        href: '',
+        onClick: this.openPrint.bind(this),
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
           lineNumber: 26
@@ -1985,22 +1984,6 @@ var Temp = (function (_React$Component) {
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
           lineNumber: 26
-        }
-      })), _react2.default.createElement('div', { className: 'printTmp', __source: {
-          fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 33
-        },
-        __source: {
-          fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 33
-        }
-      }, _react2.default.createElement('a', { href: '', __source: {
-          fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 34
-        },
-        __source: {
-          fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 34
         }
       }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
@@ -2009,30 +1992,47 @@ var Temp = (function (_React$Component) {
         height: '80',
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 35
+          lineNumber: 30
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 35
+          lineNumber: 30
         }
       }))));
     }
   }, {
     key: 'init',
     value: function init() {
+      var id = this.props.params.id;
       var el = document.getElementById('Palette');
-      var canvas = this.state.canvas;
-      el.appendChild(canvas);
+      var canvas = document.createElement('canvas');
+
+      var item = this.state.canvas;
+
+      var bg = new Image();
+      bg.src = '../imgs/print_template0' + id + '.gif';
+
+      var _this = this;
+      bg.onload = function () {
+        var ctx = _this.attachTemp(canvas, bg);
+        el.appendChild(canvas);
+      };
+    }
+  }, {
+    key: 'attachTemp',
+    value: function attachTemp(canvas, bg) {
+      var ctx = canvas.getContext('2d');
+
+      var w = canvas.width = 602;
+      var h = canvas.height = 855;
+
+      ctx.drawImage(bg, 0, 0, w, h);
+
+      return ctx;
     }
   }, {
     key: 'openPrint',
     value: function openPrint(e) {
-      e.preventDefault();
-      window.print();
-    }
-  }, {
-    key: 'openTemplate',
-    value: function openTemplate(e) {
       e.preventDefault();
       window.print();
     }

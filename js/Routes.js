@@ -1,42 +1,131 @@
-import React from 'react';
-import BrowserHistory from 'history/lib/createBrowserHistory';
-import { Router, Route } from 'react-router';
+'use strict';
 
-const root = { www: '/drawing' };
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _createBrowserHistory = require('history/lib/createBrowserHistory');
+
+var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
+
+var _reactRouter = require('react-router');
+
+var _NoMatch = require('./layouts/NoMatch');
+
+var _NoMatch2 = _interopRequireDefault(_NoMatch);
+
+var _Front = require('./layouts/front/Front');
+
+var _Front2 = _interopRequireDefault(_Front);
+
+var _Home = require('./pages/front/Home');
+
+var _Home2 = _interopRequireDefault(_Home);
+
+var _Draw = require('./pages/front/Draw');
+
+var _Draw2 = _interopRequireDefault(_Draw);
+
+var _Comp = require('./pages/front/Comp');
+
+var _Comp2 = _interopRequireDefault(_Comp);
+
+var _Temp = require('./pages/front/Temp');
+
+var _Temp2 = _interopRequireDefault(_Temp);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var root = { www: '/drawing' };
 
 // layouts
-import NoMatch from './layouts/NoMatch';
 
 // layouts/front
-import Front from './layouts/front/Front';
 
 // pages/front
-import FrontHome from './pages/front/Home';
-import FrontDraw from './pages/front/Draw';
-import FrontComp from './pages/front/Comp';
 
-const routes = React.createElement(
-  Router,
-  { history: new BrowserHistory() },
-  React.createElement(
-    Route,
-    {
-      component: Front
+var routes = _react2.default.createElement(
+  _reactRouter.Router,
+  { history: new _createBrowserHistory2.default(), __source: {
+      fileName: '../../../src/Routes.jsx',
+      lineNumber: 20
     },
-    React.createElement(Route, { path: root.www + '/',
+    __source: {
+      fileName: '../../../src/Routes.jsx',
+      lineNumber: 20
+    }
+  },
+  _react2.default.createElement(
+    _reactRouter.Route,
+    {
+      component: _Front2.default,
+      __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 21
+      },
+      __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 21
+      }
+    },
+    _react2.default.createElement(_reactRouter.Route, { path: root.www + '/',
       components: {
-        main: FrontHome
-      } }),
-    React.createElement(Route, { path: root.www + '/drawing0(:id)_comp.html',
+        main: _Home2.default
+      }, __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 24
+      },
+      __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 24
+      }
+    }),
+    _react2.default.createElement(_reactRouter.Route, { path: root.www + '/drawing0(:id)_comp.html',
       components: {
-        main: FrontComp
-      } }),
-    React.createElement(Route, { path: root.www + '/drawing0(:id).html',
+        main: _Comp2.default
+      }, __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 29
+      },
+      __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 29
+      }
+    }),
+    _react2.default.createElement(_reactRouter.Route, { path: root.www + '/drawing0(:id).html',
       components: {
-        main: FrontDraw
-      } })
+        main: _Draw2.default
+      }, __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 34
+      },
+      __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 34
+      }
+    }),
+    _react2.default.createElement(_reactRouter.Route, { path: root.www + '/template0(:id).html',
+      components: {
+        main: _Temp2.default
+      }, __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 39
+      },
+      __source: {
+        fileName: '../../../src/Routes.jsx',
+        lineNumber: 39
+      }
+    })
   ),
-  React.createElement(Route, { path: '*', components: NoMatch, global: root })
+  _react2.default.createElement(_reactRouter.Route, { path: '*', components: _NoMatch2.default, global: root, __source: {
+      fileName: '../../../src/Routes.jsx',
+      lineNumber: 46
+    },
+    __source: {
+      fileName: '../../../src/Routes.jsx',
+      lineNumber: 46
+    }
+  })
 );
 
 module.exports = routes;

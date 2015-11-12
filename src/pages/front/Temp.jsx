@@ -31,7 +31,10 @@ export default class Temp extends React.Component {
         </div>
       
         <div className="printTmp">
-          <a href="">
+          <a
+            href=""
+            onClick={this.openPrint.bind(this)}
+            >
             <img
               src="../imgs/clear.gif"
               alt="テンプレート印刷"
@@ -45,17 +48,12 @@ export default class Temp extends React.Component {
   }
 
   init() {
-    let el = document.getElementById('Palette');
-    let canvas = this.state.canvas;
-    el.appendChild(canvas);
+//let el = document.getElementById('Palette');
+//let canvas = this.state.canvas;
+//el.appendChild(canvas);
   }
 
   openPrint(e) {
-    e.preventDefault();
-    window.print();
-  }
-
-  openTemplate(e) {
     e.preventDefault();
     window.print();
   }

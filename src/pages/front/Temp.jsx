@@ -20,16 +20,8 @@ export default class Temp extends React.Component {
     return (
       <div className="drawCont fbox">
       
-        <div id="Palette" className="drawIllust"></div>
+        <div id="Palette" className="drawtmp"></div>
         
-        <div className="drawTmp">
-          <img
-            src="../imgs/print_template01.gif"
-            alt="塗り絵イラスト"
-            width="100%"
-            />
-        </div>
-      
         <div className="printTmp">
           <a
             href=""
@@ -48,9 +40,31 @@ export default class Temp extends React.Component {
   }
 
   init() {
-//let el = document.getElementById('Palette');
-//let canvas = this.state.canvas;
-//el.appendChild(canvas);
+    let id = this.props.params.id;
+    let el = document.getElementById('Palette');
+    let canvas = document.createElement('canvas');
+
+    let item = this.state.canvas;
+
+    let bg = new Image();
+    bg.src = '../imgs/print_template0' + id + '.gif';
+    
+    let _this = this;
+    bg.onload = function() {
+      let ctx = _this.attachTemp(canvas, bg);
+      el.appendChild(canvas);
+    }
+  }
+
+  attachTemp(canvas, bg) {
+    let ctx = canvas.getContext('2d');
+    
+    let w = canvas.width = 602;
+    let h = canvas.height = 855;
+
+    ctx.drawImage(bg, 0, 0, w, h);
+    
+    return ctx;
   }
 
   openPrint(e) {

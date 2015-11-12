@@ -24,7 +24,7 @@ export default class Temp extends React.Component {
         
         <div className="drawTmp">
           <img
-            src="../imgs/print_template_l.gif"
+            src="../imgs/print_template01.gif"
             alt="塗り絵イラスト"
             width="100%"
             />

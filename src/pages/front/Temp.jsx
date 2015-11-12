@@ -46,20 +46,29 @@ export default class Temp extends React.Component {
     canvas.height = 877;
     let ctx = canvas.getContext('2d');
     
-
     let item = this.state.px;
 
     let bg = new Image();
-    bg.src = '../imgs/print_template0' + id + '.gif';
+    bg.src = '../imgs/print_template0' + id + '.png';
     
     let _this = this;
     bg.onload = function() {
+      let items = _this.placeItems(canvas, ctx);
+      ctx.drawImage(items, 0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'darken';
       ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-      ctx = _this.placeItems(canvas, ctx);
+
+      let el = document.getElementById('Palette');
+      el.appendChild(canvas);
     }
   }
 
-  placeItems(canvas, ctx) {
+  placeItems() {
+    let canvas = document.createElement('canvas');
+    canvas.width = 620;
+    canvas.height = 877;
+    let ctx = canvas.getContext('2d');
+
     let item = new Image();
     item.src = this.state.canvas.toDataURL('image/png');
     let w = item.width / 3;
@@ -67,16 +76,23 @@ export default class Temp extends React.Component {
 
     ctx.drawImage( item,
       0, 0, item.width, item.height,
-      226, 123, w - 2, h - 2
+      225, 122, w, h
     );
 
     ctx.drawImage( item,
       0, 0, item.width, item.height,
-      225, 123 + 170 - 2, w - 2, h - 1
+      225, 122 + 169, w, h
     );
 
-    let el = document.getElementById('Palette');
-    el.appendChild(canvas);
+    ctx.drawImage( item,
+      0, 0, item.width, item.height,
+      225, 122 + 169, w, h
+    );
+
+
+    let items = new Image();
+    items.src = canvas.toDataURL('image/png');
+    return items;
   }
 
   openPrint(e) {

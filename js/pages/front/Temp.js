@@ -114,31 +114,49 @@ var Temp = (function (_React$Component) {
     key: 'init',
     value: function init() {
       var id = this.props.params.id;
-      var el = document.getElementById('Palette');
       var canvas = document.createElement('canvas');
+      canvas.width = 620;
+      canvas.height = 877;
+      var ctx = canvas.getContext('2d');
 
-      var item = this.state.canvas;
+      var item = this.state.px;
 
       var bg = new Image();
-      bg.src = '../imgs/print_template0' + id + '.gif';
+      bg.src = '../imgs/print_template0' + id + '.png';
 
       var _this = this;
       bg.onload = function () {
-        var ctx = _this.attachTemp(canvas, bg);
+        var items = _this.placeItems(canvas, ctx);
+        ctx.drawImage(items, 0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = 'darken';
+        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+
+        var el = document.getElementById('Palette');
         el.appendChild(canvas);
       };
     }
   }, {
-    key: 'attachTemp',
-    value: function attachTemp(canvas, bg) {
+    key: 'placeItems',
+    value: function placeItems() {
+      var canvas = document.createElement('canvas');
+      canvas.width = 620;
+      canvas.height = 877;
       var ctx = canvas.getContext('2d');
 
-      var w = canvas.width = 602;
-      var h = canvas.height = 855;
+      var item = new Image();
+      item.src = this.state.canvas.toDataURL('image/png');
+      var w = item.width / 3;
+      var h = item.height / 3;
 
-      ctx.drawImage(bg, 0, 0, w, h);
+      ctx.drawImage(item, 0, 0, item.width, item.height, 225, 122, w, h);
 
-      return ctx;
+      ctx.drawImage(item, 0, 0, item.width, item.height, 225, 122 + 169, w, h);
+
+      ctx.drawImage(item, 0, 0, item.width, item.height, 225, 122 + 169, w, h);
+
+      var items = new Image();
+      items.src = canvas.toDataURL('image/png');
+      return items;
     }
   }, {
     key: 'openPrint',

@@ -8,7 +8,6 @@ let overlay;
 let items;
 
 // テンプレートファイルのサイズ
-// 画像ファイルのサイズとは違い、canvasに設定するw,h
 
 const pageWidth  = 2480;
 const pageHeight = 3510;
@@ -18,13 +17,14 @@ const pageHeight = 3510;
 const templatePath = '../imgs/print_template0';
 
 // イラストの座標と回転度数を設定
-// ひとつのイラストは169
+// ひとつのイラストは677
+// 900の3は微調整
 
 const imgs = [
-        { pos: { x:900, y:488 + 677 * 0 }, deg: -90 },
-        { pos: { x:900, y:488 + 677 * 1 }, deg: -90 },
-        { pos: { x:900, y:488 + 677 * 2 }, deg: -90 },
-        { pos: { x:900, y:488 + 677 * 3 }, deg: -90 }
+        { pos: { x:903, y:488 + 677 * 0 }, deg: -90 },
+        { pos: { x:903, y:488 + 677 * 1 }, deg: -90 },
+        { pos: { x:903, y:488 + 677 * 2 }, deg: -90 },
+        { pos: { x:903, y:488 + 677 * 3 }, deg: -90 }
       ];
 
 

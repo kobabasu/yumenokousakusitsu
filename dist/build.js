@@ -2058,8 +2058,10 @@ var Temp = (function (_React$Component) {
 
       var imgs = [{ pos: { w: 225, h: 122 }, deg: 180 }];
 
-      var item = this.createItem(imgs[0].deg);
-      ctx.drawImage(item, 0, 0, w, h, imgs[0].pos.w, imgs[0].pos.h, w, h);
+      for (var i in imgs) {
+        var item = this.createItem(imgs[i].deg);
+        ctx.drawImage(item, 0, 0, w, h, imgs[i].pos.w, imgs[i].pos.h, w, h);
+      }
 
       items = new Image();
       items.src = canvas.toDataURL('image/png');

@@ -173,7 +173,7 @@ var Temp = (function (_React$Component) {
       var h = canvas.height = pageHeight;
       var ctx = canvas.getContext('2d');
 
-      var imgs = [{ pos: { x: 225, y: 122 }, deg: 180 }];
+      var imgs = [{ pos: { x: 225, y: 122 }, deg: 0 }, { pos: { x: 225, y: 122 + 169 }, deg: 180 }];
 
       for (var i in imgs) {
         var item = this.createItem(imgs[i].deg);

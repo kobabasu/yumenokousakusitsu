@@ -28,17 +28,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var page = undefined,
-    pageContext = undefined;
-var overlay = undefined,
-    overlayContext = undefined;
-var items = undefined,
-    itemsContext = undefined;
+var overlay = undefined;
+var items = undefined;
 
 var pageWidth = 620;
 var pageHeight = 877;
 
-var templateFile = '../imgs/print_template0';
+// テンプレートファイルのパス 拡張子はinit内
+
+var templatePath = '../imgs/print_template0';
+
+// イラストの座標と回転度数を設定
+// ひとつのイラストは169
+
+var imgs = [{ pos: { x: 225, y: 122 }, deg: 0 }, { pos: { x: 225, y: 122 + 169 }, deg: 180 }];
 
 var Temp = (function (_React$Component) {
   _inherits(Temp, _React$Component);
@@ -63,31 +66,31 @@ var Temp = (function (_React$Component) {
         'div',
         { className: 'drawCont fbox', __source: {
             fileName: '../../../src/pages/front/Temp.jsx',
-            lineNumber: 31
+            lineNumber: 40
           },
           __source: {
             fileName: '../../../src/pages/front/Temp.jsx',
-            lineNumber: 31
+            lineNumber: 40
           }
         },
         _react2.default.createElement('div', { id: 'Palette', className: 'drawtmp', __source: {
             fileName: '../../../src/pages/front/Temp.jsx',
-            lineNumber: 33
+            lineNumber: 42
           },
           __source: {
             fileName: '../../../src/pages/front/Temp.jsx',
-            lineNumber: 33
+            lineNumber: 42
           }
         }),
         _react2.default.createElement(
           'div',
           { className: 'printTmp', __source: {
               fileName: '../../../src/pages/front/Temp.jsx',
-              lineNumber: 35
+              lineNumber: 44
             },
             __source: {
               fileName: '../../../src/pages/front/Temp.jsx',
-              lineNumber: 35
+              lineNumber: 44
             }
           },
           _react2.default.createElement(
@@ -97,11 +100,11 @@ var Temp = (function (_React$Component) {
               onClick: this.openPrint.bind(this),
               __source: {
                 fileName: '../../../src/pages/front/Temp.jsx',
-                lineNumber: 36
+                lineNumber: 45
               },
               __source: {
                 fileName: '../../../src/pages/front/Temp.jsx',
-                lineNumber: 36
+                lineNumber: 45
               }
             },
             _react2.default.createElement('img', {
@@ -111,11 +114,11 @@ var Temp = (function (_React$Component) {
               height: '80',
               __source: {
                 fileName: '../../../src/pages/front/Temp.jsx',
-                lineNumber: 40
+                lineNumber: 49
               },
               __source: {
                 fileName: '../../../src/pages/front/Temp.jsx',
-                lineNumber: 40
+                lineNumber: 49
               }
             })
           )
@@ -125,33 +128,26 @@ var Temp = (function (_React$Component) {
   }, {
     key: 'init',
     value: function init() {
-      var bg = new Image();
-      bg.src = templateFile + this.props.params.id + '.png';
-
-      var _this = this;
-      bg.onload = function () {
-        _this.createPage();
-        _this.createOverlay(bg);
-        _this.createItems();
-
-        pageContext.drawImage(items, 0, 0, pageWidth, pageHeight);
-        pageContext.globalCompositeOperation = 'darken';
-        pageContext.drawImage(overlay, 0, 0, pageWidth, pageHeight);
-
-        var el = document.getElementById('Palette');
-        el.appendChild(page);
-      };
-    }
-  }, {
-    key: 'createPage',
-    value: function createPage() {
       var canvas = document.createElement('canvas');
       canvas.width = pageWidth;
       canvas.height = pageHeight;
       var ctx = canvas.getContext('2d');
 
-      page = canvas;
-      pageContext = ctx;
+      var bg = new Image();
+      bg.src = templatePath + this.props.params.id + '.png';
+
+      var _this = this;
+      bg.onload = function () {
+        _this.createOverlay(bg);
+        _this.createItems();
+
+        ctx.drawImage(items, 0, 0, pageWidth, pageHeight);
+        ctx.globalCompositeOperation = 'darken';
+        ctx.drawImage(overlay, 0, 0, pageWidth, pageHeight);
+
+        var el = document.getElementById('Palette');
+        el.appendChild(canvas);
+      };
     }
   }, {
     key: 'createOverlay',
@@ -163,7 +159,6 @@ var Temp = (function (_React$Component) {
       ctx.drawImage(bg, 0, 0, pageWidth, pageHeight);
 
       overlay = canvas;
-      overlayContext = ctx;
     }
   }, {
     key: 'createItems',
@@ -172,8 +167,6 @@ var Temp = (function (_React$Component) {
       var w = canvas.width = pageWidth;
       var h = canvas.height = pageHeight;
       var ctx = canvas.getContext('2d');
-
-      var imgs = [{ pos: { x: 225, y: 122 }, deg: 0 }, { pos: { x: 225, y: 122 + 169 }, deg: 180 }];
 
       for (var i in imgs) {
         var item = this.createItem(imgs[i].deg);

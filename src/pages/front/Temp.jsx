@@ -4,14 +4,23 @@ import DocumentTitle from 'react-document-title'
 
 import canvasStore from '../../stores/CanvasStore'
 
-let page, pageContext;
-let overlay, overlayContext;
-let items, itemsContext;
+let overlay;
+let items;
 
 let pageWidth = 620;
 let pageHeight = 877;
 
-let templateFile = '../imgs/print_template0';
+// テンプレートファイルのパス 拡張子はinit内
+
+const templatePath = '../imgs/print_template0';
+
+// イラストの座標と回転度数を設定
+// ひとつのイラストは169
+
+const imgs = [
+        { pos: { x:225, y:122 }, deg: 0 },
+        { pos: { x:225, y:122 + 169 }, deg: 180 }
+      ];
 
 
 export default class Temp extends React.Component {
@@ -50,32 +59,26 @@ export default class Temp extends React.Component {
   }
 
   init() {
-    let bg = new Image();
-    bg.src = templateFile + this.props.params.id + '.png';
-    
-    let _this = this;
-    bg.onload = function() {
-      _this.createPage();
-      _this.createOverlay(bg);
-      _this.createItems();
-
-      pageContext.drawImage(items, 0, 0, pageWidth, pageHeight);
-      pageContext.globalCompositeOperation = 'darken';
-      pageContext.drawImage(overlay, 0, 0, pageWidth, pageHeight);
-
-      let el = document.getElementById('Palette');
-      el.appendChild(page);
-    }
-  }
-
-  createPage() {
     let canvas = document.createElement('canvas');
     canvas.width = pageWidth;
     canvas.height = pageHeight;
     let ctx = canvas.getContext('2d');
 
-    page = canvas;
-    pageContext = ctx;
+    let bg = new Image();
+    bg.src = templatePath + this.props.params.id + '.png';
+    
+    let _this = this;
+    bg.onload = function() {
+      _this.createOverlay(bg);
+      _this.createItems();
+
+      ctx.drawImage(items, 0, 0, pageWidth, pageHeight);
+      ctx.globalCompositeOperation = 'darken';
+      ctx.drawImage(overlay, 0, 0, pageWidth, pageHeight);
+
+      let el = document.getElementById('Palette');
+      el.appendChild(canvas);
+    }
   }
 
   createOverlay(bg) {
@@ -86,7 +89,6 @@ export default class Temp extends React.Component {
     ctx.drawImage( bg, 0, 0, pageWidth, pageHeight ); 
     
     overlay = canvas;
-    overlayContext = ctx;
   }
 
   createItems() {
@@ -94,11 +96,6 @@ export default class Temp extends React.Component {
     let w = canvas.width = pageWidth;
     let h = canvas.height = pageHeight;
     let ctx = canvas.getContext('2d');
-
-    let imgs = [
-      { pos: { x:225, y:122 }, deg: 0 },
-      { pos: { x:225, y:122 + 169 }, deg: 180 }
-    ];
 
     for (let i in imgs) {
       let item = this.createItem(imgs[i].deg);

@@ -176,8 +176,7 @@ var Temp = (function (_React$Component) {
         ctx.drawImage(item, 0, 0, w, h, imgs[i].pos.x, imgs[i].pos.y, w, h);
       }
 
-      items = new Image();
-      items.src = canvas.toDataURL('image/png');
+      items = canvas;
     }
   }, {
     key: 'createItem',
@@ -193,10 +192,7 @@ var Temp = (function (_React$Component) {
       ctx.translate(-(w / 2), -(h / 2));
       ctx.drawImage(source, 0, 0, w, h);
 
-      var item = new Image();
-      item.src = canvas.toDataURL('image/png');
-
-      return item;
+      return canvas;
     }
   }, {
     key: 'openPrint',

@@ -1927,6 +1927,9 @@ function _inherits(subClass, superClass) {
 var overlay = undefined;
 var items = undefined;
 
+// テンプレートファイルのサイズ
+// 画像ファイルのサイズとは違い、canvasに設定するw,h
+
 var pageWidth = 620;
 var pageHeight = 877;
 
@@ -1960,38 +1963,38 @@ var Temp = (function (_React$Component) {
 
       return _react2.default.createElement('div', { className: 'drawCont fbox', __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 40
+          lineNumber: 43
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 40
+          lineNumber: 43
         }
       }, _react2.default.createElement('div', { id: 'Palette', className: 'drawtmp', __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 42
+          lineNumber: 45
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 42
+          lineNumber: 45
         }
       }), _react2.default.createElement('div', { className: 'printTmp', __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 44
+          lineNumber: 47
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 44
+          lineNumber: 47
         }
       }, _react2.default.createElement('a', {
         href: '',
         onClick: this.openPrint.bind(this),
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 45
+          lineNumber: 48
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 45
+          lineNumber: 48
         }
       }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
@@ -2000,11 +2003,11 @@ var Temp = (function (_React$Component) {
         height: '80',
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 49
+          lineNumber: 52
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 49
+          lineNumber: 52
         }
       }))));
     }

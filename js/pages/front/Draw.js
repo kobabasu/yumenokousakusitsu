@@ -952,16 +952,8 @@ var Draw = (function (_React$Component) {
       listener = this.fill.bind(this);
       canvas.addEventListener('click', listener, false);
 
-      el.appendChild(this.resizeCanvas(canvas));
+      el.appendChild(canvas);
       this.saveClipboard(canvas);
-    }
-  }, {
-    key: 'resizeCanvas',
-    value: function resizeCanvas(canvas) {
-      canvas.style.width = '100%';
-      canvas.style.height = 'auto';
-
-      return canvas;
     }
   }, {
     key: 'updateState',

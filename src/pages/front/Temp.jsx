@@ -98,15 +98,17 @@ export default class Temp extends React.Component {
 
   createItems() {
     let canvas = document.createElement('canvas');
-    let w = canvas.width = pageWidth;
-    let h = canvas.height = pageHeight;
+    canvas.width = pageWidth;
+    canvas.height = pageHeight;
     let ctx = canvas.getContext('2d');
 
     for (let i in imgs) {
       let item = this.createItem(imgs[i].deg);
+      let w = item.width;
+      let h = item.height;
       ctx.drawImage( item,
         0, 0, w, h,
-        imgs[i].pos.x, imgs[i].pos.y, w, h
+        imgs[i].pos.x, imgs[i].pos.y, w, h 
       );
     }
 

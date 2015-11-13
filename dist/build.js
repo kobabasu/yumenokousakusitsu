@@ -1924,6 +1924,18 @@ function _inherits(subClass, superClass) {
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
+var page = undefined,
+    pageContext = undefined;
+var overlay = undefined,
+    overlayContext = undefined;
+var items = undefined,
+    itemsContext = undefined;
+
+var pageWidth = 620;
+var pageHeight = 877;
+
+var templateFile = '../imgs/print_template0';
+
 var Temp = (function (_React$Component) {
   _inherits(Temp, _React$Component);
 
@@ -1945,38 +1957,38 @@ var Temp = (function (_React$Component) {
 
       return _react2.default.createElement('div', { className: 'drawCont fbox', __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 21
+          lineNumber: 31
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 21
+          lineNumber: 31
         }
       }, _react2.default.createElement('div', { id: 'Palette', className: 'drawtmp', __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 23
+          lineNumber: 33
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 23
+          lineNumber: 33
         }
       }), _react2.default.createElement('div', { className: 'printTmp', __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 25
+          lineNumber: 35
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 25
+          lineNumber: 35
         }
       }, _react2.default.createElement('a', {
         href: '',
         onClick: this.openPrint.bind(this),
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 26
+          lineNumber: 36
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 26
+          lineNumber: 36
         }
       }, _react2.default.createElement('img', {
         src: '../imgs/clear.gif',
@@ -1985,61 +1997,91 @@ var Temp = (function (_React$Component) {
         height: '80',
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 30
+          lineNumber: 40
         },
         __source: {
           fileName: '../../../src/pages/front/Temp.jsx',
-          lineNumber: 30
+          lineNumber: 40
         }
       }))));
     }
   }, {
     key: 'init',
     value: function init() {
-      var id = this.props.params.id;
-      var canvas = document.createElement('canvas');
-      canvas.width = 620;
-      canvas.height = 877;
-      var ctx = canvas.getContext('2d');
-
-      var item = this.state.px;
-
       var bg = new Image();
-      bg.src = '../imgs/print_template0' + id + '.png';
+      bg.src = templateFile + this.props.params.id + '.png';
 
       var _this = this;
       bg.onload = function () {
-        var items = _this.placeItems(canvas, ctx);
-        ctx.drawImage(items, 0, 0, canvas.width, canvas.height);
-        ctx.globalCompositeOperation = 'darken';
-        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+        _this.createPage();
+        _this.createOverlay(bg);
+        _this.createItems();
+
+        pageContext.drawImage(items, 0, 0, pageWidth, pageHeight);
+        pageContext.globalCompositeOperation = 'darken';
+        pageContext.drawImage(overlay, 0, 0, pageWidth, pageHeight);
 
         var el = document.getElementById('Palette');
-        el.appendChild(canvas);
+        el.appendChild(page);
       };
     }
   }, {
-    key: 'placeItems',
-    value: function placeItems() {
+    key: 'createPage',
+    value: function createPage() {
       var canvas = document.createElement('canvas');
-      canvas.width = 620;
-      canvas.height = 877;
+      canvas.width = pageWidth;
+      canvas.height = pageHeight;
       var ctx = canvas.getContext('2d');
 
-      var item = new Image();
-      item.src = this.state.canvas.toDataURL('image/png');
-      var w = item.width / 3;
-      var h = item.height / 3;
+      page = canvas;
+      pageContext = ctx;
+    }
+  }, {
+    key: 'createOverlay',
+    value: function createOverlay(bg) {
+      var canvas = document.createElement('canvas');
+      canvas.width = pageWidth;
+      canvas.height = pageHeight;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(bg, 0, 0, pageWidth, pageHeight);
 
-      ctx.drawImage(item, 0, 0, item.width, item.height, 225, 122, w, h);
+      overlay = canvas;
+      overlayContext = ctx;
+    }
+  }, {
+    key: 'createItems',
+    value: function createItems() {
+      var canvas = document.createElement('canvas');
+      var w = canvas.width = pageWidth;
+      var h = canvas.height = pageHeight;
+      var ctx = canvas.getContext('2d');
 
-      ctx.drawImage(item, 0, 0, item.width, item.height, 225, 122 + 169, w, h);
+      var item = this.createItem();
 
-      ctx.drawImage(item, 0, 0, item.width, item.height, 225, 122 + 169, w, h);
+      ctx.drawImage(item, 0, 0, w, h, 225, 122, w, h);
 
-      var items = new Image();
+      items = new Image();
       items.src = canvas.toDataURL('image/png');
-      return items;
+    }
+  }, {
+    key: 'createItem',
+    value: function createItem() {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      var source = this.state.canvas;
+      var w = canvas.width = source.width / 3;
+      var h = canvas.height = source.height / 3;
+      console.log(w, source.width);
+
+      ctx.translate(w / 2, h / 2);
+      ctx.rotate(180 / 180 * Math.PI);
+      ctx.translate(-(w / 2), -(h / 2));
+      ctx.drawImage(source, 0, 0, w, h);
+
+      var item = new Image();
+      item.src = canvas.toDataURL('image/png');
+
+      return item;
     }
   }, {
     key: 'openPrint',

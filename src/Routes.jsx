@@ -14,6 +14,7 @@ import Front        from './layouts/front/Front'
 import FrontHome    from './pages/front/Home'
 import FrontDraw    from './pages/front/Draw'
 import FrontComp    from './pages/front/Comp'
+import FrontTemp    from './pages/front/Temp'
 
 const routes = (
   <Router history={new BrowserHistory}>
@@ -33,6 +34,11 @@ const routes = (
       <Route path={root.www + '/drawing0(:id).html'}
         components={{
           main: FrontDraw
+        }} />
+
+      <Route path={root.www + '/template0(:id).html'}
+        components={{
+          main: FrontTemp
         }} />
 
     </Route>

@@ -34,8 +34,8 @@ var items = undefined;
 // テンプレートファイルのサイズ
 // 画像ファイルのサイズとは違い、canvasに設定するw,h
 
-var pageWidth = 620;
-var pageHeight = 877;
+var pageWidth = 2480;
+var pageHeight = 3510;
 
 // テンプレートファイルのパス 拡張子はinit内
 
@@ -44,7 +44,7 @@ var templatePath = '../imgs/print_template0';
 // イラストの座標と回転度数を設定
 // ひとつのイラストは169
 
-var imgs = [{ pos: { x: 225, y: 122 + 169 * 0 }, deg: -90 }, { pos: { x: 225, y: 122 + 169 * 1 }, deg: -90 }, { pos: { x: 225, y: 122 + 169 * 2 }, deg: -90 }, { pos: { x: 225, y: 122 + 169 * 3 }, deg: -90 }];
+var imgs = [{ pos: { x: 900, y: 488 + 677 * 0 }, deg: -90 }, { pos: { x: 900, y: 488 + 677 * 1 }, deg: -90 }, { pos: { x: 900, y: 488 + 677 * 2 }, deg: -90 }, { pos: { x: 900, y: 488 + 677 * 3 }, deg: -90 }];
 
 var Temp = (function (_React$Component) {
   _inherits(Temp, _React$Component);
@@ -149,8 +149,16 @@ var Temp = (function (_React$Component) {
         ctx.drawImage(overlay, 0, 0, pageWidth, pageHeight);
 
         var el = document.getElementById('Palette');
-        el.appendChild(canvas);
+        el.appendChild(_this.resizeCanvas(canvas));
       };
+    }
+  }, {
+    key: 'resizeCanvas',
+    value: function resizeCanvas(canvas) {
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+
+      return canvas;
     }
   }, {
     key: 'createOverlay',
@@ -186,8 +194,8 @@ var Temp = (function (_React$Component) {
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
       var source = this.state.canvas;
-      var w = canvas.width = source.width / 3;
-      var h = canvas.height = source.height / 3;
+      var w = canvas.width = source.width;
+      var h = canvas.height = source.height;
 
       ctx.translate(w / 2, h / 2);
       ctx.rotate(deg / 180 * Math.PI);

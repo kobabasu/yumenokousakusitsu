@@ -10,8 +10,8 @@ let items;
 // テンプレートファイルのサイズ
 // 画像ファイルのサイズとは違い、canvasに設定するw,h
 
-const pageWidth  = 620;
-const pageHeight = 877;
+const pageWidth  = 2480;
+const pageHeight = 3510;
 
 // テンプレートファイルのパス 拡張子はinit内
 
@@ -21,10 +21,10 @@ const templatePath = '../imgs/print_template0';
 // ひとつのイラストは169
 
 const imgs = [
-        { pos: { x:225, y:122 + 169 * 0 }, deg: -90 },
-        { pos: { x:225, y:122 + 169 * 1 }, deg: -90 },
-        { pos: { x:225, y:122 + 169 * 2 }, deg: -90 },
-        { pos: { x:225, y:122 + 169 * 3 }, deg: -90 }
+        { pos: { x:900, y:488 + 677 * 0 }, deg: -90 },
+        { pos: { x:900, y:488 + 677 * 1 }, deg: -90 },
+        { pos: { x:900, y:488 + 677 * 2 }, deg: -90 },
+        { pos: { x:900, y:488 + 677 * 3 }, deg: -90 }
       ];
 
 
@@ -126,8 +126,8 @@ export default class Temp extends React.Component {
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('2d');
     let source = this.state.canvas;
-    let w = canvas.width = source.width / 3;
-    let h = canvas.height = source.height / 3;
+    let w = canvas.width = source.width;
+    let h = canvas.height = source.height;
 
     ctx.translate( w / 2, h / 2 );
     ctx.rotate( deg/180*Math.PI );

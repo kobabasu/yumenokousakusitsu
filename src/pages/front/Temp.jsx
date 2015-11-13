@@ -21,8 +21,10 @@ const templatePath = '../imgs/print_template0';
 // ひとつのイラストは169
 
 const imgs = [
-        { pos: { x:225, y:122 }, deg: 0 },
-        { pos: { x:225, y:122 + 169 }, deg: 180 }
+        { pos: { x:225, y:122 + 169 * 0 }, deg: -90 },
+        { pos: { x:225, y:122 + 169 * 1 }, deg: -90 },
+        { pos: { x:225, y:122 + 169 * 2 }, deg: -90 },
+        { pos: { x:225, y:122 + 169 * 3 }, deg: -90 }
       ];
 
 

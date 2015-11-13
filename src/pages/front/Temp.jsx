@@ -110,8 +110,7 @@ export default class Temp extends React.Component {
       );
     }
 
-    items = new Image();
-    items.src = canvas.toDataURL('image/png');
+    items = canvas;
   }
 
   createItem(deg) {
@@ -126,10 +125,7 @@ export default class Temp extends React.Component {
     ctx.translate( -(w / 2), -(h / 2) );
     ctx.drawImage( source, 0, 0, w, h );
 
-    let item = new Image();
-    item.src = canvas.toDataURL('image/png');
-
-    return item;
+    return canvas;
   }
 
   openPrint(e) {

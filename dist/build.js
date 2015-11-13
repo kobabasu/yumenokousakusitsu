@@ -1651,31 +1651,37 @@ var Home = (function (_React$Component) {
   }
 
   _createClass(Home, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var el = document.getElementsByClassName('drawTitle');
+      el[0].style.marginLeft = '70px';
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement('div', { className: 'drawCont', id: 'Home', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 13
+          lineNumber: 18
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 13
+          lineNumber: 18
         }
       }, _react2.default.createElement(_reactDocumentTitle2.default, { title: '夢の工作室', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 14
+          lineNumber: 19
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 14
+          lineNumber: 19
         }
       }), _react2.default.createElement('div', { className: 'drawDesc', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 16
+          lineNumber: 21
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 16
+          lineNumber: 21
         }
       }, _react2.default.createElement('img', {
         src: '../imgs/draw_description.gif',
@@ -1684,53 +1690,53 @@ var Home = (function (_React$Component) {
         height: '100',
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 17
+          lineNumber: 22
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 17
+          lineNumber: 22
         }
       })), _react2.default.createElement('div', { className: 'drawList', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 25
+          lineNumber: 30
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 25
+          lineNumber: 30
         }
       }, _react2.default.createElement('ul', {
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 26
+          lineNumber: 31
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 26
+          lineNumber: 31
         }
       }, _react2.default.createElement('li', {
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 27
+          lineNumber: 32
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 27
+          lineNumber: 32
         }
       }, _react2.default.createElement(_reactRouter.Link, { to: '/drawing/drawing01.html', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 28
+          lineNumber: 33
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 28
+          lineNumber: 33
         }
       }, _react2.default.createElement('span', { className: 'name', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 29
+          lineNumber: 34
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 29
+          lineNumber: 34
         }
       }, _react2.default.createElement('img', {
         src: '../imgs/draw01_name.gif',
@@ -1739,11 +1745,11 @@ var Home = (function (_React$Component) {
         height: '40',
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 30
+          lineNumber: 35
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 30
+          lineNumber: 35
         }
       })), _react2.default.createElement('img', {
         src: '../imgs/draw01_illust.gif',
@@ -1752,36 +1758,36 @@ var Home = (function (_React$Component) {
         height: '300',
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 38
+          lineNumber: 43
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 38
+          lineNumber: 43
         }
       }))), _react2.default.createElement('li', {
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 47
+          lineNumber: 52
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 47
+          lineNumber: 52
         }
       }, _react2.default.createElement(_reactRouter.Link, { to: '/drawing/drawing02.html', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 48
+          lineNumber: 53
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 48
+          lineNumber: 53
         }
       }, _react2.default.createElement('span', { className: 'name', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 49
+          lineNumber: 54
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 49
+          lineNumber: 54
         }
       }, _react2.default.createElement('img', {
         src: '../imgs/draw02_name.gif',
@@ -1790,11 +1796,11 @@ var Home = (function (_React$Component) {
         height: '40',
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 50
+          lineNumber: 55
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 50
+          lineNumber: 55
         }
       })), _react2.default.createElement('img', {
         src: '../imgs/draw02_illust.gif',
@@ -1803,36 +1809,36 @@ var Home = (function (_React$Component) {
         height: '300',
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 58
+          lineNumber: 63
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 58
+          lineNumber: 63
         }
       }))), _react2.default.createElement('li', {
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 67
+          lineNumber: 72
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 67
+          lineNumber: 72
         }
       }, _react2.default.createElement(_reactRouter.Link, { to: '/drawing/drawing03.html', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 68
+          lineNumber: 73
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 68
+          lineNumber: 73
         }
       }, _react2.default.createElement('span', { className: 'name', __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 69
+          lineNumber: 74
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 69
+          lineNumber: 74
         }
       }, _react2.default.createElement('img', {
         src: '../imgs/draw03_name.gif',
@@ -1841,11 +1847,11 @@ var Home = (function (_React$Component) {
         height: '40',
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 70
+          lineNumber: 75
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 70
+          lineNumber: 75
         }
       })), _react2.default.createElement('img', {
         src: '../imgs/draw03_illust.gif',
@@ -1854,11 +1860,11 @@ var Home = (function (_React$Component) {
         height: '300',
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 78
+          lineNumber: 83
         },
         __source: {
           fileName: '../../../src/pages/front/Home.jsx',
-          lineNumber: 78
+          lineNumber: 83
         }
       }))))));
     }
@@ -2036,9 +2042,19 @@ var Temp = (function (_React$Component) {
       };
     }
   }, {
+    key: 'checkPrint',
+    value: function checkPrint() {
+      var chk = window.matchMedia("print");
+      chk.addListener(getOrientationValue);
+
+      function getOrientationValue(mediaQueryList) {
+        if (mediaQueryList.matches) {}
+      }
+    }
+  }, {
     key: 'resizeCanvas',
     value: function resizeCanvas(canvas) {
-      canvas.style.width = '100%';
+      canvas.style.width = '95%';
       canvas.style.height = 'auto';
 
       return canvas;

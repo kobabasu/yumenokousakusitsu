@@ -153,9 +153,19 @@ var Temp = (function (_React$Component) {
       };
     }
   }, {
+    key: 'checkPrint',
+    value: function checkPrint() {
+      var chk = window.matchMedia("print");
+      chk.addListener(getOrientationValue);
+
+      function getOrientationValue(mediaQueryList) {
+        if (mediaQueryList.matches) {}
+      }
+    }
+  }, {
     key: 'resizeCanvas',
     value: function resizeCanvas(canvas) {
-      canvas.style.width = '100%';
+      canvas.style.width = '95%';
       canvas.style.height = 'auto';
 
       return canvas;

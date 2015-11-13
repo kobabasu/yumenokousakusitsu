@@ -44,7 +44,7 @@ var templatePath = '../imgs/print_template0';
 // イラストの座標と回転度数を設定
 // ひとつのイラストは169
 
-var imgs = [{ pos: { x: 225, y: 122 }, deg: 0 }, { pos: { x: 225, y: 122 + 169 }, deg: 180 }];
+var imgs = [{ pos: { x: 225, y: 122 + 169 * 0 }, deg: -90 }, { pos: { x: 225, y: 122 + 169 * 1 }, deg: -90 }, { pos: { x: 225, y: 122 + 169 * 2 }, deg: -90 }, { pos: { x: 225, y: 122 + 169 * 3 }, deg: -90 }];
 
 var Temp = (function (_React$Component) {
   _inherits(Temp, _React$Component);
@@ -69,31 +69,31 @@ var Temp = (function (_React$Component) {
         'div',
         { className: 'drawCont fbox', __source: {
             fileName: '../../../src/pages/front/Temp.jsx',
-            lineNumber: 43
+            lineNumber: 45
           },
           __source: {
             fileName: '../../../src/pages/front/Temp.jsx',
-            lineNumber: 43
+            lineNumber: 45
           }
         },
         _react2.default.createElement('div', { id: 'Palette', className: 'drawtmp', __source: {
             fileName: '../../../src/pages/front/Temp.jsx',
-            lineNumber: 45
+            lineNumber: 47
           },
           __source: {
             fileName: '../../../src/pages/front/Temp.jsx',
-            lineNumber: 45
+            lineNumber: 47
           }
         }),
         _react2.default.createElement(
           'div',
           { className: 'printTmp', __source: {
               fileName: '../../../src/pages/front/Temp.jsx',
-              lineNumber: 47
+              lineNumber: 49
             },
             __source: {
               fileName: '../../../src/pages/front/Temp.jsx',
-              lineNumber: 47
+              lineNumber: 49
             }
           },
           _react2.default.createElement(
@@ -103,11 +103,11 @@ var Temp = (function (_React$Component) {
               onClick: this.openPrint.bind(this),
               __source: {
                 fileName: '../../../src/pages/front/Temp.jsx',
-                lineNumber: 48
+                lineNumber: 50
               },
               __source: {
                 fileName: '../../../src/pages/front/Temp.jsx',
-                lineNumber: 48
+                lineNumber: 50
               }
             },
             _react2.default.createElement('img', {
@@ -117,11 +117,11 @@ var Temp = (function (_React$Component) {
               height: '80',
               __source: {
                 fileName: '../../../src/pages/front/Temp.jsx',
-                lineNumber: 52
+                lineNumber: 54
               },
               __source: {
                 fileName: '../../../src/pages/front/Temp.jsx',
-                lineNumber: 52
+                lineNumber: 54
               }
             })
           )

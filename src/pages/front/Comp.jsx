@@ -39,9 +39,8 @@ export default class Comp extends React.Component {
             </div>
 
             <div className="printBtn02">
-              <a
-                href="#"
-                onClick={this.openTemplate.bind(this)}
+              <Link
+                to="/drawing/template01.html"
                 >
                 <img
                   src="../imgs/clear.gif"
@@ -49,7 +48,7 @@ export default class Comp extends React.Component {
                   width="330"
                   height="120"
                   />
-              </a>
+              </Link>
             </div>
 
             <div className="drawTop">
@@ -75,11 +74,6 @@ export default class Comp extends React.Component {
   }
 
   openPrint(e) {
-    e.preventDefault();
-    window.print();
-  }
-
-  openTemplate(e) {
     e.preventDefault();
     window.print();
   }

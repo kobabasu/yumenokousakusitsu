@@ -8,6 +8,11 @@ export default class Home extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    let el = document.getElementsByClassName('drawTitle');
+    el[0].style.marginLeft = '70px';
+  }
+
   render() {
     return (
     <div className="drawCont" id="Home">

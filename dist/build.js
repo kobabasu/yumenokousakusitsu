@@ -2056,25 +2056,25 @@ var Temp = (function (_React$Component) {
       var h = canvas.height = pageHeight;
       var ctx = canvas.getContext('2d');
 
-      var item = this.createItem();
+      var imgs = [{ pos: { w: 225, h: 122 }, deg: 180 }];
 
-      ctx.drawImage(item, 0, 0, w, h, 225, 122, w, h);
+      var item = this.createItem(imgs[0].deg);
+      ctx.drawImage(item, 0, 0, w, h, imgs[0].pos.w, imgs[0].pos.h, w, h);
 
       items = new Image();
       items.src = canvas.toDataURL('image/png');
     }
   }, {
     key: 'createItem',
-    value: function createItem() {
+    value: function createItem(deg) {
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
       var source = this.state.canvas;
       var w = canvas.width = source.width / 3;
       var h = canvas.height = source.height / 3;
-      console.log(w, source.width);
 
       ctx.translate(w / 2, h / 2);
-      ctx.rotate(180 / 180 * Math.PI);
+      ctx.rotate(deg / 180 * Math.PI);
       ctx.translate(-(w / 2), -(h / 2));
       ctx.drawImage(source, 0, 0, w, h);
 

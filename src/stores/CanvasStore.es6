@@ -9,8 +9,8 @@ let _canvases = {
   color: '#ffffff',
   comp: null,
   sample: null,
-  w: 510,
-  h: 510,
+  w: 677,
+  h: 677,
   canvas: null,
   ctx: null,
   px: null

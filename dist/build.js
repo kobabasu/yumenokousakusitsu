@@ -2056,11 +2056,11 @@ var Temp = (function (_React$Component) {
       var h = canvas.height = pageHeight;
       var ctx = canvas.getContext('2d');
 
-      var imgs = [{ pos: { w: 225, h: 122 }, deg: 180 }];
+      var imgs = [{ pos: { x: 225, y: 122 }, deg: 180 }];
 
       for (var i in imgs) {
         var item = this.createItem(imgs[i].deg);
-        ctx.drawImage(item, 0, 0, w, h, imgs[i].pos.w, imgs[i].pos.h, w, h);
+        ctx.drawImage(item, 0, 0, w, h, imgs[i].pos.x, imgs[i].pos.y, w, h);
       }
 
       items = new Image();

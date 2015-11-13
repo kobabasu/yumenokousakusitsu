@@ -2050,12 +2050,14 @@ var Temp = (function (_React$Component) {
     key: 'createItems',
     value: function createItems() {
       var canvas = document.createElement('canvas');
-      var w = canvas.width = pageWidth;
-      var h = canvas.height = pageHeight;
+      canvas.width = pageWidth;
+      canvas.height = pageHeight;
       var ctx = canvas.getContext('2d');
 
       for (var i in imgs) {
         var item = this.createItem(imgs[i].deg);
+        var w = item.width;
+        var h = item.height;
         ctx.drawImage(item, 0, 0, w, h, imgs[i].pos.x, imgs[i].pos.y, w, h);
       }
 

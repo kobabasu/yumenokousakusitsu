@@ -86,8 +86,18 @@ export default class Temp extends React.Component {
     }
   }
 
+  checkPrint() {
+    let chk = window.matchMedia("print");
+    chk.addListener(getOrientationValue);
+
+    function getOrientationValue (mediaQueryList) {
+      if (mediaQueryList.matches) {
+      }
+    }
+  }
+
   resizeCanvas(canvas) {
-    canvas.style.width = '100%';
+    canvas.style.width = '95%';
     canvas.style.height = 'auto';
 
     return canvas;

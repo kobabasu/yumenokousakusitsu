@@ -7,8 +7,11 @@ import canvasStore from '../../stores/CanvasStore'
 let overlay;
 let items;
 
-let pageWidth = 620;
-let pageHeight = 877;
+// テンプレートファイルのサイズ
+// 画像ファイルのサイズとは違い、canvasに設定するw,h
+
+const pageWidth  = 620;
+const pageHeight = 877;
 
 // テンプレートファイルのパス 拡張子はinit内
 

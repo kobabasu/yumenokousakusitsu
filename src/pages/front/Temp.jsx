@@ -82,8 +82,15 @@ export default class Temp extends React.Component {
       ctx.drawImage(overlay, 0, 0, pageWidth, pageHeight);
 
       let el = document.getElementById('Palette');
-      el.appendChild(canvas);
+      el.appendChild(_this.resizeCanvas(canvas));
     }
+  }
+
+  resizeCanvas(canvas) {
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
+
+    return canvas;
   }
 
   createOverlay(bg) {

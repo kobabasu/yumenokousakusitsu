@@ -327,8 +327,15 @@ export default class Draw extends React.Component {
     listener = this.fill.bind(this);
     canvas.addEventListener('click', listener, false);
 
-    el.appendChild(canvas);
+    el.appendChild(this.resizeCanvas(canvas));
     this.saveClipboard(canvas);
+  }
+
+  resizeCanvas(canvas) {
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
+
+    return canvas;
   }
 
   updateState() {

@@ -157,6 +157,8 @@ export default class Temp extends React.Component {
 
   createFrame() {
     frame = document.createElement('iframe');
+    document.body.appendChild(frame);
+
     frame.style.display = 'none';
 
     let srcdoc = this.setSrcdoc(frame);
@@ -166,8 +168,6 @@ export default class Temp extends React.Component {
     img[0].style.width = '670px';
     img[0].style.height = 'auto';
     img[0].style.margin = '0 auto';
-
-    document.body.appendChild(frame);
   }
 
   setSrcdoc(iframe) {

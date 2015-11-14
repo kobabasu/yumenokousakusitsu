@@ -156,16 +156,28 @@ export default class Temp extends React.Component {
 
   createFrame() {
     frame = document.createElement('iframe');
-    frame.width = 700;
-    //frame.style.display = 'none';
+    frame.style.display = 'none';
 
     document.body.appendChild(frame);
-    let srcdoc = frame.contentWindow.document;
+    
+    let srcdoc = this.setSrcdoc(frame);
     srcdoc.body.appendChild(completeImage);
 
     let img = srcdoc.getElementsByTagName('img');
     img[0].style.width = '670px';
     img[0].style.margin = '0 auto';
+  }
+
+  setSrcdoc(iframe) {
+    let srcdoc;
+    if (document.all) {
+      srcdoc = frame.contentWindow.document;
+    } else {
+      srcdoc = frame.contentDocument;
+      srcdoc.writeln('<body></body>');
+    }
+
+    return srcdoc;
   }
 
   openPrint(e) {

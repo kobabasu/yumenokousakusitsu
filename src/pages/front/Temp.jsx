@@ -59,6 +59,18 @@ export default class Temp extends React.Component {
               />
           </a>
         </div>
+
+        <div className="printTmpTop">
+          <Link to="/drawing/">
+            <img
+              src="../imgs/btn_draw_top.gif"
+              alt="ぬりえトップへ戻る"
+              width="230"
+              height="50"
+              />
+          </Link>
+        </div>
+
       </div>
     );
   }

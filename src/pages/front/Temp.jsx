@@ -154,6 +154,15 @@ export default class Temp extends React.Component {
 
   openPrint(e) {
     e.preventDefault();
-    window.print();
+    let el = document.createElement('iframe');
+
+    document.body.appendChild(el);
+    let frame = el.contentWindow.document;
+
+    frame.body.appendChild(completeImage);
+    let img = frame.getElementsByTagName('img');
+    img[0].style.width = '100%';
+
+    el.contentWindow.print();
   }
 }

@@ -4,6 +4,7 @@ import DocumentTitle from 'react-document-title'
 
 import canvasStore from '../../stores/CanvasStore'
 
+let completeImage = new Image();
 let overlay;
 let items;
 
@@ -96,6 +97,7 @@ export default class Temp extends React.Component {
       let el = document.getElementById('Palette');
       el.appendChild(_this.resizeCanvas(canvas));
 
+      completeImage.src = canvas.toDataURL('image/png');
     }
   }
 

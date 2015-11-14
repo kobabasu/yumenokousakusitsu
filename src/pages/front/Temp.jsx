@@ -182,7 +182,14 @@ export default class Temp extends React.Component {
   }
 
   openPrint(e) {
+    let isIE = /*@cc_on!@*/false || !!document.documentMode;
+    if (isIE) {
+      frame.contentWindow.document.execCommand('print', false, null);
+    } else {
+      frame.contentWindow.focus();
+      frame.contentWindow.print();
+    }
+
     e.preventDefault();
-    frame.contentWindow.print();
   }
 }

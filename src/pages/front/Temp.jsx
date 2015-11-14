@@ -109,7 +109,7 @@ export default class Temp extends React.Component {
   }
 
   resizeCanvas(canvas) {
-    canvas.style.width = '95%';
+    canvas.style.width = '100%';
     canvas.style.height = 'auto';
 
     return canvas;

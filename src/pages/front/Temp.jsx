@@ -7,6 +7,7 @@ import canvasStore from '../../stores/CanvasStore'
 let completeImage = new Image();
 let overlay;
 let items;
+let frame;
 
 // テンプレートファイルのサイズ
 
@@ -98,6 +99,7 @@ export default class Temp extends React.Component {
       el.appendChild(_this.resizeCanvas(canvas));
 
       completeImage.src = canvas.toDataURL('image/png');
+      _this.createFrame();
     }
   }
 
@@ -152,17 +154,22 @@ export default class Temp extends React.Component {
     return canvas;
   }
 
+  createFrame() {
+    frame = document.createElement('iframe');
+    frame.width = 700;
+    //frame.style.display = 'none';
+
+    document.body.appendChild(frame);
+    let srcdoc = frame.contentWindow.document;
+    srcdoc.body.appendChild(completeImage);
+
+    let img = srcdoc.getElementsByTagName('img');
+    img[0].style.width = '670px';
+    img[0].style.margin = '0 auto';
+  }
+
   openPrint(e) {
     e.preventDefault();
-    let el = document.createElement('iframe');
-
-    document.body.appendChild(el);
-    let frame = el.contentWindow.document;
-
-    frame.body.appendChild(completeImage);
-    let img = frame.getElementsByTagName('img');
-    img[0].style.width = '100%';
-
-    el.contentWindow.print();
+    frame.contentWindow.print();
   }
 }

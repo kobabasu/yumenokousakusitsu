@@ -171,12 +171,14 @@ export default class Temp extends React.Component {
   }
 
   setSrcdoc(iframe) {
+    let ua = getBrowser().browser.name;
+
     let srcdoc;
-    if (document.all) {
-      srcdoc = frame.contentWindow.document;
-    } else {
+    if (ua == 'Firefox') {
       srcdoc = frame.contentDocument;
       srcdoc.writeln('<body></body>');
+    } else {
+      srcdoc = frame.contentWindow.document;
     }
 
     return srcdoc;

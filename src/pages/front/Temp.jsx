@@ -185,15 +185,16 @@ export default class Temp extends React.Component {
   }
 
   openPrint(e) {
-    let isIE = /*@cc_on!@*/false || !!document.documentMode;
+    e.preventDefault();
+
+    let ua = getBrowser().browser.name;
+
     let content = frame.contentWindow;
-    if (isIE) {
+    if (ua == 'IE' && ua == 'Edge') {
       content.document.execCommand('print', false, null);
     } else {
       content.focus();
       content.print();
     }
-
-    e.preventDefault();
   }
 }

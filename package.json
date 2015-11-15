@@ -37,6 +37,7 @@
     "keymirror": "*",
     "clone": "*",
     "history": "*",
+    "ua-parser-js": "*",
     "flux": "*"
   },
 

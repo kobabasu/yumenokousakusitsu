@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
+import getBrowser from 'ua-parser-js'
 
 import canvasStore from '../../stores/CanvasStore'
 
+let completeImage = new Image();
 let overlay;
 let items;
+let frame;
 
 // テンプレートファイルのサイズ
 
@@ -95,21 +98,14 @@ export default class Temp extends React.Component {
 
       let el = document.getElementById('Palette');
       el.appendChild(_this.resizeCanvas(canvas));
-    }
-  }
 
-  checkPrint() {
-    let chk = window.matchMedia("print");
-    chk.addListener(getOrientationValue);
-
-    function getOrientationValue (mediaQueryList) {
-      if (mediaQueryList.matches) {
-      }
+      completeImage.src = canvas.toDataURL('image/png');
+      _this.createFrame();
     }
   }
 
   resizeCanvas(canvas) {
-    canvas.style.width = '95%';
+    canvas.style.width = '100%';
     canvas.style.height = 'auto';
 
     return canvas;
@@ -159,8 +155,46 @@ export default class Temp extends React.Component {
     return canvas;
   }
 
+  createFrame() {
+    frame = document.createElement('iframe');
+    document.body.appendChild(frame);
+
+    frame.style.display = 'none';
+
+    let srcdoc = this.setSrcdoc(frame);
+    srcdoc.body.appendChild(completeImage);
+
+    let img = srcdoc.getElementsByTagName('img');
+    img[0].style.width = '670px';
+    img[0].style.height = 'auto';
+    img[0].style.margin = '0 auto';
+  }
+
+  setSrcdoc(iframe) {
+    let ua = getBrowser().browser.name;
+
+    let srcdoc;
+    if (ua == 'Firefox') {
+      srcdoc = frame.contentDocument;
+      srcdoc.writeln('<body></body>');
+    } else {
+      srcdoc = frame.contentWindow.document;
+    }
+
+    return srcdoc;
+  }
+
   openPrint(e) {
     e.preventDefault();
-    window.print();
+
+    let ua = getBrowser().browser.name;
+
+    let content = frame.contentWindow;
+    if (ua == 'IE' && ua == 'Edge') {
+      content.document.execCommand('print', false, null);
+    } else {
+      content.focus();
+      content.print();
+    }
   }
 }

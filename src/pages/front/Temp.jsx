@@ -189,7 +189,7 @@ export default class Temp extends React.Component {
     let ua = getBrowser().browser.name;
 
     let content = frame.contentWindow;
-    if (ua == 'IE' && ua == 'Edge') {
+    if (ua == 'IE' || ua == 'Edge') {
       content.document.execCommand('print', false, null);
     } else {
       content.focus();

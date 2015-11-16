@@ -13,7 +13,7 @@ let frame;
 // テンプレートファイルのサイズ
 
 const pageWidth  = 2480;
-const pageHeight = 3510;
+const pageHeight = 3310;
 
 // テンプレートファイルのパス 拡張子はinit内
 
@@ -167,7 +167,6 @@ export default class Temp extends React.Component {
     let img = srcdoc.getElementsByTagName('img');
     img[0].style.width = '670px';
     img[0].style.height = 'auto';
-    img[0].style.margin = '0 auto';
   }
 
   setSrcdoc(iframe) {
@@ -190,7 +189,7 @@ export default class Temp extends React.Component {
     let ua = getBrowser().browser.name;
 
     let content = frame.contentWindow;
-    if (ua == 'IE' && ua == 'Edge') {
+    if (ua == 'IE' || ua == 'Edge') {
       content.document.execCommand('print', false, null);
     } else {
       content.focus();

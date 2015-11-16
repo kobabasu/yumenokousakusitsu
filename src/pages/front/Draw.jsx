@@ -347,7 +347,11 @@ export default class Draw extends React.Component {
 
     let cnt = 0;
     while(pos.length) {
-      //cnt++; if (cnt > 100000) { return; }
+      /*
+       * for debug
+       * cnt++; if (cnt > 100000) { return; }
+       */
+
       let p = pos.pop();
       let idx = ( p.y * w + p.x ) * 4;
       let now = [];

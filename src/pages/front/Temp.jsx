@@ -167,7 +167,6 @@ export default class Temp extends React.Component {
     let img = srcdoc.getElementsByTagName('img');
     img[0].style.width = '670px';
     img[0].style.height = 'auto';
-    img[0].style.margin = '0 auto';
   }
 
   setSrcdoc(iframe) {

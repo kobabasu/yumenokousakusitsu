@@ -13,7 +13,7 @@ let frame;
 // テンプレートファイルのサイズ
 
 const pageWidth  = 2480;
-const pageHeight = 3510;
+const pageHeight = 3310;
 
 // テンプレートファイルのパス 拡張子はinit内
 

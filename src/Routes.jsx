@@ -11,10 +11,11 @@ import NoMatch      from './layouts/NoMatch'
 import Front        from './layouts/front/Front'
 
 // pages/front
-import FrontHome    from './pages/front/Home'
-import FrontDraw    from './pages/front/Draw'
-import FrontComp    from './pages/front/Comp'
-import FrontTemp    from './pages/front/Temp'
+import FrontHome     from './pages/front/Home'
+import FrontDraw     from './pages/front/Draw'
+import FrontComp     from './pages/front/Comp'
+import FrontTemp     from './pages/front/Temp'
+import FrontThankyou from './pages/front/Thankyou'
 
 const routes = (
   <Router history={new BrowserHistory}>
@@ -29,6 +30,11 @@ const routes = (
       <Route path={root.www + '/drawing0(:id)_comp.html'}
         components={{
           main: FrontComp
+        }} />
+
+      <Route path={root.www + '/thankyou.html'}
+        components={{
+          main: FrontThankyou
         }} />
 
       <Route path={root.www + '/drawing0(:id).html'}

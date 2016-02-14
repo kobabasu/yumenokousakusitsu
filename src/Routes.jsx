@@ -32,7 +32,7 @@ const routes = (
           main: FrontComp
         }} />
 
-      <Route path={root.www + '/thankyou.html'}
+      <Route path={root.www + '/thankyou0(:id).html'}
         components={{
           main: FrontThankyou
         }} />

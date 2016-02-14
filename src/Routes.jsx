@@ -15,6 +15,7 @@ import FrontHome     from './pages/front/Home'
 import FrontDraw     from './pages/front/Draw'
 import FrontComp     from './pages/front/Comp'
 import FrontTemp     from './pages/front/Temp'
+import FrontList     from './pages/front/List'
 import FrontThankyou from './pages/front/Thankyou'
 
 const routes = (
@@ -32,11 +33,6 @@ const routes = (
           main: FrontComp
         }} />
 
-      <Route path={root.www + '/thankyou0(:id).html'}
-        components={{
-          main: FrontThankyou
-        }} />
-
       <Route path={root.www + '/drawing0(:id).html'}
         components={{
           main: FrontDraw
@@ -45,6 +41,16 @@ const routes = (
       <Route path={root.www + '/template0(:id).html'}
         components={{
           main: FrontTemp
+        }} />
+
+      <Route path={root.www + '/list0(:id).html'}
+        components={{
+          main: FrontList
+        }} />
+
+      <Route path={root.www + '/thankyou0(:id).html'}
+        components={{
+          main: FrontThankyou
         }} />
 
     </Route>

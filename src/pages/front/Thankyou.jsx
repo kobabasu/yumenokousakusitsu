@@ -17,7 +17,7 @@ export default class Thankyou extends React.Component {
 
   render() {
     return (
-      <div className="drawCont fbox alignCenter">
+      <div className="drawCont fbox alignCenter" id="Thankyou">
 
         <img
           src="/imgs/title_h2_thankyou.gif"

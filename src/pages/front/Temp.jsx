@@ -65,8 +65,7 @@ export default class Temp extends React.Component {
 
         <div className="printPreview">
           <a
-            href=""
-            onClick={this.openPrint.bind(this)}
+            href="/drawing/preview01.html"
             >
             <img
               src="../imgs/clear.gif"

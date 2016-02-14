@@ -12,7 +12,6 @@ export default class Thankyou extends React.Component {
 
   componentWillMount() {
     let id = this.props.params.id;
-    console.log(id);
   }
 
   render() {
@@ -34,36 +33,67 @@ export default class Thankyou extends React.Component {
         </p>
 
         <nav>
-          <ul>
-            <li>
-              <a onClick={this.back.bind(this)} href="#">
-                完了ページへ戻る
-              </a>
-            </li>
+          <div className="drawThankyou01">
+            <a
+              href=""
+              onClick={this.back.bind(this)}
+              >
+              <img
+                src="../imgs/clear.gif"
+                alt="完了ページへ戻る"
+                width="310"
+                height="70"
+                />
+            </a>
+          </div>
 
-            <li>
-              <Link to="/drawing/">
-                塗り絵トップへ戻る
-              </Link>
-            </li>
+          <div className="drawThankyou02">
+            <a
+              href="/drawing/"
+              >
+              <img
+                src="../imgs/clear.gif"
+                alt="ぬりえトップへ戻る"
+                width="310"
+                height="70"
+                />
+            </a>
+          </div>
 
-            <li>
-              <Link to="/drawing/">
-                みんなの塗り絵をみる
-              </Link>
-            </li>
-          </ul>
+          <div className="drawThankyou03">
+            <a
+              href="/drawing/list01.html"
+              >
+              <img
+                src="../imgs/clear.gif"
+                alt="みんなのぬりえをみる"
+                width="310"
+                height="70"
+                />
+            </a>
+          </div>
         </nav>
 
+        <img
+          src="/imgs/title_h3_thankyou.gif"
+          className="mgnTop30 mgnBtm20"
+          width="1140"
+          height="30"
+          alt="日本印刷工業のオススメ情報"
+        />
+
+        <img
+          src="/imgs/ad.jpg"
+          width="1140"
+          height="806"
+          alt="広告"
+        />
       </div>
     );
   }
 
   back() {
-    this.context.history.pushState(
-      null,
-      '/drawing/drawing01_comp.html'
-    );
+    this.context.history.goBack();
   }
 }
 

@@ -24,6 +24,14 @@ export default class Comp extends React.Component {
         
         <div className="drawTool">
           <div className="drawPrint">
+            <img
+              src="/imgs/title_h2_comp_01.gif"
+              width="325"
+              height="50"
+              className="mgnBtm20"
+              alt="印刷について"
+            />
+
             <div className="printBtn01">
               <a
                 href="#"
@@ -62,6 +70,78 @@ export default class Comp extends React.Component {
               </Link>
             </div>
           </div>
+
+          <div className="drawForm">
+            <img
+              src="/imgs/title_h2_comp_02.gif"
+              width="325"
+              height="50"
+              className="mgnBtm20"
+              alt="掲載について"
+            />
+
+            <p>
+              ぬりえ画像を当ホームページに掲載していただけるお客様は、
+              下記の情報を入力の上、送信ボタンを押して下さい。
+            </p>
+
+            <table>
+              <tbody>
+                <tr>
+                  <td className="drawFormLabel">ニックネーム</td>
+                  <td className="drawFormElement">
+                    <input
+                      type="text"
+                      minLength="1"
+                      maxLength="8"
+                      placeholder="8文字で入力"
+                      />
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td className="drawFormLabel">掲載する</td>
+                  <td className="drawFormElement">
+                    <label>
+                      <input
+                        type="checkbox"
+                        defaultChecked={true}
+                        />
+                      掲載する
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div className="drawForm01">
+              <Link
+                to="/drawing/thankyou01.html"
+                >
+                <img
+                  src="../imgs/clear.gif"
+                  alt="送信する"
+                  width="330"
+                  height="50"
+                  />
+              </Link>
+            </div>
+
+            <div className="drawForm02">
+              <Link
+                to="/drawing/list01.html"
+                >
+                <img
+                  src="../imgs/clear.gif"
+                  alt="みんなのぬりえをみる"
+                  width="330"
+                  height="50"
+                  />
+              </Link>
+            </div>
+
+          </div>
+
         </div>
       </div>
     );

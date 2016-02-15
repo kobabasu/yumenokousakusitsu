@@ -6,6 +6,9 @@ npm-debug-log
 .sass-cache
 node_modules
 vendor
+upload
+
+note.md
 
 js/*
 dist/*

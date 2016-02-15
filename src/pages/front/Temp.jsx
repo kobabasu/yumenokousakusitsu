@@ -45,7 +45,7 @@ export default class Temp extends React.Component {
     if (!this.state) return false
 
     return (
-      <div className="drawCont fbox">
+      <div className="drawCont fbox alignCenter">
       
         <div id="Palette" className="drawtmp"></div>
         
@@ -57,6 +57,19 @@ export default class Temp extends React.Component {
             <img
               src="../imgs/clear.gif"
               alt="テンプレート印刷"
+              width="330"
+              height="80"
+              />
+          </a>
+        </div>
+
+        <div className="printPreview">
+          <a
+            href="/drawing/preview01.html"
+            >
+            <img
+              src="../imgs/clear.gif"
+              alt="組立イメージをみる"
               width="330"
               height="80"
               />

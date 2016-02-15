@@ -102,11 +102,13 @@ export default class Comp extends React.Component {
                 <tr>
                   <td className="drawFormLabel">掲載する</td>
                   <td className="drawFormElement">
-                    <input
-                      type="checkbox"
-                      defaultChecked={true}
-                      />
-                    掲載する
+                    <label>
+                      <input
+                        type="checkbox"
+                        defaultChecked={true}
+                        />
+                      掲載する
+                    </label>
                   </td>
                 </tr>
               </tbody>

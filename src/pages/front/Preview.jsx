@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
 import getBrowser from 'ua-parser-js'
+import TraqballFnc from '../../..//lib/traqball/traqball.js'
 
 import canvasStore from '../../stores/CanvasStore'
 
@@ -15,7 +16,16 @@ export default class Preview extends React.Component {
     this.setState( canvasStore.read(), this.init );
   }
 
+  componentDidMount() {
+    var config = {
+      stage: 'stage'
+    };
+
+    let mytraqball = new Traqball(config);
+  }
+
   render() {
+
     return (
       <div className="drawCont fbox" id="Preview">
 

@@ -38,7 +38,8 @@
     "clone": "*",
     "history": "*",
     "ua-parser-js": "*",
-    "flux": "*"
+    "flux": "*",
+    "gsap": "*"
   },
 
   "browser": {

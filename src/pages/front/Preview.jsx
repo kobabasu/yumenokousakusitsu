@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
 import getBrowser from 'ua-parser-js'
+import TraqballFnc from '../../..//lib/traqball/traqball.js'
+// import gsap from 'gsap'
 
 import canvasStore from '../../stores/CanvasStore'
 
@@ -15,7 +17,16 @@ export default class Preview extends React.Component {
     this.setState( canvasStore.read(), this.init );
   }
 
+  componentDidMount() {
+    var config = {
+      stage: 'stage'
+    };
+
+    let mytraqball = new Traqball(config);
+  }
+
   render() {
+
     return (
       <div className="drawCont fbox" id="Preview">
 
@@ -75,6 +86,56 @@ export default class Preview extends React.Component {
 
       </div>
     );
+  }
+
+  setTween() {
+    // IE10 preserve-3d
+
+    let dur = 6;
+    let e = Linear.easeNone;
+    let tlMaster = new TimelineMax({pause:false});
+    
+    TweenMax.set('#stage', {
+      transformPerspective: 1200
+    });
+
+    TweenMax.set('.view', {
+      transformStyle: 'preserve-3d'
+    });
+    
+    TweenMax.set('.panel', {
+      transformOrigin: '50% 50% -100px',
+      transformPerspective: 1200
+    });
+
+    TweenMax.set('.p1', {
+      rotationY: 0
+    });
+
+    TweenMax.set('.p2', {
+      rotationY: 90
+    });
+
+    TweenMax.set('.p3', {
+      rotationY: 180
+    });
+
+    TweenMax.set('.p4', {
+      rotationY: 270
+    });
+
+    TweenMax.set('.p5', {
+      rotationX: 90
+    });
+
+    TweenMax.set('.p6', {
+      rotationX: 270
+    });
+
+    TweenMax.set('.view', {
+      rotationX: 35,
+      rotationY: 10
+    });
   }
 
   back() {

@@ -4,17 +4,9 @@ import UserConstants from '../constants/UserConstants'
 
 const CHANGE_EVENT = 'change';
 
-let _users = {
-  id: null,
-  color: '#ffffff',
-  comp: null,
-  sample: null,
-  w: 677,
-  h: 677,
-  user: null,
-  ctx: null,
-  px: null
-};
+const URL = '/api/users/pages';
+
+let _users = {};
 
 function create(id, callback) {
   let w = _users.w;
@@ -47,9 +39,7 @@ function create(id, callback) {
 }
 
 function read(data) {
-  Object.keys(data).map((f) => {
-    _users[f] = data[f];
-  });
+  return _users;
 }
 
 class UserStore extends EventEmitter {
@@ -73,8 +63,16 @@ UserDispatcher.register( function(action) {
       break;
 
     case UserConstants.READ:
-      read(action.data);
-      userStore.update();
+      let url = URL;
+      if (action.id) {
+        url = URL + action.id;
+      }
+      http.get(url).then(res => {
+        read(res);
+        userStore.read();
+      }).catch(e => {
+        console.error(e);
+      });
       break;
 
     default:

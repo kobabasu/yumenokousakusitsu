@@ -22,7 +22,7 @@
   "dependencies": {
     "keymirror": "*",
     "clone": "*",
-    "history": "*",
+    "history": "1.13",
     "es6-promise": "*",
     "ua-parser-js": "*",
     "gsap": "*"

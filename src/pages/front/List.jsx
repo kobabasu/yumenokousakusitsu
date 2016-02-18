@@ -151,12 +151,23 @@ class ListBack extends React.Component {
   }
 
   render() {
-    if (this.props.disable == 1) return false
+    if (this.props.disable == 1) return (
+      <div className="drawList01">
+        <img
+          src="../imgs/btn_list_01_disable.png"
+          alt="前へ戻る"
+          width="150"
+          height="50"
+          className="mgnBtm20"
+          />
+      </div>
+    );
 
+    let path = '/drawing/list0' + this.props.page + '.html';
     return (
       <div className="drawList01">
-        <a
-          href="/drawing/"
+        <Link
+          to={path}
           >
           <img
             src="../imgs/clear.gif"
@@ -164,7 +175,7 @@ class ListBack extends React.Component {
             width="150"
             height="50"
             />
-        </a>
+        </Link>
       </div>
     );
   }
@@ -176,12 +187,23 @@ class ListNext extends React.Component {
   }
 
   render() {
-    if (this.props.disable == 1) return false
+    if (this.props.disable == 1) return (
+        <div className="drawList02">
+          <img
+            src="../imgs/btn_list_02_disable.png"
+            alt="次へ進む"
+            width="150"
+            height="50"
+            className="mgnBtm20"
+            />
+        </div>
+    );
 
+    let path = '/drawing/list0' + this.props.page + '.html';
     return (
         <div className="drawList02">
-          <a
-            href="/drawing/"
+          <Link
+            to={path}
             >
             <img
               src="../imgs/clear.gif"
@@ -189,7 +211,7 @@ class ListNext extends React.Component {
               width="150"
               height="50"
               />
-          </a>
+          </Link>
         </div>
     );
   }

@@ -20,6 +20,12 @@
   ],
 
   "dependencies": {
+    "keymirror": "*",
+    "clone": "*",
+    "history": "1.13",
+    "es6-promise": "*",
+    "ua-parser-js": "*",
+    "gsap": "*"
   },
   "devDependencies": {
     "babel-core": "*",
@@ -34,12 +40,7 @@
     "react-router": "1.0.0-rc4",
     "react-document-title": "*",
     "object-assign": "*",
-    "keymirror": "*",
-    "clone": "*",
-    "history": "*",
-    "ua-parser-js": "*",
-    "flux": "*",
-    "gsap": "*"
+    "flux": "*"
   },
 
   "browser": {

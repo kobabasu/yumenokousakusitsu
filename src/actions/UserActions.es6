@@ -2,9 +2,9 @@ import UserDispatcher from '../dispathcer/UserDispatcher'
 import UserConstants from '../constants/UserConstants'
 
 export default {
-  read: (page, callback) => {
+  load: (page, callback) => {
     UserDispatcher.dispatch({
-      actionType: UserConstants.READ,
+      actionType: UserConstants.LOAD,
       page: page,
       callback: callback
     })

@@ -8,9 +8,14 @@ const CHANGE_EVENT = 'change';
 
 const URL = '/api/users/pages/';
 
-let _users = {};
+let _users = {
+  page:  1,
+  pages: null,
+  limit: null,
+  total: null
+};
 
-function read(data) {
+function load(data) {
   _users = data;
 }
 
@@ -31,13 +36,13 @@ class UserStore extends EventEmitter {
 UserDispatcher.register( function(action) {
   switch(action.actionType) {
 
-    case UserConstants.READ:
+    case UserConstants.LOAD:
       let url = URL;
       if (action.page) {
         url = URL + action.page;
       }
       http.get(url).then(res => {
-        read(res);
+        load(res);
         userStore.update();
       }).catch(e => {
         console.error(e);

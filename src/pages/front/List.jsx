@@ -15,7 +15,7 @@ export default class List extends React.Component {
 
   componentWillMount() {
     userStore.subscribe(this.update.bind(this));
-    userActions.read();
+    userActions.load(this.props.params.id);
   }
 
   render() {
@@ -37,24 +37,40 @@ export default class List extends React.Component {
     let pageNext = null;
 
     let id = parseInt(this.props.params.id);
+
+    let limit = this.state.limit;
+    let total = this.state.total;
+
     switch (id) {
       case 1:
         disableBack = 1;
-        disableNext = 0;
+        if (total > limit * 1) {
+          disableNext = 0;
+        } else {
+          disableNext = 1;
+        }
         pageBack = null;
         pageNext = 2;
         break;
 
       case 2:
         disableBack = 0;
-        disableNext = 0;
+        if (total > limit * 2) {
+          disableNext = 0;
+        } else {
+          disableNext = 1;
+        }
         pageBack = 1;
         pageNext = 3;
         break;
 
       case 3:
         disableBack = 0;
-        disableNext = 1;
+        if (total > limit * 3) {
+          disableNext = 1;
+        } else {
+          disableNext = 1;
+        }
         pageBack = 2;
         pageNext = null;
         break;
@@ -63,9 +79,6 @@ export default class List extends React.Component {
         // no OP
         break;
     }
-
-    let disable = 0;
-    let page = this.props.params.id - 1;
 
     return (
       <div className="drawCont fbox alignCenter" id="List">
@@ -114,10 +127,12 @@ export default class List extends React.Component {
   }
 
   update() {
-    this.setState({ pages: userStore.read() });
-  }
-
-  getPages() {
+    let users = userStore.read();
+    this.setState({
+      pages: users.pages,
+      limit: users.limit,
+      total: users.total
+    });
   }
 }
 
@@ -148,6 +163,7 @@ class ListItems extends React.Component {
 class ListBack extends React.Component {
   constructor(props) {
     super(props);
+    this.state = props;
   }
 
   render() {
@@ -168,16 +184,22 @@ class ListBack extends React.Component {
       <div className="drawList01">
         <Link
           to={path}
+          params={{id:this.props.page}}
           >
           <img
             src="../imgs/clear.gif"
             alt="前へ戻る"
             width="150"
             height="50"
+            onClick={this.update.bind(this)}
             />
         </Link>
       </div>
     );
+  }
+
+  update() {
+    let users = userActions.load(this.props.page);
   }
 }
 
@@ -201,18 +223,24 @@ class ListNext extends React.Component {
 
     let path = '/drawing/list0' + this.props.page + '.html';
     return (
-        <div className="drawList02">
-          <Link
-            to={path}
-            >
-            <img
-              src="../imgs/clear.gif"
-              alt="次へ進む"
-              width="150"
-              height="50"
-              />
-          </Link>
-        </div>
+      <div className="drawList02">
+        <Link
+          to={path}
+          params={{id:this.props.page}}
+          >
+          <img
+            src="../imgs/clear.gif"
+            alt="次へ進む"
+            width="150"
+            height="50"
+            onClick={this.update.bind(this)}
+            />
+        </Link>
+      </div>
     );
+  }
+
+  update() {
+    let users = userActions.load(this.props.page);
   }
 }

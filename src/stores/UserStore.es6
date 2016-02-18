@@ -30,14 +30,11 @@ class UserStore extends EventEmitter {
 
 UserDispatcher.register( function(action) {
   switch(action.actionType) {
-    case UserConstants.CREATE:
-      create(action.id, action.callback);
-      break;
 
     case UserConstants.READ:
       let url = URL;
-      if (action.id) {
-        url = URL + action.id;
+      if (action.page) {
+        url = URL + action.page;
       }
       http.get(url).then(res => {
         read(res);

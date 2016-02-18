@@ -5,7 +5,7 @@ export default {
   read: (page, callback) => {
     UserDispatcher.dispatch({
       actionType: UserConstants.READ,
-      page: read,
+      page: page,
       callback: callback
     })
   },

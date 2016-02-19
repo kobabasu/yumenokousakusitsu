@@ -6,17 +6,22 @@ import UserConstants from '../constants/UserConstants'
 
 const CHANGE_EVENT = 'change';
 
-const URL = '/api/users/pages/';
+const URL = '/api/users/';
 
 let _users = {
-  page:  1,
-  pages: null,
-  limit: null,
-  total: null
+  name:  null,
+  approved: 1,
+  canvas: null
 };
 
-function load(data) {
-  _users = data;
+function update(data) {
+  Object.keys(data).map((k) => {
+    _users[k] = data[k];
+  });
+}
+
+function save(callback) {
+  callback();
 }
 
 class UserStore extends EventEmitter {
@@ -36,13 +41,14 @@ class UserStore extends EventEmitter {
 UserDispatcher.register( function(action) {
   switch(action.actionType) {
 
-    case UserConstants.LOAD:
-      let url = URL;
-      if (action.page) {
-        url = URL + action.page;
-      }
-      http.get(url).then(res => {
-        load(res);
+    case UserConstants.UPDATE:
+      update(action.data);
+      userStore.update();
+      break;
+
+    case UserConstants.SAVE:
+      http.post(URL, prepareSave(data)).then(res => {
+        save(action.callback);
         userStore.update();
       }).catch(e => {
         console.error(e);

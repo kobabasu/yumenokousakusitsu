@@ -4,6 +4,9 @@ import DocumentTitle from 'react-document-title'
 
 import canvasStore from '../../stores/CanvasStore'
 
+import userStore from '../../stores/UserStore'
+import userActions from '../../actions/UserActions'
+
 export default class Comp extends React.Component {
 
   constructor(props) {
@@ -11,6 +14,8 @@ export default class Comp extends React.Component {
   }
 
   componentWillMount() {
+    this.setState({ user: userStore.read() });
+    userStore.subscribe( this.updateUser.bind(this) );
     this.setState( canvasStore.read(), this.init );
   }
 
@@ -91,10 +96,13 @@ export default class Comp extends React.Component {
                   <td className="drawFormLabel">ニックネーム</td>
                   <td className="drawFormElement">
                     <input
+                      name="name"
                       type="text"
                       minLength="1"
                       maxLength="8"
                       placeholder="8文字で入力"
+                      onChange={this.onChange.bind(this)}
+                      value={this.state.user.name}
                       />
                   </td>
                 </tr>
@@ -104,8 +112,11 @@ export default class Comp extends React.Component {
                   <td className="drawFormElement">
                     <label>
                       <input
+                        name="approved"
                         type="checkbox"
                         defaultChecked={true}
+                        onChange={this.onChangeApproved.bind(this)}
+                        value={this.state.user.approved}
                         />
                       掲載する
                     </label>
@@ -117,6 +128,7 @@ export default class Comp extends React.Component {
             <div className="drawForm01">
               <Link
                 to="/drawing/thankyou01.html"
+                onClick={this.onSubmit.bind(this)}
                 >
                 <img
                   src="../imgs/clear.gif"
@@ -151,10 +163,65 @@ export default class Comp extends React.Component {
     let el = document.getElementById('Palette');
     let canvas = this.state.canvas;
     el.appendChild(canvas);
+
+    var obj = {};
+    obj['canvas'] = this.convertBase64();
+    userActions.update(obj);
   }
 
   openPrint(e) {
     e.preventDefault();
     window.print();
   }
+
+  onChange(e) {
+    var obj = {};
+    obj[e.target.name] = e.target.value;
+    userActions.update(obj);
+  }
+
+  onChangeApproved(e) {
+    var obj = {};
+    if (e.target.checked) { 
+      obj['approved'] = 1;
+    } else {
+      obj['approved'] = 0;
+    }
+    userActions.update(obj);
+  }
+
+  updateUser() {
+    this.setState({ user: userStore.read() });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    if (
+      this.state.user.name != null &&
+      this.state.user.canvas != null
+    ) {
+      userActions.save(
+        this.transition.bind(
+          this, 
+          '/drawing/thankyou01.html'
+        )
+      );
+    }
+  }
+
+  transition(url) {
+    this.context.history.pushState(null, url);
+  }
+
+  convertBase64() {
+    let canvas = this.state.canvas;
+    let ctx = canvas.getContext('2d'); 
+    let base64 = canvas.toDataURL('image/jpeg');
+    
+    return base64.replace(/^.*,/, '');
+  }
+}
+
+Comp.contextTypes = {
+  history: React.PropTypes.object.isRequired
 }

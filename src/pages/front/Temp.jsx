@@ -64,8 +64,8 @@ export default class Temp extends React.Component {
         </div>
 
         <div className="printPreview">
-          <a
-            href="/drawing/preview01.html"
+          <Link
+            to="/drawing/preview01.html"
             >
             <img
               src="../imgs/clear.gif"
@@ -73,18 +73,18 @@ export default class Temp extends React.Component {
               width="330"
               height="80"
               />
-          </a>
+          </Link>
         </div>
 
         <div className="printTmpTop">
-          <Link to="/drawing/">
+          <a to="/drawing/">
             <img
               src="../imgs/btn_draw_top.gif"
               alt="ぬりえトップへ戻る"
               width="230"
               height="50"
               />
-          </Link>
+          </a>
         </div>
 
       </div>

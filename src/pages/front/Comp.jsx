@@ -65,14 +65,14 @@ export default class Comp extends React.Component {
             </div>
 
             <div className="drawTop">
-              <Link to="/drawing/">
+              <a href="/drawing/">
                 <img
                   src="../imgs/btn_draw_top.gif"
                   alt="ぬりえトップへ戻る"
                   width="230"
                   height="50"
                   />
-              </Link>
+              </a>
             </div>
           </div>
 

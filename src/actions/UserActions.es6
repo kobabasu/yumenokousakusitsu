@@ -8,9 +8,10 @@ export default {
       data: data
     })
   },
-  save: (callback) => {
+  save: (data, callback) => {
     UserDispatcher.dispatch({
       actionType: UserConstants.SAVE,
+      data: data,
       callback: callback
     })
   }

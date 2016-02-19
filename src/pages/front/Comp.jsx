@@ -201,6 +201,7 @@ export default class Comp extends React.Component {
       this.state.user.canvas != null
     ) {
       userActions.save(
+        this.state.user,
         this.transition.bind(
           this, 
           '/drawing/thankyou01.html'

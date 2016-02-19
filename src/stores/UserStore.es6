@@ -47,7 +47,7 @@ UserDispatcher.register( function(action) {
       break;
 
     case UserConstants.SAVE:
-      http.post(URL, prepareSave(data)).then(res => {
+      http.post(URL, action.data).then(res => {
         save(action.callback);
         userStore.update();
       }).catch(e => {

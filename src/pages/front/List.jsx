@@ -4,8 +4,8 @@ import DocumentTitle from 'react-document-title'
 
 import canvasStore from '../../stores/CanvasStore'
 
-import userActions from '../../actions/UserActions'
-import userStore from '../../stores/UserStore'
+import pageActions from '../../actions/PageActions'
+import pageStore from '../../stores/PageStore'
 
 export default class List extends React.Component {
 
@@ -14,8 +14,8 @@ export default class List extends React.Component {
   }
 
   componentWillMount() {
-    userStore.subscribe(this.update.bind(this));
-    userActions.load(this.props.params.id);
+    pageStore.subscribe(this.update.bind(this));
+    pageActions.load(this.props.params.id);
   }
 
   render() {
@@ -127,11 +127,11 @@ export default class List extends React.Component {
   }
 
   update() {
-    let users = userStore.read();
+    let pages = pageStore.read();
     this.setState({
-      pages: users.pages,
-      limit: users.limit,
-      total: users.total
+      pages: pages.pages,
+      limit: pages.limit,
+      total: pages.total
     });
   }
 }
@@ -199,7 +199,7 @@ class ListBack extends React.Component {
   }
 
   update() {
-    let users = userActions.load(this.props.page);
+    let pages = pageActions.load(this.props.page);
   }
 }
 
@@ -241,6 +241,6 @@ class ListNext extends React.Component {
   }
 
   update() {
-    let users = userActions.load(this.props.page);
+    let pages = pageActions.load(this.props.page);
   }
 }

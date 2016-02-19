@@ -129,7 +129,7 @@ export default class Comp extends React.Component {
 
             <div className="drawForm02">
               <Link
-                to="/drawing/list01.html"
+                to="/drawing/pages01.html"
                 >
                 <img
                   src="../imgs/clear.gif"

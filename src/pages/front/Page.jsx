@@ -179,7 +179,7 @@ class ListBack extends React.Component {
       </div>
     );
 
-    let path = '/drawing/list0' + this.props.page + '.html';
+    let path = '/drawing/pages0' + this.props.page + '.html';
     return (
       <div className="drawList01">
         <Link
@@ -221,7 +221,7 @@ class ListNext extends React.Component {
         </div>
     );
 
-    let path = '/drawing/list0' + this.props.page + '.html';
+    let path = '/drawing/pages0' + this.props.page + '.html';
     return (
       <div className="drawList02">
         <Link

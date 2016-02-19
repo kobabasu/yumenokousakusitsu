@@ -50,6 +50,11 @@ const Http = {
 
         rq.open('PUT', url, true);
 
+        rq.setRequestHeader(
+          'Content-Type',
+          'application:json;charet=utf-8'
+        );
+
         rq.onload = () => {
           if (rq.readyState === 4 && rq.status === 200) {
             resolve(JSON.parse(rq.response));
@@ -73,6 +78,11 @@ const Http = {
 
         rq.open('POST', url, true);
 
+        rq.setRequestHeader(
+          'Content-Type',
+          'application/json;charset=utf-8'
+        );
+
         rq.onload = () => {
           if (rq.readyState === 4 && rq.status === 200) {
             resolve(JSON.parse(rq.response));
@@ -95,6 +105,11 @@ const Http = {
         let rq = new XMLHttpRequest();
 
         rq.open('DELETE', url, true);
+
+        rq.setRequestHeader(
+          'Content-Type',
+          'application:json;charet=utf-8'
+        );
 
         rq.onload = () => {
           if (rq.readyState === 4 && rq.status === 200) {

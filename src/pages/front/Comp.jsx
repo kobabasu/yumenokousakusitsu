@@ -15,8 +15,12 @@ export default class Comp extends React.Component {
 
   componentWillMount() {
     this.setState({ user: userStore.read() });
-    userStore.subscribe( this.updateUser.bind(this) );
     this.setState( canvasStore.read(), this.init );
+    userStore.subscribe( this.updateUser.bind(this) );
+  }
+
+  componentWillUnmount() {
+    userStore.destroy(this.updateUser.bind(this));
   }
 
   render() {

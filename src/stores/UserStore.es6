@@ -11,7 +11,8 @@ const URL = '/api/users/';
 let _users = {
   name:  null,
   approved: 1,
-  canvas: null
+  canvas: null,
+  registered: false
 };
 
 function update(data) {
@@ -22,6 +23,7 @@ function update(data) {
 
 function save(callback) {
   callback();
+  _users.registered = true;
 }
 
 class UserStore extends EventEmitter {
@@ -36,6 +38,10 @@ class UserStore extends EventEmitter {
   update() {
     this.emit(CHANGE_EVENT);
   }
+
+  destroy(callback) {
+    this.removeAllListeners(CHANGE_EVENT, callback);
+  }
 }
 
 UserDispatcher.register( function(action) {
@@ -49,7 +55,6 @@ UserDispatcher.register( function(action) {
     case UserConstants.SAVE:
       http.post(URL, action.data).then(res => {
         save(action.callback);
-        userStore.update();
       }).catch(e => {
         console.error(e);
       });

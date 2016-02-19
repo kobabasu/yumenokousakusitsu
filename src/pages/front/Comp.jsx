@@ -199,18 +199,21 @@ export default class Comp extends React.Component {
   }
 
   onSubmit(e) {
-    e.preventDefault();
     if (
       this.state.user.name != null &&
       this.state.user.canvas != null
     ) {
-      userActions.save(
-        this.state.user,
-        this.transition.bind(
-          this, 
-          '/drawing/thankyou01.html'
-        )
-      );
+      if (!this.state.user.registered) {
+        userActions.save(
+          this.state.user,
+          this.transition.bind(
+            this,
+            '/drawing/thankyou01.html'
+          )
+        );
+      } else {
+        this.transition('/drawing/thankyou01.html');
+      }
     }
   }
 

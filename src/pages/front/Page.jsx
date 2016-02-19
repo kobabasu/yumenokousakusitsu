@@ -22,10 +22,11 @@ export default class List extends React.Component {
     if (!this.state) return false
 
     let items = Object.keys(this.state.pages).map((i) => {
+      let path = this.state.pages[i].path;
       return (
         <ListItems
           key={i}
-          path={'/drawing/upload/' + this.state.pages[i].path}
+          path={'/drawing/upload/' + path + '_s.jpg'}
           name={this.state.pages[i].name}
           />
       );

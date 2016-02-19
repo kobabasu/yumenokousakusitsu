@@ -77,7 +77,7 @@ export default class Temp extends React.Component {
         </div>
 
         <div className="printTmpTop">
-          <a to="/drawing/">
+          <a href="/drawing/">
             <img
               src="../imgs/btn_draw_top.gif"
               alt="ぬりえトップへ戻る"

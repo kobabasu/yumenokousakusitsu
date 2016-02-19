@@ -6,7 +6,7 @@ import PageConstants from '../constants/PageConstants'
 
 const CHANGE_EVENT = 'change';
 
-const URL = '/api/users/pages/';
+const URL = '/api/pages/';
 
 let _pages = {
   page:  1,

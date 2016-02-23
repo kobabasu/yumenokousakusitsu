@@ -26,7 +26,7 @@ export default class List extends React.Component {
       return (
         <ListItems
           key={i}
-          path={'/drawing/upload/' + path + '_s.jpg'}
+          path={'/upload/' + path + '_s.jpg'}
           name={this.state.pages[i].name}
           />
       );

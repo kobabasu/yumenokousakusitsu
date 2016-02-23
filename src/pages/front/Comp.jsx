@@ -68,6 +68,19 @@ export default class Comp extends React.Component {
               </Link>
             </div>
 
+            <div className="printBtn03">
+              <Link
+                to="/drawing/preview01.html"
+                >
+                <img
+                  src="../imgs/clear.gif"
+                  alt="3Dプレビューを見る"
+                  width="330"
+                  height="60"
+                  />
+              </Link>
+            </div>
+
             <div className="drawTop">
               <a href="/drawing/">
                 <img

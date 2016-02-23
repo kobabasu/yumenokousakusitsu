@@ -15,7 +15,7 @@ import FrontHome     from './pages/front/Home'
 import FrontDraw     from './pages/front/Draw'
 import FrontComp     from './pages/front/Comp'
 import FrontTemp     from './pages/front/Temp'
-import FrontList     from './pages/front/List'
+import FrontPage     from './pages/front/Page'
 import FrontPreview  from './pages/front/Preview'
 import FrontThankyou from './pages/front/Thankyou'
 
@@ -44,9 +44,9 @@ const routes = (
           main: FrontTemp
         }} />
 
-      <Route path={root.www + '/list0(:id).html'}
+      <Route path={root.www + '/pages0(:id).html'}
         components={{
-          main: FrontList
+          main: FrontPage
         }} />
 
       <Route path={root.www + '/preview0(:id).html'}

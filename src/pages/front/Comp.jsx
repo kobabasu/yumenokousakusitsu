@@ -4,6 +4,9 @@ import DocumentTitle from 'react-document-title'
 
 import canvasStore from '../../stores/CanvasStore'
 
+import userStore from '../../stores/UserStore'
+import userActions from '../../actions/UserActions'
+
 export default class Comp extends React.Component {
 
   constructor(props) {
@@ -11,7 +14,13 @@ export default class Comp extends React.Component {
   }
 
   componentWillMount() {
+    this.setState({ user: userStore.read() });
     this.setState( canvasStore.read(), this.init );
+    userStore.subscribe( this.updateUser.bind(this) );
+  }
+
+  componentWillUnmount() {
+    userStore.destroy(this.updateUser.bind(this));
   }
 
   render() {
@@ -60,14 +69,14 @@ export default class Comp extends React.Component {
             </div>
 
             <div className="drawTop">
-              <Link to="/drawing/">
+              <a href="/drawing/">
                 <img
                   src="../imgs/btn_draw_top.gif"
                   alt="ぬりえトップへ戻る"
                   width="230"
                   height="50"
                   />
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -91,10 +100,13 @@ export default class Comp extends React.Component {
                   <td className="drawFormLabel">ニックネーム</td>
                   <td className="drawFormElement">
                     <input
+                      name="name"
                       type="text"
                       minLength="1"
                       maxLength="8"
                       placeholder="8文字で入力"
+                      onChange={this.onChange.bind(this)}
+                      value={this.state.user.name}
                       />
                   </td>
                 </tr>
@@ -104,8 +116,11 @@ export default class Comp extends React.Component {
                   <td className="drawFormElement">
                     <label>
                       <input
+                        name="approved"
                         type="checkbox"
                         defaultChecked={true}
+                        onChange={this.onChangeApproved.bind(this)}
+                        value={this.state.user.approved}
                         />
                       掲載する
                     </label>
@@ -117,6 +132,7 @@ export default class Comp extends React.Component {
             <div className="drawForm01">
               <Link
                 to="/drawing/thankyou01.html"
+                onClick={this.onSubmit.bind(this)}
                 >
                 <img
                   src="../imgs/clear.gif"
@@ -129,7 +145,7 @@ export default class Comp extends React.Component {
 
             <div className="drawForm02">
               <Link
-                to="/drawing/list01.html"
+                to="/drawing/pages01.html"
                 >
                 <img
                   src="../imgs/clear.gif"
@@ -151,10 +167,69 @@ export default class Comp extends React.Component {
     let el = document.getElementById('Palette');
     let canvas = this.state.canvas;
     el.appendChild(canvas);
+
+    var obj = {};
+    obj['canvas'] = this.convertBase64();
+    userActions.update(obj);
   }
 
   openPrint(e) {
     e.preventDefault();
     window.print();
   }
+
+  onChange(e) {
+    var obj = {};
+    obj[e.target.name] = e.target.value;
+    userActions.update(obj);
+  }
+
+  onChangeApproved(e) {
+    var obj = {};
+    if (e.target.checked) { 
+      obj['approved'] = 1;
+    } else {
+      obj['approved'] = 0;
+    }
+    userActions.update(obj);
+  }
+
+  updateUser() {
+    this.setState({ user: userStore.read() });
+  }
+
+  onSubmit(e) {
+    if (
+      this.state.user.name != null &&
+      this.state.user.canvas != null
+    ) {
+      if (!this.state.user.registered) {
+        userActions.save(
+          this.state.user,
+          this.transition.bind(
+            this,
+            '/drawing/thankyou01.html'
+          )
+        );
+      } else {
+        this.transition('/drawing/thankyou01.html');
+      }
+    }
+  }
+
+  transition(url) {
+    this.context.history.pushState(null, url);
+  }
+
+  convertBase64() {
+    let canvas = this.state.canvas;
+    let ctx = canvas.getContext('2d'); 
+    let base64 = canvas.toDataURL('image/jpeg');
+    
+    return base64.replace(/^.*,/, '');
+  }
+}
+
+Comp.contextTypes = {
+  history: React.PropTypes.object.isRequired
 }

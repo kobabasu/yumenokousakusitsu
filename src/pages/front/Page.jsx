@@ -4,8 +4,8 @@ import DocumentTitle from 'react-document-title'
 
 import canvasStore from '../../stores/CanvasStore'
 
-import userActions from '../../actions/UserActions'
-import userStore from '../../stores/UserStore'
+import pageActions from '../../actions/PageActions'
+import pageStore from '../../stores/PageStore'
 
 export default class List extends React.Component {
 
@@ -14,18 +14,19 @@ export default class List extends React.Component {
   }
 
   componentWillMount() {
-    userStore.subscribe(this.update.bind(this));
-    userActions.load(this.props.params.id);
+    pageStore.subscribe(this.update.bind(this));
+    pageActions.load(this.props.params.id);
   }
 
   render() {
     if (!this.state) return false
 
     let items = Object.keys(this.state.pages).map((i) => {
+      let path = this.state.pages[i].path;
       return (
         <ListItems
           key={i}
-          path={'/drawing/upload/' + this.state.pages[i].path}
+          path={'/upload/' + path + '_s.jpg'}
           name={this.state.pages[i].name}
           />
       );
@@ -127,11 +128,11 @@ export default class List extends React.Component {
   }
 
   update() {
-    let users = userStore.read();
+    let pages = pageStore.read();
     this.setState({
-      pages: users.pages,
-      limit: users.limit,
-      total: users.total
+      pages: pages.pages,
+      limit: pages.limit,
+      total: pages.total
     });
   }
 }
@@ -179,7 +180,7 @@ class ListBack extends React.Component {
       </div>
     );
 
-    let path = '/drawing/list0' + this.props.page + '.html';
+    let path = '/drawing/pages0' + this.props.page + '.html';
     return (
       <div className="drawList01">
         <Link
@@ -199,7 +200,7 @@ class ListBack extends React.Component {
   }
 
   update() {
-    let users = userActions.load(this.props.page);
+    let pages = pageActions.load(this.props.page);
   }
 }
 
@@ -221,7 +222,7 @@ class ListNext extends React.Component {
         </div>
     );
 
-    let path = '/drawing/list0' + this.props.page + '.html';
+    let path = '/drawing/pages0' + this.props.page + '.html';
     return (
       <div className="drawList02">
         <Link
@@ -241,6 +242,6 @@ class ListNext extends React.Component {
   }
 
   update() {
-    let users = userActions.load(this.props.page);
+    let pages = pageActions.load(this.props.page);
   }
 }

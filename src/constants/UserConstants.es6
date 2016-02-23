@@ -1,8 +1,8 @@
 import keyMirror from 'keymirror'
 
 const UserConstants = keyMirror({
-  LOAD:    null,
-  CREATE:  null
+  UPDATE:    null,
+  SAVE:    null
 });
 
 export default UserConstants

@@ -62,7 +62,7 @@ export default class Thankyou extends React.Component {
 
           <div className="drawThankyou03">
             <a
-              href="/drawing/list01.html"
+              href="/drawing/pages01.html"
               >
               <img
                 src="../imgs/clear.gif"

@@ -93,7 +93,7 @@ export default class Home extends React.Component {
 
       <div className="drawHome01 alignCenter">
         <a
-          href="/drawing/list01.html"
+          href="/drawing/pages01.html"
           >
           <img
             src="../imgs/clear.gif"

@@ -26,6 +26,8 @@ export default class Preview extends React.Component {
   }
 
   render() {
+    if (!this.state) return false
+
 
     return (
       <div className="drawCont fbox" id="Preview">
@@ -45,7 +47,8 @@ export default class Preview extends React.Component {
           <div className="view">
             <div className="panel p1">
               <img
-                src="/drawing/upload/20160215-012544.png"
+                id="p1"
+                src=""
                 alt="canvas"
                 width="200"
                 height="200"
@@ -54,17 +57,53 @@ export default class Preview extends React.Component {
 
             <div className="panel p2">
               <img
-                src="/drawing/upload/20160215-012544.png"
+                id="p2"
+                src=""
                 alt="canvas"
                 width="200"
                 height="200"
                 />
             </div>
 
-            <div className="panel p3">3</div>
-            <div className="panel p4">4</div>
-            <div className="panel p5">5</div>
-            <div className="panel p6">6</div>
+            <div className="panel p3">
+              <img
+                id="p3"
+                src=""
+                alt="canvas"
+                width="200"
+                height="200"
+                />
+            </div>
+
+            <div className="panel p4">
+              <img
+                id="p4"
+                src=""
+                alt="canvas"
+                width="200"
+                height="200"
+                />
+            </div>
+
+            <div className="panel p5">
+              <img
+                id="p5"
+                src="../imgs/preview_top.png"
+                alt="canvas"
+                width="200"
+                height="200"
+                />
+            </div>
+
+            <div className="panel p6">
+              <img
+                id="p6"
+                src="../imgs/preview_bottom.png"
+                alt="canvas"
+                width="200"
+                height="200"
+                />
+            </div>
           </div>
         </section>
 
@@ -140,6 +179,35 @@ export default class Preview extends React.Component {
 
   back() {
     this.context.history.goBack();
+  }
+
+  createItem(deg) {
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d');
+    let source = this.state.canvas;
+    let w = canvas.width = source.width;
+    let h = canvas.height = source.height;
+
+    ctx.translate( w / 2, h / 2 );
+    ctx.rotate( deg/180*Math.PI );
+    ctx.translate( -(w / 2), -(h / 2) );
+    ctx.drawImage( source, 0, 0, w, h );
+
+    return canvas;
+  }
+
+  init() {
+    let p1 = document.getElementById('p1');
+    let p2 = document.getElementById('p2');
+    let p3 = document.getElementById('p3');
+    let p4 = document.getElementById('p4');
+    let canvas = this.createItem(0);
+    let img = canvas.toDataURL('image/png');
+
+    p1.src = img;
+    p2.src = img;
+    p3.src = img;
+    p4.src = img;
   }
 }
 

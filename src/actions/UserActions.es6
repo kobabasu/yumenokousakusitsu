@@ -2,18 +2,16 @@ import UserDispatcher from '../dispathcer/UserDispatcher'
 import UserConstants from '../constants/UserConstants'
 
 export default {
-  load: (page, callback) => {
+  update: (data) => {
     UserDispatcher.dispatch({
-      actionType: UserConstants.LOAD,
-      page: page,
-      callback: callback
+      actionType: UserConstants.UPDATE,
+      data: data
     })
   },
-
-  create: (id, callback) => {
+  save: (data, callback) => {
     UserDispatcher.dispatch({
-      actionType: UserConstants.CREATE,
-      id: id,
+      actionType: UserConstants.SAVE,
+      data: data,
       callback: callback
     })
   }

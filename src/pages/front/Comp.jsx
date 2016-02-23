@@ -68,6 +68,19 @@ export default class Comp extends React.Component {
               </Link>
             </div>
 
+            <div className="printBtn03">
+              <Link
+                to="/drawing/preview01.html"
+                >
+                <img
+                  src="../imgs/clear.gif"
+                  alt="3Dプレビューを見る"
+                  width="330"
+                  height="60"
+                  />
+              </Link>
+            </div>
+
             <div className="drawTop">
               <a href="/drawing/">
                 <img
@@ -108,22 +121,6 @@ export default class Comp extends React.Component {
                       onChange={this.onChange.bind(this)}
                       value={this.state.user.name}
                       />
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td className="drawFormLabel">掲載する</td>
-                  <td className="drawFormElement">
-                    <label>
-                      <input
-                        name="approved"
-                        type="checkbox"
-                        defaultChecked={true}
-                        onChange={this.onChangeApproved.bind(this)}
-                        value={this.state.user.approved}
-                        />
-                      掲載する
-                    </label>
                   </td>
                 </tr>
               </tbody>
@@ -181,16 +178,6 @@ export default class Comp extends React.Component {
   onChange(e) {
     var obj = {};
     obj[e.target.name] = e.target.value;
-    userActions.update(obj);
-  }
-
-  onChangeApproved(e) {
-    var obj = {};
-    if (e.target.checked) { 
-      obj['approved'] = 1;
-    } else {
-      obj['approved'] = 0;
-    }
     userActions.update(obj);
   }
 

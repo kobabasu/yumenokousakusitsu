@@ -109,17 +109,13 @@ export default class Preview extends React.Component {
 
         <nav className="alignCenter">
           <div className="drawPreview01">
-            <a
-              href=""
+            <img
+              src="../imgs/clear.gif"
+              alt="印刷ページへ戻る"
+              width="330"
+              height="80"
               onClick={this.back.bind(this)}
-              >
-              <img
-                src="../imgs/clear.gif"
-                alt="印刷ページへ戻る"
-                width="330"
-                height="80"
-                />
-            </a>
+              />
           </div>
         </nav>
 

@@ -123,22 +123,6 @@ export default class Comp extends React.Component {
                       />
                   </td>
                 </tr>
-                
-                <tr>
-                  <td className="drawFormLabel">掲載する</td>
-                  <td className="drawFormElement">
-                    <label>
-                      <input
-                        name="approved"
-                        type="checkbox"
-                        defaultChecked={true}
-                        onChange={this.onChangeApproved.bind(this)}
-                        value={this.state.user.approved}
-                        />
-                      掲載する
-                    </label>
-                  </td>
-                </tr>
               </tbody>
             </table>
 
@@ -194,16 +178,6 @@ export default class Comp extends React.Component {
   onChange(e) {
     var obj = {};
     obj[e.target.name] = e.target.value;
-    userActions.update(obj);
-  }
-
-  onChangeApproved(e) {
-    var obj = {};
-    if (e.target.checked) { 
-      obj['approved'] = 1;
-    } else {
-      obj['approved'] = 0;
-    }
     userActions.update(obj);
   }
 

@@ -45,7 +45,7 @@ export default class Temp extends React.Component {
     if (!this.state) return false
 
     return (
-      <div className="drawCont fbox">
+      <div className="drawCont fbox alignCenter">
       
         <div id="Palette" className="drawtmp"></div>
         
@@ -64,14 +64,14 @@ export default class Temp extends React.Component {
         </div>
 
         <div className="printTmpTop">
-          <Link to="/drawing/">
+          <a href="/drawing/">
             <img
               src="../imgs/btn_draw_top.gif"
               alt="ぬりえトップへ戻る"
               width="230"
               height="50"
               />
-          </Link>
+          </a>
         </div>
 
       </div>

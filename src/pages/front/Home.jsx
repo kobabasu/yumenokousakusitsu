@@ -27,7 +27,7 @@ export default class Home extends React.Component {
           />
       </div>
 
-      <div className="drawList">
+      <div className="drawList mgnBtm30">
         <ul>
           <li>
             <Link to="/drawing/drawing01.html">
@@ -90,6 +90,20 @@ export default class Home extends React.Component {
           </li>
         </ul>
       </div>
+
+      <div className="drawHome01 alignCenter">
+        <a
+          href="/drawing/pages01.html"
+          >
+          <img
+            src="../imgs/clear.gif"
+            alt="みんなのぬりえをみる"
+            width="430"
+            height="60"
+            />
+        </a>
+      </div>
+
     </div>
     );
   }

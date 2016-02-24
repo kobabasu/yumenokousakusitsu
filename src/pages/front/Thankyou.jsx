@@ -74,20 +74,23 @@ export default class Thankyou extends React.Component {
           </div>
         </nav>
 
-        <img
-          src="/imgs/title_h3_thankyou.gif"
-          className="mgnTop30 mgnBtm20"
-          width="1140"
-          height="30"
-          alt="日本印刷工業のオススメ情報"
-        />
+        <div className="drawThankyouPr">
+          <img
+            src="/imgs/title_h3_thankyou.gif"
+            className="mgnTop30 mgnBtm20"
+            width="1140"
+            height="30"
+            alt="日本印刷工業のオススメ情報"
+          />
 
-        <img
-          src="/imgs/ad.jpg"
-          width="1140"
-          height="806"
-          alt="広告"
-        />
+          <img
+            src="/imgs/ad.jpg"
+            width="1140"
+            height="806"
+            alt="広告"
+          />
+        </div>
+
       </div>
     );
   }

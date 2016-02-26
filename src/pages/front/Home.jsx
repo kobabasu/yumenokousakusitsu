@@ -16,7 +16,7 @@ export default class Home extends React.Component {
   render() {
     return (
     <div className="drawCont" id="Home">
-      <DocumentTitle title="夢の工作室" />
+      <DocumentTitle title="無料塗り絵 ぬりえであそぼ! 夢の工作室" />
 
       <div className="drawDesc">
         <img
